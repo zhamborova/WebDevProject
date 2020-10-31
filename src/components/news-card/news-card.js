@@ -2,7 +2,7 @@ import React from 'react';
 import './news-card.css'
 
 const NewsCard = ({article}) =>
-    <div className="card col-3 card-news" style={{width: "18rem",
+    <div className="card  card-news" style={{width: "18rem",
         background: `url(${article.urlToImage})`}} key={article.id}>
         <div className="card-body d-flex">
             <div className=" card-title-container">
