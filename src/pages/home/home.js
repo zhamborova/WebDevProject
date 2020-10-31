@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Home.css";
+import "./home.css";
 
 class Home extends React.Component{
 
@@ -40,11 +40,11 @@ class Home extends React.Component{
         return (
 
             <div className="d-flex">
-            <div className="d-flex row news-container w-75 m-auto">
+
+           // <div className="d-flex row news-container w-75 m-auto">
             {this.state.articles.map( a =>
                 <div className="card col-3 card-news" style={{width: "18rem",
-                                                background: `url(${a.urlToImage})`}} key={a.id}
-                        >
+                                                background: `url(${a.urlToImage})`}} key={a.id}>
                         <div className="card-body d-flex">
                             <div className=" card-title-container">
                             <p className="card-title">{a.title} </p>
@@ -59,3 +59,6 @@ class Home extends React.Component{
 }
 
 export default Home;
+
+
+

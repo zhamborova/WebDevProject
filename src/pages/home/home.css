@@ -7,11 +7,16 @@
 }
 
 .card-news > .card-body{
-    height: 200px;
+
     padding: 0!important;
+    height: 139px;
 
 }
 
+
+.card-news{
+    margin: 15px;
+}
 .card .col{
     padding: 0;
 
