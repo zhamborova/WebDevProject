@@ -1,5 +1,7 @@
 import React from 'react';
 import "./home.css";
+import NewsCard from "../../components/news-card/news-card";
+import EventCard from "../../components/event-card/event-card";
 
 class Home extends React.Component{
 
@@ -16,43 +18,41 @@ class Home extends React.Component{
 
         var req = new Request(url);
 
-        fetch(req)
-            .then(response => {
-                response.json().then(data=> {
-                    let src = data.articles
-                    let obj = {}
-
-                    for(let i = 0; i < src.length; i++){
-                        let ar = src[i]
-                        if(!obj.hasOwnProperty(ar.author) && ar.urlToImage !== null ){
-                         obj[ar.author] = ar;
-                        }
-                    }
-
-                   let articles =  Object.keys(obj).map(key => obj[key]);
-                   this.setState({articles:articles})
-            })
-    })
+        // fetch(req)
+        //     .then(response => {
+        //         response.json().then(data=> {
+        //             let src = data.articles
+        //             let obj = {}
+        //             console.log(data)
+        //             for(let i = 0; i < src.length; i++){
+        //                 let ar = src[i]
+        //                 if(!obj.hasOwnProperty(ar.author) && ar.urlToImage !== null ){
+        //                  obj[ar.author] = ar;
+        //                 }
+        //             }
+        //
+        //            let articles =  Object.keys(obj).map(key => obj[key]);
+        //            this.setState({articles:articles})
+        //     })
+    //})
    }
 
     render() {
-
+        console.log(this.state)
         return (
 
-            <div className="d-flex">
+            <div className="d-flex flex-column">
+                <div className="d-flex row news-container w-75 m-auto">
+            {this.state.articles.map( a => <NewsCard article={a} />)}
+          </div>
 
-           // <div className="d-flex row news-container w-75 m-auto">
-            {this.state.articles.map( a =>
-                <div className="card col-3 card-news" style={{width: "18rem",
-                                                background: `url(${a.urlToImage})`}} key={a.id}>
-                        <div className="card-body d-flex">
-                            <div className=" card-title-container">
-                            <p className="card-title">{a.title} </p>
-                            </div>
-                        </div>
+                <div className="d-flex row events-container w-75 m-auto">
+
+                    {[1,2,3].map(i => <EventCard event={null}/>)  }
                 </div>
-            )}
-        </div>
+
+
+
         </div>)
     }
 

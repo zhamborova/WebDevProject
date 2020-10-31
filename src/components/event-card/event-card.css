@@ -1,0 +1,32 @@
+.event-card{
+
+    margin:15px;
+    border-radius: 10px!important;
+}
+
+.event-card > .card-body > .card-title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+}
+.event-card > .card-body > .card-subtitle{
+     font-weight: bold;
+
+}
+
+.event-card > .card-body > .card-text{
+    width: 80%;
+    height: 48px;
+    line-height: 1em;
+    max-height: 2em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.participant-thumbnail{
+    margin-right: -23px;
+    object-fit: contain;
+    width: 57px;
+}

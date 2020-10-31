@@ -1,0 +1,49 @@
+.card-news{
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    margin: 15px;
+    padding: 0!important;
+    border-radius: 10px!important;
+}
+
+.card-news > .card-body{
+
+    padding: 0!important;
+    height: 139px;
+
+}
+
+.card .col{
+    padding: 0;
+
+
+}
+
+.card-title-container > .card-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    margin: 0!important;
+    font-family: Josefin Sans, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 0px 0px 10px 10px;
+
+}
+
+.card-title-container{
+    margin-top: auto;
+    width: 100%;
+    height: auto;
+    max-height: 49px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: rgba(250,250,250, 0.5);
+
+}
