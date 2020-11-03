@@ -11,10 +11,9 @@ class Home extends React.Component{
    }
     async componentDidMount() {
 
-          newsService.fetchNews().then(data=> {
+          newsService.fetchAllNews(10).then(data=> {
             let src = data.articles
             let obj = {}
-            console.log(data)
             for(let i = 0; i < src.length; i++){
                 let ar = src[i]
                 if(!obj.hasOwnProperty(ar.author) && ar.urlToImage !== null ){

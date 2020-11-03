@@ -4,6 +4,7 @@
     margin: 15px;
     padding: 0!important;
     border-radius: 10px!important;
+    min-width: 18rem!important;
 }
 
 .card-news > .card-body{
@@ -19,7 +20,7 @@
 
 }
 
-.card-title-container > .card-title{
+.card-title-container >  .card-title{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
