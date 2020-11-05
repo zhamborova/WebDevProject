@@ -37,8 +37,24 @@
 }
 
 .btn-success{
-
     padding:4px;
-    background-color: #357143;
-    border-color: #357143;
+    background-color: #3a7347!important;
+    border-color:#3a7347!important;
+}
+
+.host-btn{
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    margin: 40px auto 50px auto;
+    font-size: 16px!important;
+}
+
+.btn-submit{
+    font-size: 14px!important;
+}
+
+.home-container{
+
+    padding-bottom: 50px;
 }

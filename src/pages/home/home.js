@@ -34,7 +34,7 @@ class Home extends React.Component{
     render() {
         return (
 
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column home-container">
               <div className="search-container justify-content-center mb-3"
                    style={{background: `url(${bg})`}}>
 
@@ -43,7 +43,7 @@ class Home extends React.Component{
                          placeholder="Search events..."/>
                   <input className="form-control w-50"
                              placeholder="Search locations..."/>
-                      <button className="btn btn-success ml-2">Submit</button>
+                      <button className="btn btn-success btn-submit ml-2">Submit</button>
                   </div>
 
 
@@ -73,7 +73,7 @@ class Home extends React.Component{
                     </div>
                 </div>
 
-
+                <button className="btn btn-success host-btn "> Host event </button>
 
         </div>)
     }
