@@ -32,7 +32,7 @@ class News extends React.Component{
      }
 
     searchAll = () => {
-        newsService.fetchAllNews(20).then(data =>
+        newsService.fetchAllNews(30).then(data =>
             this.setState({articles: data.articles}))
     }
 
