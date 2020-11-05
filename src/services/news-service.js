@@ -1,7 +1,7 @@
 
 
 const fetchAllNews = (size) => {
-var url = 'http://newsapi.org/v2/everything?' +
+var url = 'https://newsapi.org/v2/everything?' +
     'q=environment&' +
     'from=2020-10-30&' +
     'sortBy=relevancy&' +
@@ -16,7 +16,7 @@ var req = new Request(url);
 }
 
 const fetchByTitle = (title) => {
-    var url = 'http://newsapi.org/v2/everything?' +
+    var url = 'https://newsapi.org/v2/everything?' +
         `q=${title}&` +
         'from=2020-10-30&' +
         'sortBy=relevancy&' +
