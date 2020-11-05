@@ -3,13 +3,14 @@ import './App.css';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Home from "./pages/home/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import News from "./pages/news/news";
+import News from "./pages/news/news.js";
 function App() {
   return (
     <BrowserRouter   >
       <Switch>
-      <Route exact to='\news' component={News}/>
-      <Route exact to='\' component={Home}/>
+          <Route exact path='/' component={Home}/>
+
+          <Route exact path={['/news', "/news/:title"]} component={News}/>
 
       </Switch>
     </BrowserRouter>

@@ -1,4 +1,44 @@
 
-.news-container{
-    justify-content: center;
+.news-container, .events-container{
+
+    flex-direction: column;
+    display: flex;
+    margin: 20px auto auto auto;
+}
+
+.search-container{
+    display: flex;
+    height: 389px;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    background-position: center!important;
+}
+
+.search-container > div{
+    margin: auto;
+    width: 50%;
+}
+
+.search-container > div > .fa-search{
+    width: 1em;
+    height: 2em;
+    margin: 3px;
+
+}
+
+.search-container > div > .fa-search > path {
+
+    fill: gray;
+
+}
+
+.news-container > div > a, .events-container > div > a  {
+    color: black;
+}
+
+.btn-success{
+
+    padding:4px;
+    background-color: #357143;
+    border-color: #357143;
 }

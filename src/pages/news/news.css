@@ -1,0 +1,7 @@
+.news-list{
+    justify-content: center;
+    width: 85%!important;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto auto auto;
+}
