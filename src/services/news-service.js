@@ -1,36 +1,17 @@
-
+const url = "https://evening-cliffs-15769.herokuapp.com"
 
 const fetchAllNews = (size) => {
-var url = 'https://newsapi.org/v2/everything?' +
-    'q=environment&' +
-    'from=2020-10-30&' +
-    'sortBy=relevancy&' +
-    'apiKey=5f1246674c184e60bb9e88f19186b8b3&' +
-    `pageSize=${size}`;
-
-
-var req = new Request(url);
-    return fetch(req)
-    .then(response => response.json())
-
+       return  fetch(`${url}/news`,
+             {
+                 method: "GET"
+             }).then( response => response.json())
 }
 
 const fetchByTitle = (title) => {
-    var url = 'https://newsapi.org/v2/everything?' +
-        `q=${title}&` +
-        'from=2020-10-30&' +
-        'sortBy=relevancy&' +
-        'apiKey=5f1246674c184e60bb9e88f19186b8b3&' +
-        `pageSize=100`;
-
-
-
-    var req = new Request(url);
-
-
-    return fetch(req)
-        .then(response => {
-            return response.json()})
+    return fetch(`${url}/news/${title}`,
+        {
+            method: "GET"
+        }).then( response => response.json())
 
 }
 
