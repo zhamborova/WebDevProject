@@ -1,0 +1,63 @@
+.single-event-container{
+
+    width:80%;
+    margin: 50px auto;
+}
+
+.host-img{
+    width:50px;
+    height:50px;
+}
+
+.host-info{
+    display: flex;
+    padding: 10px 0px;
+}
+.event-hosted-by{
+    display: flex;
+    flex-direction: column;
+    margin: auto 7px;
+    font-size: 15px;
+}
+.host-name{
+    font-weight: 600;
+    line-height: 0.8;
+}
+
+.event-img{
+    width: 100%;
+}
+
+.event-description-container{
+    margin: 13px 0;
+
+}
+
+.event-title{
+    font-weight: 700;
+    font-style: normal;
+}
+
+.event-description > h5{
+    margin: 20px 0;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.event-description > p{
+    font-weight: 500;
+}
+.event-tags > .nav > .nav-item{
+
+    padding: 10px;
+    margin: 5px;
+    background-color: #DBDBDB;
+    border-radius: 20px;
+}
+.details-inner-div{
+
+    width:88%;
+    margin: 0 auto;
+}

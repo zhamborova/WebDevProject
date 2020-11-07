@@ -4,7 +4,7 @@ import NewsCard from "../../components/news-card/news-card";
 import EventCard from "../../components/event-card/event-card";
 import newsService from '../../services/news-service';
 import {Link} from "react-router-dom";
-import bg from './nature.png'
+import bg from '../../assets/nature.png'
 import { faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 

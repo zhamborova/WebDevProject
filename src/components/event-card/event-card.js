@@ -1,9 +1,9 @@
 import React from 'react';
 import './event-card.css';
 import img from './event-img.png'
-import el1 from './Ellipse 2.png'
-import el2 from './Ellipse 3.png'
-import el3 from './Ellipse 4.png'
+import el1 from '../../assets/Ellipse 2.png'
+import el2 from '../../assets/Ellipse 3.png'
+import el3 from '../../assets/Ellipse 4.png'
 
 
 const EventCard = ({event}) =>
