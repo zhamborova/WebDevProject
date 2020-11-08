@@ -1,0 +1,17 @@
+.project-login-button {
+    color: white;
+    background-color: forestgreen;
+}
+
+.project-login-page {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    flex: 0;
+    align-items: center;
+    justify-content: center;
+}

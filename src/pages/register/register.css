@@ -1,0 +1,11 @@
+.project-register-button {
+    color: white;
+    background-color: forestgreen;
+}
+
+.project-register-page {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
