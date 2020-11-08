@@ -1,0 +1,26 @@
+.body {
+    background-color: #FAF5F4;
+    padding: 8%
+}
+
+.profile-container {
+    background-color: #FFFFFF;
+    width: 80%;
+    padding: 5%;
+
+}
+
+.faq-container {
+    background-color: #FFFFFF;
+    width: auto;
+    padding: 10%;
+
+
+}
+
+.report-container {
+    background-color: #FFFFFF;
+    width: auto;
+    padding: 10%;
+
+}
