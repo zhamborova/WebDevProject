@@ -49,6 +49,9 @@
 .event-description > p{
     font-weight: 500;
 }
+.event-description-edit{
+    height: 100px!important;
+}
 .event-tags > .nav > .nav-item{
 
     padding: 10px;
@@ -60,4 +63,47 @@
 
     width:88%;
     margin: 0 auto;
+}
+
+.event-participants{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.event-attend{
+
+    height: 125px;
+    background-color: black;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.event-summary{
+    margin: 0 150px;
+}
+
+.btn-attend{
+    margin: 15px 150px 0;
+    padding: 12px 50px;
+}
+
+.event-tags > nav{
+    padding-left: 12px;
+}
+
+.react-date-picker__wrapper,.react-time-picker__wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    border: 1px solid #ced4da!important;
+    border-radius: .25rem;
+    padding: 10px;
+    margin-bottom: .5rem!important;
+
+}
+label{
+    display: block;
 }

@@ -4,12 +4,13 @@ import img from './event-img.png'
 import el1 from '../../assets/Ellipse 2.png'
 import el2 from '../../assets/Ellipse 3.png'
 import el3 from '../../assets/Ellipse 4.png'
+import {Link} from "react-router-dom";
 
 
 const EventCard = ({event}) =>
 
 
-    <div className="card event-card" style={{width: "18rem" ,}}>
+   <Link to={"/events/1"}> <div className="card event-card" style={{width: "18rem" ,}}>
         <img className="card-img-top" src={img} alt="Card image cap" />
             <div className="card-body">
                 <h5 className="card-title">Wed, Oct  22, 10:00am</h5>
@@ -24,6 +25,6 @@ const EventCard = ({event}) =>
                     <span className="m-auto"> & 7 others </span>
                 </div>
             </div>
-    </div>
+   </div></Link>
 
 export default EventCard;

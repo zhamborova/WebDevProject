@@ -7,6 +7,25 @@ import {Link} from "react-router-dom";
 import bg from '../../assets/nature.png'
 import { faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import host_img from "../../assets/Ellipse 1.png";
+import event_img from "../../assets/lake.png";
+
+const event = {
+
+    title: "Lake Baikal cleanup",
+    host_name: "Bryan Young",
+    host_img: host_img,
+    event_img: event_img,
+    event_date:{startTime: "", endTime: "", date: ""},
+    event_location: {street: "", city:"", state: "", country: "", zip: ""},
+    event_dscrp: "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+        " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit " +
+        "in voluptate velit esse cillum dolore eu fugiat nulla.",
+    event_tags: ["hashtag1", "hashtag2", "community-service",],
+    participants: [1,2,3,]
+}
 
 class Home extends React.Component{
 
@@ -69,11 +88,12 @@ class Home extends React.Component{
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
                     <div className="row justify-content-center">
-                    {[1,2,3].map(i => <EventCard event={null}/>)  }
+                    {[1,2,3].map(i => <EventCard event={event}/>)  }
                     </div>
                 </div>
 
-                <button className="btn btn-success host-btn "> Host event </button>
+               <Link to="/users/:userId/events" className="m-auto">
+                   <button className="btn btn-success host-btn " > Host event </button></Link>
 
         </div>)
     }
