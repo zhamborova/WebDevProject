@@ -1,7 +1,7 @@
 .single-event-container{
 
     width:80%;
-    margin: 50px auto;
+    margin: 50px auto 20px;
 }
 
 .host-img{
@@ -33,9 +33,16 @@
 
 }
 
+.event-editing{
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .event-title{
     font-weight: 700;
     font-style: normal;
+    margin-bottom: 0;
 }
 
 .event-description > h5{
@@ -50,7 +57,7 @@
     font-weight: 500;
 }
 .event-description-edit{
-    height: 100px!important;
+    height: 50%!important;
 }
 .event-tags > .nav > .nav-item{
 
@@ -58,6 +65,12 @@
     margin: 5px;
     background-color: #DBDBDB;
     border-radius: 20px;
+}
+
+
+.event-tags{
+    margin: 1rem auto;
+
 }
 .details-inner-div{
 
@@ -68,6 +81,8 @@
 .event-participants{
     display: flex;
     flex-wrap: wrap;
+    width:80%;
+    margin: auto auto 50px auto;
 }
 
 
