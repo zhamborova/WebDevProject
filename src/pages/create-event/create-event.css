@@ -3,11 +3,26 @@
     padding: 8%
 }
 
+.heading-pad {
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-bottom: 1%;;
+}
+
 .create-event-container {
     width: 65%;
-    padding: 10%
+}
+
+.input-fields-container {
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-bottom: 5%;
 }
 
 .background-color {
     background-color: #FFFFFF;
+}
+
+.button-padding {
+    padding: 2%
 }
