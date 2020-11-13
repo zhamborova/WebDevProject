@@ -81,7 +81,7 @@ class Home extends React.Component{
               </div>
           </div>
 
-                <div className="events-container ">
+                <div className="events-container">
                     <div className="d-flex">
                         <h3>Events</h3>
                         <Link to={'/events'} className="ml-auto mr-1">View all</Link>

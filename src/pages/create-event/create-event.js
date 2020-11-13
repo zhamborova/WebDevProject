@@ -5,8 +5,7 @@ class CreateEvent extends React.Component{
     render() {
         return(
             <div className={"body"}>
-                <div className={"container create-event-container"}
-                     style={{backgroundColor: '#FFFFFF'}}>
+                <div className={"container create-event-container background-color"}>
                     <h2>Create Event</h2>
                     <div>
                         <label>Event title</label>

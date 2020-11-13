@@ -1,0 +1,18 @@
+.side-padding {
+    padding-left: 10%;
+    padding-right: 10%
+}
+
+.text-padding {
+    padding-right: 10px;
+}
+
+.image-sizing {
+    object-fit: cover;
+    height: 100%;
+    width: 100%
+}
+
+.top-padding {
+    padding-top: 30px
+}
