@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import News from "./pages/news/news.js";
 import SingleEvent from "./pages/single-event/single-event";
 import CreateEvent from "./pages/create-event/create-event";
+import SearchEvents from "./pages/search-events/search-events";
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     <BrowserRouter   >
       <Switch>
           <Route exact path='/' component={Home}/>
-
+          <Route exact path='/events' component={SearchEvents}/>
           <Route exact path={['/news', '/news/:title']} component={News}/>
           <Route exact path={'/events/:eventId'} component={SingleEvent} />
           <Route exact path={'/users/:userId/events'} component={CreateEvent} />

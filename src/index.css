@@ -1,8 +1,15 @@
-body {
-  margin: 0;
+body, html {
+  margin: 0 !important;
+  padding: 0 !important;
 
 }
+
 
 svg{
   cursor: pointer;
 }
+
+a{
+  color: black!important;
+}
+

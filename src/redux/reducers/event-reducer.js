@@ -18,14 +18,14 @@ const participantsList = [ { id:123, first_name: "Michelle", last_name: "Steel",
 ]
 const event = {
     host_id: 234,
-    event_id: 1,
+    id: 1,
     title: "Lake Baikal cleanup",
     host_name: "Bryan Young",
     host_img: host_img,
     image: event_img,
     date: new Date().toDateString(),
-    timeStart: "10:00",
-    timeEnd:"12:00",
+    time_start: "10:00",
+    time_end:"12:00",
     location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
         " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
@@ -34,12 +34,32 @@ const event = {
         "in voluptate velit esse cillum dolore eu fugiat nulla.",
     tags: ["hashtag1", "hashtag2", "community-service",],
     participants: participantsList,
+    editing: false,
 }
 
+const event2 = {
+    host_id: 123,
+    id: 2,
+    title: "Trash Hellhole",
+    host_name: "Bryan Young",
+    host_img: host_img,
+    image: event_img,
+    date: new Date().toDateString(),
+    time_start: "10:00",
+    time_end:"12:00",
+    location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
+        " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit " +
+        "in voluptate velit esse cillum dolore eu fugiat nulla.",
+    tags: ["hashtag1", "hashtag2", "community-service",],
+    participants: participantsList,
+    editing:false,
+}
 
 let init = {
-    all_events: [event, ],
-    user_events: [event, event]
+    events: [event, event2]
 }
 
 
@@ -48,15 +68,19 @@ export const event_reducer = (state=init, action) => {
     switch (action.type) {
 
         case CREATE_EVENT:
-            return state;
+            return {...state,
+               events: [...state.events, action.event]};
         case UPDATE_EVENT:
-            return state;
+            return {...state,
+                    events: state.events.map(e => e.id === action.event.id ? action.event : e)
+            };
         case DELETE_EVENT:
-            return state;
+            return {...state,
+                   events: state.events.filter(ev => ev.id !== action.id)};
         case GET_EVENT:
-            return state.all_events.find(ev => ev.id === action.id)
-        case GET_ALL_EVENTS:
-            return state;
+            return {...state,
+                   events:state.events.find(ev => ev.id === action.id)}
+
         case GET_USER_EVENTS:
             return state;
         default: return state;

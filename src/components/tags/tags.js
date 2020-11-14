@@ -7,16 +7,16 @@ const Tags =  (props) => {
     let {tags,editing, removeTag, addTag} = props
     let [tag, setTag] = useState("")
 
-   return <div className="event-tags mt-3">
+   return <div className="event-tags ">
        {editing ?
        <>
-       <label htmlFor="tag" className="mb-0">Add tag </label>
+       <label htmlFor="tag" >Add tag </label>
         <div className="d-flex">
        <input name={"tag"} className="form-control tag-name mb-2"
               value={tag}
               onChange={(e)=> setTag(e.target.value)}/>
        <FontAwesomeIcon icon={faPlus} onClick={()=> {addTag(tag);
-                                                     setTag("")}} className="m-auto ml-1"/> </div>
+                                                     setTag("")}} className="m-auto "/> </div>
        </>
        : null}
         <ul className="nav">

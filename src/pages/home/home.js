@@ -9,6 +9,7 @@ import { faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import host_img from "../../assets/Ellipse 1.png";
 import event_img from "../../assets/lake.png";
+import {connect} from "react-redux";
 
 const event = {
 
@@ -30,9 +31,11 @@ const event = {
 class Home extends React.Component{
 
    state={
-       articles: []
+       articles: [],
+       events: [],
    }
-    async componentDidMount() {
+
+     componentDidMount() {
 
           newsService.fetchAllNews(10).then(data=> {
             let src = data.articles
@@ -88,7 +91,7 @@ class Home extends React.Component{
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
                     <div className="row justify-content-center">
-                    {[1,2,3].map(i => <EventCard event={event}/>)  }
+                    {this.state.events.map(e => <EventCard event={e}/>)  }
                     </div>
                 </div>
 
@@ -100,7 +103,10 @@ class Home extends React.Component{
 
 }
 
-export default Home;
+const mapStateToProps = (state) =>{
 
+    return{ events: state.events.events.slice(0,3)}
 
+}
 
+export default connect(mapStateToProps)(Home);

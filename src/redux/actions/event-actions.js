@@ -4,7 +4,7 @@ export const UPDATE_EVENT = "UPDATE_EVENT";
 export const GET_USER_EVENTS = "GET_USER_EVENTS";
 export const GET_ALL_EVENTS = "GET_ALL_EVENTS";
 export const GET_EVENT = "GET_EVENT"
-
+export const SEARCH_EVENT = "SEARCH_EVENT"
 export const create_event = (event, dispatch) =>{
     dispatch({
         type: CREATE_EVENT,
@@ -50,5 +50,12 @@ export const get_event = (id, dispatch) => {
     })
 }
 
+
+export const search_events = (search) => {
+    dispatchEvent({
+        type: SEARCH_EVENT,
+        search
+    })
+}
 
 

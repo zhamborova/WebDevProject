@@ -9,6 +9,7 @@ import {faCheck, faPenAlt, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {delete_event, update_event} from "../../redux/actions/event-actions";
 import {connect} from "react-redux"
+import {Link} from "react-router-dom";
 
 
 class SingleEvent extends React.Component{
@@ -16,14 +17,14 @@ class SingleEvent extends React.Component{
     state= {
       host_name: "",
       host_id: 0,
-      event_id: 0,
+      id: 0,
       host_img: "",
       editing: false,
       title: "",
       description: "",
       date:"",
-      timeStart: "",
-      timeEnd:"",
+      time_start: "",
+      time_end:"",
       location: {},
       tags: [],
       participants: [],
@@ -31,7 +32,7 @@ class SingleEvent extends React.Component{
     }
 
      putHostFirst = () => {
-         let hostIndex = this.state.participants.findIndex(p =>  p.id == this.state.host_id)
+         let hostIndex = this.state.participants.findIndex(p =>  p.id === this.state.host_id)
          if(hostIndex !== 0){
              let list =this.state.participants;
              let temp = list[0];
@@ -89,9 +90,13 @@ class SingleEvent extends React.Component{
                            onChange={(e)=>this.setState({title: e.target.value})}/>
                     <div onClick={()=>this.setState({editing:!this.state.editing})}
                          className="btn d-flex">
-                        <FontAwesomeIcon icon={faCheck} onClick={()=> {this.setState({editing:false})
-                                                                       this.props.update(this.state)}}/>
-                        <FontAwesomeIcon icon={faTimes} />
+                        <FontAwesomeIcon icon={faCheck} onClick={()=> {
+                            this.setState({editing:false}, ()=> this.props.update_event(this.state));
+
+                           }}/>
+                        <Link to={"/"}><FontAwesomeIcon icon={faTimes}
+                                               onClick={()=> {this.props.delete_event(this.state.id)}}/>
+                        </Link>
                     </div> </>:
                     <>
                     <h4 className="event-title">{this.state.title}</h4>
@@ -140,12 +145,12 @@ class SingleEvent extends React.Component{
                                      />
                                            <label htmlFor="time-picker"  className="mb-0"> Time </label>
                                      <TimePicker  name={"time-picker"} className="mb-2"
-                                                onChange={(e)=> this.setState({timeStart: e})}
-                                                 value={this.state.timeStart}
+                                                onChange={(e)=> this.setState({time_start: e})}
+                                                 value={this.state.time_start}
                                                  disableClock={true}/>
                                        <TimePicker  name={"time-picker"} className="mb-2"
-                                                    onChange={(e)=> this.setState({timeEnd: e})}
-                                                    value={this.state.timeEnd}
+                                                    onChange={(e)=> this.setState({time_end: e})}
+                                                    value={this.state.time_end}
                                                     disableClock={true}/>
 
 
@@ -159,8 +164,8 @@ class SingleEvent extends React.Component{
                                      <p className="event-date mb-0">{this.state.date}</p>
                                      <div className="d-flex">
                                          from
-                                     <p className="event-time mr-1 ml-1"> {this.state.timeStart} </p> to
-                                         <p className="event-time mr-1 ml-1"> {this.state.timeEnd} </p>
+                                     <p className="event-time mr-1 ml-1"> {this.state.time_start} </p> to
+                                         <p className="event-time mr-1 ml-1"> {this.state.time_end} </p>
                                      </div>
                                      </div>
                                     <Location location={this.state.location}
@@ -201,7 +206,8 @@ class SingleEvent extends React.Component{
 
 const mapStateToProps = (state, ownProps) =>{
     let id = ownProps.match.params.eventId
-    return{  event: state.events.all_events.find(e => e.event_id === parseInt(id))}
+   console.log(state.events.events)
+    return{  event: state.events.events.find(e => e.id === parseInt(id))}
 
 }
 
