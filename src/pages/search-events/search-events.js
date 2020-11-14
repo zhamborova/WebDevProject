@@ -25,7 +25,7 @@ class SearchEvents extends React.Component{
        return str.trim().toLowerCase()
     }
     render(){
-        let length = this.state.results.length
+
         return(
             <div className="container d-flex flex-column w-75 mt-5">
                 <h1 className="ml-3">Events</h1>
@@ -35,7 +35,7 @@ class SearchEvents extends React.Component{
                 <button className="form-control search-btn w-25 ml-3" onClick={()=> this.searchEvents()}>Search</button>
                 </div>
                 <div className="search-results container  m-auto">
-                    {this.state.results.map(e => <EventCard event={e} vertical length={length}/>)}
+                    {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}
                 </div>
             </div>
 

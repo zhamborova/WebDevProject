@@ -36,7 +36,7 @@ class Home extends React.Component{
    }
 
      componentDidMount() {
-
+        this.setState({events:this.props.events})
           newsService.fetchAllNews(10).then(data=> {
             let src = data.articles
             let obj = {}
@@ -80,7 +80,7 @@ class Home extends React.Component{
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
               <div className="row justify-content-center">
-                  {this.state.articles.slice(0, 3).map( a => <NewsCard article={a} />)}
+                  {this.state.articles.slice(0, 3).map( a => <NewsCard article={a} key={a.title } />)}
               </div>
           </div>
 
@@ -91,7 +91,9 @@ class Home extends React.Component{
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
                     <div className="row justify-content-center">
-                    {this.state.events.map(e => <EventCard event={e}/>)  }
+                    {this.state.events.map(e => <EventCard event={e}
+                                                           key={e.id}
+                                                           vertical={false}/>)  }
                     </div>
                 </div>
 

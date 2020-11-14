@@ -17,13 +17,14 @@
 
 .event-card > .card-body > div >.card-text{
     width: 80%;
-    height: 48px;
+    height: 31px;
     line-height: 1em;
     max-height: 2em;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+
 }
 
 
@@ -40,6 +41,7 @@
     margin-right: -23px;
     object-fit: contain;
     width: 57px;
+
 }
 
 
@@ -55,7 +57,7 @@
     width: 40%;
 }
 
-.other{
+.others{
     margin: auto;
 }
 .others.v{
@@ -76,6 +78,9 @@
     align-items: center;
 }
 
+.participants-container{
+    margin-top: 10px;
+}
 .participants-container.v{
     flex-direction: column;
 

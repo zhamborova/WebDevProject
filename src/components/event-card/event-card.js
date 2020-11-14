@@ -6,10 +6,10 @@ import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
-const EventCard = ({event,vertical, length}) => {
+const EventCard = ({event,vertical}) => {
 
     let v = vertical ? "v" : "";
-
+    let length = event.participants.length;
     return <Link to={`/events/${event.id}`}>
         <div className={`card event-card ${v}`}>
             <img className={`card-img-top ${v}`} src={event.image} alt="Card image cap"/>
@@ -27,7 +27,7 @@ const EventCard = ({event,vertical, length}) => {
                     </div>
                     <span className={`others ${v}`}> & {length < 4 ? 0 : length-3} others </span>
                 </div>
-                <div className={`m-auto more-info v `}>
+                <div className={`m-auto more-info ${v}`}>
                     <p>More info <FontAwesomeIcon icon={faArrowRight}/></p>
 
                 </div>
