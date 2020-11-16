@@ -2,6 +2,7 @@ import React from "react";
 import './user-card.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 
 
 const UserCard = (props) => {
@@ -12,7 +13,7 @@ const UserCard = (props) => {
          <div className="card-body d-flex flex-column">
              <div className="d-flex ">
 
-                 <img src={img} />
+                 <Link to={`/users/${id}`}><img src={img} /></Link>
                  {(!host && editing)  ?
                      <FontAwesomeIcon icon={faTimes} onClick={(e) =>
 

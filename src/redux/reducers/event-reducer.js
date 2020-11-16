@@ -9,11 +9,9 @@ import img3 from "../../assets/Ellipse 3.png";
 import host_img from "../../assets/Ellipse 1.png";
 import event_img from "../../assets/lake.png";
 
-const participantsList = [ { id:123, first_name: "Michelle", last_name: "Steel",  img: img4,url: ""},
-    { id: 234,first_name: "Bryan", last_name: "Young",  img: img2,url: ""},
-    { id:345, first_name: "Tom", last_name: "Holmes", img: img3,url: ""},
+const participantsList = [ 123, 234, 345, 456, 567];
 
-]
+
 const event = {
     host_id: 234,
     id: 1,

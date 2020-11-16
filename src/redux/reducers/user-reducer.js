@@ -13,7 +13,7 @@ const users = [
             "Duis aute irure dolor in reprehenderit i" +
             "n voluptate velit esse cillum dolore eu fugiat nulla.",
         location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
-        friends: [345, 234, 345, 345, 234,],
+        friends: [345, 234, 456,567,678],
         events: [1,2,3,4,5],
         email: "efe@gmail.com"},
     { id:234,first_name: "Bryan", last_name: "Young",  img: img2,
@@ -23,7 +23,7 @@ const users = [
             "Duis aute irure dolor in reprehenderit i" +
             "n voluptate velit esse cillum dolore eu fugiat nulla.",
         location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
-        friends: [123, 345, 345, 123, 123],
+        friends: [123,345, 456,567,678],
         events: [1,2,3,4,5],
         email: "efe@gmail.com"},
     { id:345, first_name: "Tom", last_name: "Holmes", img: img3,
@@ -33,7 +33,49 @@ const users = [
             "Duis aute irure dolor in reprehenderit i" +
             "n voluptate velit esse cillum dolore eu fugiat nulla.",
         location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
-        friends: [123, 234, 123, 234,123],
+        friends: [123, 234, 456,567,678],
+        events: [1,2,3,4,5],
+        email: "efe@gmail.com"},
+
+    { id:456, first_name: "Tom", last_name: "Holmes", img: img3,
+        bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+            "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, q" +
+            "uis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " +
+            "Duis aute irure dolor in reprehenderit i" +
+            "n voluptate velit esse cillum dolore eu fugiat nulla.",
+        location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
+        friends: [123,345, 234,567,678],
+        events: [1,2,3,4,5],
+        email: "efe@gmail.com"},
+
+    { id:567, first_name: "Tom", last_name: "Holmes", img: img3,
+        bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+            "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, q" +
+            "uis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " +
+            "Duis aute irure dolor in reprehenderit i" +
+            "n voluptate velit esse cillum dolore eu fugiat nulla.",
+        location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
+        friends: [345, 234, 456,567,678, 123],
+        events: [1,2,3,4,5],
+        email: "efe@gmail.com"},
+    { id:678, first_name: "Tom", last_name: "Holmes", img: img3,
+        bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+            "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, q" +
+            "uis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " +
+            "Duis aute irure dolor in reprehenderit i" +
+            "n voluptate velit esse cillum dolore eu fugiat nulla.",
+        location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
+        friends: [345, 234, 456,567,678],
+        events: [1,2,3,4,5],
+        email: "efe@gmail.com"},
+    { id:789, first_name: "Tom", last_name: "Holmes", img: img3,
+        bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+            "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, q" +
+            "uis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " +
+            "Duis aute irure dolor in reprehenderit i" +
+            "n voluptate velit esse cillum dolore eu fugiat nulla.",
+        location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
+        friends: [345, 234, 456,567,678],
         events: [1,2,3,4,5],
         email: "efe@gmail.com"},
 

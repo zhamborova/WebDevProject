@@ -4,9 +4,10 @@ import img from './event-img.png'
 import {Link} from "react-router-dom";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {connect} from "react-redux";
 
 
-const EventCard = ({event,vertical}) => {
+const EventCard = ({event,vertical, users}) => {
 
     let v = vertical ? "v" : "";
     let length = event.participants.length;
@@ -20,7 +21,7 @@ const EventCard = ({event,vertical}) => {
                 <p className={`card-text ${v}`}>{event.description}</p>
                 </div>
                 <div className={`participants-container d-flex ${v}`}>
-                    <div>{event.participants.map(p => {
+                    <div>{users.slice(0,3).map(p => {
                         return <img src={p.img} className="participant-thumbnail"/>
 
                     })}
@@ -36,4 +37,14 @@ const EventCard = ({event,vertical}) => {
         </div>
     </Link>
 }
-export default EventCard;
+
+const mapStateToProps = (state, ownProps) =>{
+    let ps = ownProps.event.participants;
+    let users = ps.map(p => state.users.users.find(u=> u.id===p))
+
+    return{users}
+
+}
+
+
+export default connect(mapStateToProps)(EventCard);
