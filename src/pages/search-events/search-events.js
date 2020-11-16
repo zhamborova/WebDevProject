@@ -9,7 +9,7 @@ class SearchEvents extends React.Component{
         results: [],
     }
 
-
+    ///encode search in url
     componentDidMount = () =>{
         let {results} = this.props
         this.setState({results});
@@ -18,14 +18,14 @@ class SearchEvents extends React.Component{
    searchEvents = () => {
        let searchStr = this.formatStr(this.state.search)
        let new_results = this.state.results.filter(e => this.formatStr(e.title).includes(searchStr))
-       this.setState({results:new_results})
+       this.setState({results:new_results,
+                            search:""})
     }
 
     formatStr = (str) =>{
        return str.trim().toLowerCase()
     }
     render(){
-
         return(
             <div className="container d-flex flex-column w-75 mt-5">
                 <h1 className="ml-3">Events</h1>
