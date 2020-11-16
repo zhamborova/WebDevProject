@@ -13,3 +13,6 @@ a{
   color: black!important;
 }
 
+input{
+  padding-left: 15px;
+}

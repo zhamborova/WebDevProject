@@ -17,10 +17,9 @@ class SearchEvents extends React.Component{
     componentDidMount = () =>{
         let {results} = this.props
         this.setState({results: results, all:results}, ()=>{
-            let {search} = this.props.match.params
-            if(search){
-                console.log(search)
-                this.setState({search}, ()=>{
+            let {searchEvent} = this.props.match.params
+            if(searchEvent){
+                this.setState({search:searchEvent}, ()=>{
                     this.searchEvents();
                 })
 
@@ -33,9 +32,9 @@ class SearchEvents extends React.Component{
     componentDidUpdate(prevProps, prevState, snapshot) {
 
         if(prevProps.match.params.search !== this.props.match.params.search){
-            let {search} = this.props.match.params
-            if(search){
-                this.setState({search})
+            let {searchEvent} = this.props.match.params
+            if(searchEvent){
+                this.setState({search:searchEvent})
                 this.searchEvents();
             }
         }

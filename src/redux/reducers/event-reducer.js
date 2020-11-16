@@ -1,8 +1,6 @@
 import {
     CREATE_EVENT,
     DELETE_EVENT,
-    GET_ALL_EVENTS, GET_EVENT,
-    GET_USER_EVENTS,
     UPDATE_EVENT
 } from "../actions/event-actions";
 import img4 from "../../assets/Ellipse 4.png";
@@ -143,12 +141,7 @@ export const event_reducer = (state=init, action) => {
         case DELETE_EVENT:
             return {...state,
                    events: state.events.filter(ev => ev.id !== action.id)};
-        case GET_EVENT:
-            return {...state,
-                   events:state.events.find(ev => ev.id === action.id)}
 
-        case GET_USER_EVENTS:
-            return state;
         default: return state;
 
     }

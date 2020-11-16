@@ -35,17 +35,17 @@ const user = {
             "n voluptate velit esse cillum dolore eu fugiat nulla.",
         location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
         friends: [123, 234, 345, 345, 123],
-        events: [1,2,3,4,5]
+        events: [1,2,3,4,5],
+      email: "efe@gmail.com"
 }
 
 
 
 
 const UserProfile = (props) => {
-  let {id,first_name, last_name, location, bio, friends,} = user;
+  let {id,first_name, last_name, location, bio, friends} = user;
   let {events} = props;
   return <div className="user-container d-flex flex-column">
-
       <div className="user-description mb-5">
           <div className="row ">
               <div className="profile-image col-3 mr-2">

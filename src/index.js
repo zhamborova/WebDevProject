@@ -6,8 +6,11 @@ import * as serviceWorker from './serviceWorker';
 import {combineReducers, createStore} from "redux";
 import {event_reducer} from "./redux/reducers/event-reducer";
 import {Provider} from "react-redux";
+import {user_reducer} from "./redux/reducers/user-reducer";
 
-const rootReducer = combineReducers({events: event_reducer})
+const rootReducer = combineReducers({
+    events: event_reducer,
+    users: user_reducer})
 
 const store = createStore(rootReducer)
 
