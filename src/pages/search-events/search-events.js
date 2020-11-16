@@ -2,37 +2,65 @@ import React from "react";
 import {connect} from "react-redux";
 import EventCard from "../../components/event-card/event-card";
 import "./search-events.css";
+import stringSimilarity from 'string-similarity'
+import {Link} from "react-router-dom";
+
 
 class SearchEvents extends React.Component{
     state={
         search: "",
         results: [],
+        all: []
     }
 
-    ///encode search in url
+
     componentDidMount = () =>{
         let {results} = this.props
-        this.setState({results});
+        this.setState({results: results, all:results}, ()=>{
+            let {search} = this.props.match.params
+            if(search){
+                console.log(search)
+                this.setState({search}, ()=>{
+                    this.searchEvents();
+                })
+
+            }
+        });
+
 
     }
-   searchEvents = () => {
-       let searchStr = this.formatStr(this.state.search)
-       let new_results = this.state.results.filter(e => this.formatStr(e.title).includes(searchStr))
-       this.setState({results:new_results,
-                            search:""})
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+        if(prevProps.match.params.search !== this.props.match.params.search){
+            let {search} = this.props.match.params
+            if(search){
+                this.setState({search})
+                this.searchEvents();
+            }
+        }
+
     }
 
-    formatStr = (str) =>{
-       return str.trim().toLowerCase()
+
+    searchEvents = () => {
+       let search = this.format(this.state.search)
+       let new_results = this.state.all.filter(e =>
+           stringSimilarity.compareTwoStrings(this.format(e.title), search) >= 0.3)
+       this.setState({results:new_results})
     }
+
+   format = (str) => str.trim().toLowerCase();
+
     render(){
         return(
             <div className="container d-flex flex-column w-75 mt-5">
                 <h1 className="ml-3">Events</h1>
                 <div className="d-flex container  ">
-                <input className="form-control" placeholder="Search events..."
+                <input className="form-control" placeholder="Search events..." value={this.state.search}
                        onChange={(e)=> this.setState({search:e.target.value})}/>
-                <button className="form-control search-btn w-25 ml-3" onClick={()=> this.searchEvents()}>Search</button>
+                <Link to={`/events/${this.state.search}`} className="ml-3 w-25">
+                <button className="form-control search-btn ">Search</button></Link>
                 </div>
                 <div className="search-results container  m-auto">
                     {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}

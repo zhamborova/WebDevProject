@@ -186,6 +186,7 @@ class SingleEvent extends React.Component{
                 <div className="event-participants ">
                     {this.state.participants.map(p => {
                         return <UserCard p={p} key={p.id}
+                                host={this.state.host_id === p.id}
                                 removeUser={this.removeUser}
                                 editing={this.state.editing}/>
                     })}

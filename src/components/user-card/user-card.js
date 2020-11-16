@@ -5,8 +5,8 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons";
 
 
 const UserCard = (props) => {
-  const{first_name,last_name, img, url, host, id} = props.p;
-  const {removeUser, editing} = props;
+  const{first_name,last_name, img, url, id} = props.p;
+  const {removeUser, editing, host} = props;
    return <a href={url}>
        <div className="card  card-user" style={{width: "9rem"}}>
          <div className="card-body d-flex flex-column">

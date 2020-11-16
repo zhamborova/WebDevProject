@@ -63,8 +63,6 @@ class Home extends React.Component{
                   <div className="d-flex m-auto w-50">
                   <input className="form-control"
                          placeholder="Search events..."/>
-                  <input className="form-control w-50"
-                             placeholder="Search locations..."/>
                       <button className="btn btn-success btn-submit ml-2">Submit</button>
                   </div>
 
@@ -75,7 +73,7 @@ class Home extends React.Component{
                 <div className="news-container ">
                     <div className="d-flex">
                         <h3>News</h3>
-                    <Link to={'/news'} className="ml-auto mr-1">View all
+                    <Link to={'/search-news'} className="ml-auto mr-1">View all
                     </Link>
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>

@@ -11,9 +11,9 @@ import img3 from "../../assets/Ellipse 3.png";
 import host_img from "../../assets/Ellipse 1.png";
 import event_img from "../../assets/lake.png";
 
-const participantsList = [ { id:123, first_name: "Michelle", last_name: "Steel", host: false, img: img4,url: ""},
-    { id: 234,first_name: "Bryan", last_name: "Young", host: true, img: img2,url: ""},
-    { id:345, first_name: "Tom", last_name: "Holmes", host: false, img: img3,url: ""},
+const participantsList = [ { id:123, first_name: "Michelle", last_name: "Steel",  img: img4,url: ""},
+    { id: 234,first_name: "Bryan", last_name: "Young",  img: img2,url: ""},
+    { id:345, first_name: "Tom", last_name: "Holmes", img: img3,url: ""},
 
 ]
 const event = {
@@ -62,7 +62,7 @@ const event2 = {
 const event3 = {
     host_id: 123,
     id: 3,
-    title: "Trash Hellhole",
+    title: "Miserville",
     host_name: "Bryan Young",
     host_img: host_img,
     image: event_img,
@@ -83,7 +83,7 @@ const event3 = {
 const event4 = {
     host_id: 123,
     id: 4,
-    title: "Trash Hellhole",
+    title: "The valley of the dead",
     host_name: "Bryan Young",
     host_img: host_img,
     image: event_img,
@@ -104,7 +104,7 @@ const event4 = {
 const event5 = {
     host_id: 123,
     id: 5,
-    title: "Trash Hellhole",
+    title: "Depression lake",
     host_name: "Bryan Young",
     host_img: host_img,
     image: event_img,

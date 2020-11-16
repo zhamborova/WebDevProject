@@ -1,16 +1,16 @@
 import React from 'react';
-import './profile.css';
+import './settings.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 
 
-class Profile extends React.Component {
+class Settings extends React.Component {
 
     render() {
         return(
             <div className={"body"}>
                 <div className={"row"}>
-                    <div className={"container profile-container col-8"}>
+                    <div className={"container settings-container col-8"}>
                         <h3>Your profile</h3>
                         <div>
                             <label>Name</label>
@@ -55,4 +55,4 @@ class Profile extends React.Component {
 
 }
 
-export default Profile;
+export default Settings;
