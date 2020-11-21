@@ -17,11 +17,7 @@ import img from '../../assets/Ellipse1.png'
 const UserProfile = (props) => {
 
   let {id,first_name, last_name, location, bio, friends} = props.user;
-  let friendList = props.users.reduce((prev, curr)=>{
-     if(friends.some(id => id === curr.id)) {prev.push(curr)}
 
-      return prev;
-  }, [])
 
 
 
@@ -52,14 +48,13 @@ const UserProfile = (props) => {
       <div className="user-friends mb-5">
           <div className="d-flex">
               <h3>Friends</h3>
-              <Link to={'/search-news'} className="ml-auto mr-1">View all
+              <Link to={'/searchUsers/'} className="ml-auto mr-1">View all
               </Link>
               <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
           </div>
           <div className="d-flex justify-content-between">
-          {friendList.slice(0, 5).map(p => {
-
-              return <UserCard p={p} key={p.id}
+          {friends.slice(0, 5).map(p => {
+              return <UserCard id={p} key={p.id}
                                 host={false}
                                 profileView
                                 editing={false}/>
@@ -74,8 +69,8 @@ const UserProfile = (props) => {
                   <FontAwesomeIcon className="mt-1 "  icon={faLongArrowAltRight}/>
               </div>
               <div className="row justify-content-between ">
-                  {events.slice(0,3).map(e => <EventCard event={e}
-                                                         key={e.id}
+                  {events.slice(0,3).map(e => <EventCard key={e.id}
+                                                         event={e}
                                                          vertical={false}/>)  }
               </div>
 

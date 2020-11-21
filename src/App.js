@@ -23,7 +23,7 @@ function App() {
           <Route exact path={'/users/:userId/events'} component={CreateEvent} />
           <Route exact path={'/users/:userId/settings'} component={Settings} />
           <Route exact path={'/users/:userId/'} component={UserProfile} />
-          <Route exact path={['/users/:userId/friends', '/users/:userId/friends/:searchUser' ]} component={SearchUsers} />
+          <Route exact path={[ '/searchUsers/:search','/searchUsers/' ]} component={SearchUsers} />
       </Switch>
     </BrowserRouter>
 

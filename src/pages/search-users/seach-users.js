@@ -18,13 +18,15 @@ class SearchUsers extends React.Component{
     componentDidMount = () =>{
         let {results} = this.props
         this.setState({results: results, all:results}, ()=>{
-            let {searchUser} = this.props.match.params
-            if(searchUser){
-                console.log(searchUser)
-                this.setState({search:searchUser}, ()=>{
-                    this.searchEvents();
+            let {search} = this.props.match.params
+            if(search){
+                this.setState({search:search}, ()=>{
+                    this.searchUsers();
                 })
 
+            }
+            else{
+                this.setState({results: this.state.all})
             }
         });
 
@@ -34,21 +36,26 @@ class SearchUsers extends React.Component{
     componentDidUpdate(prevProps, prevState, snapshot) {
 
         if(prevProps.match.params.search !== this.props.match.params.search){
-            let {searchUser} = this.props.match.params
-            if(searchUser){
-                this.setState({search:searchUser})
-                this.searchEvents();
+            let {search} = this.props.match.params
+            if(search){
+                this.setState({search:search})
+                this.searchUsers();
+            }
+            else{
+                this.setState({results: this.state.all})
             }
         }
 
     }
 
 
-    searchEvents = () => {
+    searchUsers = () => {
+
         let search = this.format(this.state.search)
+        if(search.trim() === "") this.setState({results:this.state.all})
         let new_results = this.state.all.filter(u =>
             stringSimilarity.compareTwoStrings(this.format(this.getName(u)), search) >= 0.3)
-        console.log(stringSimilarity.compareTwoStrings("brian", "bryanyoung"))
+
         this.setState({results:new_results})
     }
 
@@ -62,7 +69,7 @@ class SearchUsers extends React.Component{
                 <div className="d-flex container  ">
                     <input className="form-control" placeholder="Search friends..." value={this.state.search}
                            onChange={(e)=> this.setState({search:e.target.value})}/>
-                    <Link to={`/users/:userId/friends/${this.state.search}`} className="ml-3 w-25">
+                    <Link to={`/searchUsers/${this.state.search}`} className="ml-3 w-25">
                         <button className="form-control search-btn ">Search</button></Link>
                 </div>
                 <div className="search-results container  m-auto">

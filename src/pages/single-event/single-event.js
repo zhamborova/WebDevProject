@@ -32,7 +32,7 @@ class SingleEvent extends React.Component{
     }
 
      putHostFirst = () => {
-         let hostIndex = this.state.participants.findIndex(p =>  p.id === this.state.host_id)
+         let hostIndex = this.state.participants.findIndex(p =>  p === this.state.host_id)
          if(hostIndex !== 0){
              let list =this.state.participants;
              let temp = list[0];
@@ -46,6 +46,8 @@ class SingleEvent extends React.Component{
         this.setState({...this.props.event}, ()=>{
             this.putHostFirst();
         })
+
+        console.log(this.props)
 
 
     }
@@ -185,8 +187,8 @@ class SingleEvent extends React.Component{
             </div>
                 <div className="event-participants ">
                     {this.state.participants.map(p => {
-                        return <UserCard p={p} key={p.id}
-                                host={this.state.host_id === p.id}
+                        return <UserCard id={p} key={p}
+                                host={this.state.host_id === p}
                                 removeUser={this.removeUser}
                                 editing={this.state.editing}/>
                     })}
@@ -207,6 +209,7 @@ class SingleEvent extends React.Component{
 
 const mapStateToProps = (state, ownProps) =>{
     let id = ownProps.match.params.eventId
+   console.log(state.events)
     return{  event: state.events.events.find(e => e.id === parseInt(id))}
 
 }

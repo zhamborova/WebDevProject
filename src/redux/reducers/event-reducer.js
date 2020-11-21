@@ -3,13 +3,10 @@ import {
     DELETE_EVENT,
     UPDATE_EVENT
 } from "../actions/event-actions";
-import img4 from "../../assets/Ellipse 4.png";
-import img2 from "../../assets/Ellipse 2.png";
-import img3 from "../../assets/Ellipse 3.png";
 import host_img from "../../assets/Ellipse 1.png";
 import event_img from "../../assets/lake.png";
 
-const participantsList = [ 123, 234, 345, 456, 567];
+const participantsList = [123,234, 345, 456, 567];
 
 
 const event = {
