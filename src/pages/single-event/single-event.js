@@ -2,74 +2,60 @@ import React from 'react';
 import './single-event.css'
 import DatePicker from 'react-date-picker';
 import TimePicker from 'react-time-picker';
-import img2 from '../../assets/Ellipse 2.png';
-import img3 from '../../assets/Ellipse 3.png'
-import img4 from '../../assets/Ellipse 4.png'
-
-
-import host_img from '../../assets/Ellipse 1.png'
-import event_img from '../../assets/lake.png'
 import UserCard from "../../components/user-card/user-card";
 import Location from "../../components/location/location";
 import Tags from "../../components/tags/tags";
-import {faCheck, faPenAlt} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faPenAlt, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
-const participantsList = [ { id:123, first_name: "Michelle", last_name: "Steel", host: false, img: img4,url: ""},
-    { id: 234,first_name: "Bryan", last_name: "Young", host: true, img: img2,url: ""},
-    { id:345, first_name: "Tom", last_name: "Holmes", host: false, img: img3,url: ""},
-
-]
-const event = {
-
-    title: "Lake Baikal cleanup",
-    host_name: "Bryan Young",
-    host_img: host_img,
-    event_img: event_img,
-    date: new Date(),
-    time: "00:00",
-    location: {street: "", city:"", state: "", country: "", zip: ""},
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-        " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
-        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit " +
-        "in voluptate velit esse cillum dolore eu fugiat nulla.",
-    tags: ["hashtag1", "hashtag2", "community-service",],
-    participants: participantsList
-}
-
+import {delete_event, update_event} from "../../redux/actions/event-actions";
+import {connect} from "react-redux"
+import {Link} from "react-router-dom";
 
 
 class SingleEvent extends React.Component{
 
     state= {
+      host_name: "",
+      host_id: 0,
+      id: 0,
+      host_img: "",
       editing: false,
-      title: event.title,
-      description: event.description,
-      date: event.date,
-      time: event.time,
-      location:  {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
-      tags: event.tags,
-      participants: event.participants
+      title: "",
+      description: "",
+      date:"",
+      time_start: "",
+      time_end:"",
+      location: {},
+      tags: [],
+      participants: [],
+      image: ""
     }
 
-    componentDidMount(prevProps, prevState, snapshot) {
-      let  {title, host_name, host_img, event_img,
-            description, tags, participants} = this.props
+     putHostFirst = () => {
+         let hostIndex = this.state.participants.findIndex(p =>  p === this.state.host_id)
+         if(hostIndex !== 0){
+             let list =this.state.participants;
+             let temp = list[0];
+             list[0] = list[hostIndex];
+             list[hostIndex] = temp;
+             this.setState({participants:list})
 
-     let hostIndex = 0;
-        this.state.participants.forEach( (user, i) => {
-                if(user.host){
-                    hostIndex = i; }})
-
-     if(hostIndex !== 0){
-         let list =this.state.participants;
-         let temp = list[0];
-          list[0] = list[hostIndex];
-          list[hostIndex] = temp;
-          this.setState({participants:list})
-
+         }
      }
+    componentDidMount() {
+        this.setState({...this.props.event}, ()=>{
+            this.putHostFirst();
+        })
+
+        console.log(this.props)
+
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps !== this.props){
+            this.setState({...this.props.event})
+        }
 
     }
 
@@ -95,8 +81,7 @@ class SingleEvent extends React.Component{
     }
 
     render() {
-        const {title, host_name, host_img, event_img,
-            description, tags, participants} = event
+
         return (<>
 
             <div className="d-flex flex-column single-event-container">
@@ -106,8 +91,14 @@ class SingleEvent extends React.Component{
                            value={this.state.title}
                            onChange={(e)=>this.setState({title: e.target.value})}/>
                     <div onClick={()=>this.setState({editing:!this.state.editing})}
-                         className="btn">
-                        <FontAwesomeIcon icon={faCheck}/>
+                         className="btn d-flex">
+                        <FontAwesomeIcon icon={faCheck} onClick={()=> {
+                            this.setState({editing:false}, ()=> this.props.update_event(this.state));
+
+                           }}/>
+                        <Link to={"/"}><FontAwesomeIcon icon={faTimes}
+                                               onClick={()=> {this.props.delete_event(this.state.id)}}/>
+                        </Link>
                     </div> </>:
                     <>
                     <h4 className="event-title">{this.state.title}</h4>
@@ -121,15 +112,21 @@ class SingleEvent extends React.Component{
                 </div>
                 <div className="event-hosted-by-container d-flex flex-column">
                     <div className="host-info">
-                 <img src={host_img} className="host-img" />
+                 <img src={this.state.host_img} className="host-img" />
                  <div className="event-hosted-by">
                      <span>Hosted by</span>
-                     <span className="host-name">{host_name}</span>
+                     <span className="host-name">{this.state.host_name}</span>
                  </div>
                     </div>
                  <div className="event-description-container row ">
                      <div className="event-description col-8 p-0">
-                         <img src={event_img} className={"event-img"} />
+                         {this.state.editing ?
+
+                          <input className="form-control mb-3" value={this.state.image}
+                                 onChange={(e)=> this.setState({image: e.target.value})}/>  :
+                          null
+                         }
+                         <img src={this.state.image} className={"event-img"} />
                          <h5 >Description</h5>
                          {this.state.editing ?
                           <textarea className="form-control event-description-edit"
@@ -150,9 +147,13 @@ class SingleEvent extends React.Component{
                                      />
                                            <label htmlFor="time-picker"  className="mb-0"> Time </label>
                                      <TimePicker  name={"time-picker"} className="mb-2"
-                                                onChange={(e)=> this.setState({time: e})}
-                                                 value={this.state.time}
+                                                onChange={(e)=> this.setState({time_start: e})}
+                                                 value={this.state.time_start}
                                                  disableClock={true}/>
+                                       <TimePicker  name={"time-picker"} className="mb-2"
+                                                    onChange={(e)=> this.setState({time_end: e})}
+                                                    value={this.state.time_end}
+                                                    disableClock={true}/>
 
 
                                        <Location location={this.state.location}
@@ -161,9 +162,13 @@ class SingleEvent extends React.Component{
                                         />
                                      </>:
                                      <>
-                                     <div className="event-data">
-                                     <p className="event-date mb-0">{this.state.date.toDateString()}</p>
-                                     <p className="event-time"> {this.state.time} </p>
+                                     <div className="event-date">
+                                     <p className="event-date mb-0">{this.state.date}</p>
+                                     <div className="d-flex">
+                                         from
+                                     <p className="event-time mr-1 ml-1"> {this.state.time_start} </p> to
+                                         <p className="event-time mr-1 ml-1"> {this.state.time_end} </p>
+                                     </div>
                                      </div>
                                     <Location location={this.state.location}
                                                        editing={false}/>
@@ -182,14 +187,15 @@ class SingleEvent extends React.Component{
             </div>
                 <div className="event-participants ">
                     {this.state.participants.map(p => {
-                        return <UserCard p={p} key={p.id}
+                        return <UserCard id={p} key={p}
+                                host={this.state.host_id === p}
                                 removeUser={this.removeUser}
                                 editing={this.state.editing}/>
                     })}
                 </div>
         <div className="event-attend d-flex ">
             <div className="event-summary">
-                <p className="event-date mb-0">{this.state.date.toDateString()}</p>
+                <p className="event-date mb-0">{this.state.date}</p>
                 <h4 className="event-title">{this.state.title}</h4>
             </div>
             <button className="btn btn-success btn-attend">
@@ -197,9 +203,20 @@ class SingleEvent extends React.Component{
             </button>
         </div>
      </>
-        );
-    }
+
+        )}
+}
+
+const mapStateToProps = (state, ownProps) =>{
+    let id = ownProps.match.params.eventId
+   console.log(state.events)
+    return{  event: state.events.events.find(e => e.id === parseInt(id))}
 
 }
 
-export default SingleEvent;
+
+const mapDispatchToProps = dispatch => ({
+        delete_event: (id) => delete_event(id, dispatch),
+        update_event: (event) => update_event(event, dispatch),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(SingleEvent);

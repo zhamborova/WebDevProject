@@ -9,6 +9,7 @@ import { faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import host_img from "../../assets/Ellipse 1.png";
 import event_img from "../../assets/lake.png";
+import {connect} from "react-redux";
 
 const event = {
 
@@ -30,10 +31,12 @@ const event = {
 class Home extends React.Component{
 
    state={
-       articles: []
+       articles: [],
+       events: [],
    }
-    async componentDidMount() {
 
+     componentDidMount() {
+        this.setState({events:this.props.events})
           newsService.fetchAllNews(10).then(data=> {
             let src = data.articles
             let obj = {}
@@ -60,8 +63,6 @@ class Home extends React.Component{
                   <div className="d-flex m-auto w-50">
                   <input className="form-control"
                          placeholder="Search events..."/>
-                  <input className="form-control w-50"
-                             placeholder="Search locations..."/>
                       <button className="btn btn-success btn-submit ml-2">Submit</button>
                   </div>
 
@@ -72,12 +73,12 @@ class Home extends React.Component{
                 <div className="news-container ">
                     <div className="d-flex">
                         <h3>News</h3>
-                    <Link to={'/news'} className="ml-auto mr-1">View all
+                    <Link to={'/search-news'} className="ml-auto mr-1">View all
                     </Link>
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
               <div className="row justify-content-center">
-                  {this.state.articles.slice(0, 3).map( a => <NewsCard article={a} />)}
+                  {this.state.articles.slice(0, 3).map( a => <NewsCard article={a} key={a.title } />)}
               </div>
           </div>
 
@@ -88,7 +89,9 @@ class Home extends React.Component{
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
                     <div className="row justify-content-center">
-                    {[1,2,3].map(i => <EventCard event={event}/>)  }
+                    {this.state.events.map(e => <EventCard event={e}
+                                                           key={e.id}
+                                                           vertical={false}/>)  }
                     </div>
                 </div>
 
@@ -100,7 +103,10 @@ class Home extends React.Component{
 
 }
 
-export default Home;
+const mapStateToProps = (state) =>{
 
+    return{ events: state.events.events.slice(0,3)}
 
+}
 
+export default connect(mapStateToProps)(Home);

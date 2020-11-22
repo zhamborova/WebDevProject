@@ -1,8 +1,8 @@
-.card-user > .card-body > div> img{
-    width: 75%;
-    margin: 20px auto;
-}
 
+.card-user > .card-body > div> a{
+    margin: 20px auto;
+
+}
 .card-user{
     min-height: 230px!important;
     margin: 10px 30px 10px 0;

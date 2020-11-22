@@ -1,28 +1,46 @@
-.body {
-    background-color: #FAF5F4;
-    padding: 8%
+.create-event-bg{
+    background-color: #f7f7f7;
+    padding:  100px 0;
 }
 
-.heading-pad {
-    padding-top: 5%;
-    padding-left: 5%;
-    padding-bottom: 1%;;
+.create-event-container > input, textarea, .react-date-picker, .react-time-picker, .event-img{
+    margin-bottom: 25px;
 }
+
+.create-event-container > .event-location > input{
+    margin-bottom: 25px!important;
+}
+
+
+.create-event-container > label{
+    margin-left:4px;
+    margin-bottom: 2px;
+}
+.create-event-container > .event-tags{
+    margin-bottom: 40px;
+}
+
+.create-event-container > .create-btns > .form-control{
+    width: 45%!important;
+    padding: 5px 0!important;
+    height: 50px;
+}
+
+.create-btns> button:nth-child(2){
+    background-color: #3a7347!important;
+    color: white;
+}
+
+.create-event-container > .event-location > label{
+    margin-left:4px;
+    margin-bottom: 2px;
+}
+
+
 
 .create-event-container {
-    width: 65%;
-}
-
-.input-fields-container {
-    padding-right: 10%;
-    padding-left: 10%;
-    padding-bottom: 5%;
-}
-
-.background-color {
-    background-color: #FFFFFF;
-}
-
-.button-padding {
-    padding: 2%
+    width: 80%;
+    margin:  auto;
+    padding: 50px;
+    background-color: white;
 }
