@@ -43,12 +43,7 @@ class SingleEvent extends React.Component{
          }
      }
     componentDidMount() {
-        this.setState({...this.props.event}, ()=>{
-            this.putHostFirst();
-        })
-
-        console.log(this.props)
-
+        this.setState({...this.props.event}, ()=>{this.putHostFirst();})
 
     }
 
@@ -186,12 +181,13 @@ class SingleEvent extends React.Component{
                 </div>
             </div>
                 <div className="event-participants ">
-                    {this.state.participants.map(p => {
+                    {this.state.participants.length > 0 ?
+                        this.state.participants.map(p => {
                         return <UserCard id={p} key={p}
                                 host={this.state.host_id === p}
                                 removeUser={this.removeUser}
                                 editing={this.state.editing}/>
-                    })}
+                    }) :  null}
                 </div>
         <div className="event-attend d-flex ">
             <div className="event-summary">
@@ -209,7 +205,6 @@ class SingleEvent extends React.Component{
 
 const mapStateToProps = (state, ownProps) =>{
     let id = ownProps.match.params.eventId
-   console.log(state.events)
     return{  event: state.events.events.find(e => e.id === parseInt(id))}
 
 }

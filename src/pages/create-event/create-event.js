@@ -92,7 +92,7 @@ class CreateEvent extends React.Component{
                        <button className="form-control ">   <Link to="/">Cancel</Link></button>
                           <button className="form-control "
                                   onClick={()=> this.props.create_event(this.state)}
-                               ><Link to="/events">Create event</Link></button>
+                               ><Link to="/events/0">Create event</Link></button>
                       </div>
 
                 </div>
