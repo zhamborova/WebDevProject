@@ -1,64 +1,93 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import './register.css'
+import {InputField} from "../../components/input-field/input-field";
 
-export const Register = () =>
-	<div>
 
-		<div className="container">
+export class Register extends React.Component {
+	state = {
+		firstName: '',
+		lastName: '',
+		email: '',
+		password: ''
+	}
 
-			<Link to={'/'}>Back to Home</Link>
+	updateFirst = (event) => {
+		this.setState({
+			firstName: event.target.value
+		})
+		console.log(this.state.firstName)
+	}
 
-			<h1>Register</h1>
+	updateLast = (event) => {
+		this.setState({
+						  lastName: event.target.value
+					  })
+		console.log(this.state.lastName)
+	}
 
-			<div className="form-group row">
-				<label htmlFor="usernameFld" className="col-sm-2 col-form-label">Username</label>
-				<div className="col-sm-10">
-					<input type="username" className="form-control wbdv-field wbdv-username"
-						   id="usernameFld"/>
-				</div>
-			</div>
+	updateEmail = (event) => {
+		this.setState({
+						  email: event.target.value
+					  })
+		console.log(this.state.email)
+	}
 
-			<div className="form-group row">
-				<label htmlFor="passwordFld" className="col-sm-2 col-form-label">Password</label>
-				<div className="col-sm-10">
-					<input type="password"
-						   className="form-control wbdv-field wbdv-password"
-						   id="passwordFld"/>
-				</div>
-			</div>
+	updatePassword = (event) => {
+		this.setState({
+						  password: event.target.value
+					  })
+		console.log(this.state.password)
+	}
 
-			<div className="form-group row">
-				<label htmlFor="verifyPasswordFld"
-					   className="col-sm-2 col-form-label">Verify Password
-				</label>
-				<div className="col-sm-10">
-					<input type="password"
-						   className="form-control wbdv-field wbdv-password-verify"
-						   id="verifyPasswordFld"/>
-				</div>
-			</div>
+	submitCredentials = () => {
+		console.log(this.state.firstName, this.state.lastName)
+	}
 
-			<div className="form-group row">
-				<label htmlFor="registerBtn" className="col-sm-2 col-form-label"></label>
 
-				<div className="col-sm-10">
-					<Link to='#'
-					   className="btn project-register-button btn-block"
-					   id="registerBtn">
-						Register
-					</Link>
-				</div>
-			</div>
-
+	render() {
+		return(
 			<div>
-				<Link to='/login'>
-					Already registered? Sign in
-				</Link>
+
+				<div className="container-fluid d-flex justify-content-center align-content-center project-register-container">
+
+					<div>
+
+						<h1>Register</h1>
+
+						<InputField fieldName={"First Name"} updateFirst={(e) => this.updateFirst(e)}/>
+
+						<InputField fieldName={"Last Name"} updateLast={(e) => this.updateLast(e)}/>
+
+						<InputField fieldName={"Email"} updateEmail={(e) => this.updateEmail(e)}/>
+
+						<InputField fieldName={"Password"} updatePassword={(e) => this.updatePassword(e)}/>
+
+
+						<div className="form-group row">
+							<div className="col-sm-10">
+								<Link to='#'
+									  className="btn project-register-button btn-block"
+									  id="registerBtn"
+								onClick={() => this.submitCredentials()}>
+									Register
+								</Link>
+							</div>
+						</div>
+
+						<div>
+							<Link to='/login'>
+								Already registered? Sign in
+							</Link>
+						</div>
+
+
+					</div>
+
+				</div>
+
 			</div>
 
-		</div>
-
-	</div>
-
-
+		)
+	}
+}

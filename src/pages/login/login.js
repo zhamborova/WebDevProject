@@ -1,53 +1,72 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import './login.css'
+import {InputField} from "../../components/input-field/input-field";
 
-export const Login = () =>
-	<div>
+export class Login extends React.Component {
+	state = {
+		email: '',
+		password: ''
+	}
 
-		<div className="container">
-			<Link to={'/'}>Back to Home</Link>
-			<h1>Login</h1>
+	updateEmail = (event) => {
+		this.setState({
+						  email: event.target.value
+					  })
+		console.log(this.state.email)
+	}
 
-			<div className="form-group row">
-				<label htmlFor="username" className="col-sm-2 col-form-label">Email</label>
-				<div className="col-sm-10">
-					<input type="username"
-						   className="form-control" id="username"/>
-				</div>
-			</div>
+	updatePassword = (event) => {
+		this.setState({
+						  password: event.target.value
+					  })
+		console.log(this.state.password)
+	}
 
-
-			<div className="form-group row">
-				<label htmlFor="password" className="col-sm-2 col-form-label">Password</label>
-				<div className="col-sm-10">
-					<input type="password"
-						   className="form-control" id="password"/>
-				</div>
-			</div>
+	submitCredentials = () => {
+		console.log(this.state.email, this.state.password)
+	}
 
 
-			<div className="form-group row">
-				<label htmlFor="loginBtn" className="col-sm-2 col-form-label"></label>
-
-				<div className="col-sm-10">
-					<Link to='#'
-					   className="btn btn-block project-login-button" id="loginBtn">
-						Login
-					</Link>
-				</div>
-			</div>
-
+	render() {
+		return(
 			<div>
-				<a href="#">Forgot Password?</a>
-			</div>
 
-			<div>
-				<Link to={'/register'}>Not registered yet? Sign Up</Link>
-			</div>
-		</div>
+				<div className="container-fluid d-flex justify-content-center align-content-center project-login-container">
 
-	</div>
+					<div>
+
+						<h1>Login</h1>
+
+						<InputField fieldName={"Email"} updateEmail={(e) => this.updateEmail(e)}/>
+						<InputField fieldName={"Password"} updatePassword={(e) => this.updatePassword(e)}/>
+
+						<div className="form-group row">
+							<div className="col-sm-12">
+								<Link to='#'
+									  className="btn btn-block project-login-button" id="loginBtn"
+									  onClick={() => this.submitCredentials()}>
+									Login
+								</Link>
+							</div>
+						</div>
+
+						<div>
+							<a href="#">Forgot Password?</a>
+						</div>
+
+						<div>
+							<Link to={'/register'}>Not registered yet? Sign Up</Link>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		)
+	}
+}
+
 
 
 

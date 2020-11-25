@@ -3,9 +3,6 @@
     background-color: forestgreen;
 }
 
-.project-register-page {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
+.project-register-container {
+    padding-top: 9%;
 }

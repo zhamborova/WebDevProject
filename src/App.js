@@ -7,10 +7,11 @@ import News from "./pages/news/news.js";
 import SingleEvent from "./pages/single-event/single-event";
 import {Login} from "./pages/login/login";
 import {Register} from "./pages/register/register";
+import {NavBar} from "./components/navbar/navbar";
 
 function App() {
   return (
-    <BrowserRouter   >
+    <BrowserRouter>
       <Switch>
           <Route exact path='/' component={Home}/>
           <Route exact path={['/news', "/news/:title"]} component={News}/>

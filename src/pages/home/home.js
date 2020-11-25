@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import bg from '../../assets/nature.png'
 import { faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {NavBar} from "../../components/navbar/navbar";
 
 class Home extends React.Component{
 
@@ -35,7 +36,8 @@ class Home extends React.Component{
         return (
 
             <div className="d-flex flex-column home-container">
-              <div className="search-container justify-content-center mb-3"
+                <NavBar/>
+                <div className="search-container justify-content-center mb-3"
                    style={{background: `url(${bg})`}}>
 
                   <div className="d-flex m-auto w-50">
@@ -45,8 +47,6 @@ class Home extends React.Component{
                              placeholder="Search locations..."/>
                       <button className="btn btn-success btn-submit ml-2">Submit</button>
                   </div>
-
-
               </div>
 
 
