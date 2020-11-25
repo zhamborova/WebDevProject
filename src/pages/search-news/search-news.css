@@ -1,0 +1,12 @@
+.news-list{
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto auto auto;
+}
+.news-search{
+
+    width: 82%;
+    margin: 50px auto;
+
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import NewsCard from "../../components/news-card/news-card";
 import newsService from '../../services/news-service'
-import './news.css'
+import './search-news.css'
 import {Link} from "react-router-dom";
-class News extends React.Component{
+class SearchNews extends React.Component{
 
     state={
         search: "",
@@ -42,16 +42,17 @@ class News extends React.Component{
     }
 
     render() {
-        return (
-            <div className="news-page-container d-flex flex-column  m-auto ">
-                <div className="w-50 d-flex flex-column m-auto">
-                <input type="text" className="news-search form-control mt-3"
-                       placeholder="Search..."
-                       value={this.state.search}
-                       onChange={(e)=> this.setState({search:e.target.value})}/>
-                <Link to={`/news/${this.state.search}`} className="form-control">Submit</Link>
-                </div>
-                <div className="news-list ">
+        return (<div className="news-search container d-flex flex-column">
+                    <h1 className="ml-3">News</h1>
+                    <div className="d-flex container  ">
+                        <input className="form-control"
+                               placeholder="Search news..."
+                               value={this.state.search}
+                               onChange={(e)=> this.setState({search:e.target.value})}/>
+                        <Link to={`/news/${this.state.search}`} className="ml-3 w-25">
+                            <button className="form-control search-btn ">Search</button></Link>
+                    </div>
+                <div className="news-list">
 
                     {this.state.articles.map(a =>
                         <NewsCard key={a.id} article={a}/>)}
@@ -62,4 +63,4 @@ class News extends React.Component{
     }
 }
 
-export  default News;
+export  default SearchNews;

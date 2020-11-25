@@ -1,7 +1,7 @@
 .single-event-container{
 
     width:80%;
-    margin: 50px auto;
+    margin: 50px auto 20px;
 }
 
 .host-img{
@@ -33,9 +33,16 @@
 
 }
 
+.event-editing{
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .event-title{
     font-weight: 700;
     font-style: normal;
+    margin-bottom: 0;
 }
 
 .event-description > h5{
@@ -49,6 +56,9 @@
 .event-description > p{
     font-weight: 500;
 }
+.event-description-edit{
+    height: 50%!important;
+}
 .event-tags > .nav > .nav-item{
 
     padding: 10px;
@@ -56,8 +66,55 @@
     background-color: #DBDBDB;
     border-radius: 20px;
 }
+
+
 .details-inner-div{
 
     width:88%;
     margin: 0 auto;
+}
+
+.event-participants{
+    display: flex;
+    flex-wrap: wrap;
+    width:80%;
+    margin: 50px auto 50px auto;
+}
+
+
+.event-attend{
+
+    height: 125px;
+    background-color: black;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.event-summary{
+    margin: 0 150px;
+}
+
+.btn-attend{
+    margin: 15px 150px 0;
+    padding: 12px 50px;
+}
+
+.event-tags > nav{
+    padding-left: 12px;
+}
+
+.react-date-picker__wrapper,.react-time-picker__wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    border: 1px solid #ced4da!important;
+    border-radius: .25rem;
+    padding: 10px;
+    margin-bottom: .5rem!important;
+
+}
+label{
+    display: block;
 }

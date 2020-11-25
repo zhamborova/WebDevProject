@@ -1,0 +1,9 @@
+svg.remove-tag-btn {
+    margin-left: 8px!important;
+    padding-top: 4px!important;
+    cursor: pointer;
+}
+
+.tag-name{
+    width: 96%;
+}
