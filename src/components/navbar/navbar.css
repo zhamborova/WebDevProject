@@ -17,16 +17,32 @@ li {
 }
 
 li a {
-    display: block;
+    display: flex;
     color: black;
     text-align: center;
-    padding: 14px 50px;
+    padding: 14px 40px;
     text-decoration: none;
 }
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: black;
+    background-color: darkgray;
+}
+
+
+.profile-nav-float-right {
+    margin-left: 40%;
+}
+.events-nav {
+    margin-left: 5%;
+}
+
+.news-nav {
+    margin-left: 5%;
+}
+
+.logo-nav {
+    margin-left: 5%;
 }
 
 

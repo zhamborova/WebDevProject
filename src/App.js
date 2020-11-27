@@ -14,12 +14,14 @@ import SearchEvents from "./pages/search-events/search-events";
 import Settings from "./pages/settings/settings";
 import UserProfile from "./pages/user-profile/user-profile";
 import SearchUsers from "./pages/search-users/seach-users";
+import TestingCurrentUser from "./pages/login/testing-current-user";
 
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
+          <Route excat path='/testingCurrentUser' component={TestingCurrentUser}/>
           <Route exact path='/' component={Home}/>
           <Route exact path={['/events', '/events/search/:searchEvent' ]} component={SearchEvents}/>
           <Route exact path={['/search-news', '/search-news/:title']} component={SearchNews}/>

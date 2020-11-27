@@ -7,17 +7,24 @@ export class NavBar extends React.Component {
 		return(
 			<div className="sticky">
 				<ul>
-					<li>
+					<li className="logo-nav">
 						<Link to={'/'}>Logo</Link>
 					</li>
-					<li>
-						<Link to={'/news'}>News</Link>
+					<li className="news-nav">
+						<Link to={'/search-news'}>News</Link>
 					</li>
-					<li>
+					<li className="events-nav">
 						<Link to={'/events'}>Events</Link>
 					</li>
-					<li className="float-right">
-						<Link to={'/'}>Profile</Link>
+					<li className="profile-nav-float-right">
+						<Link to={'/users/123/'}>Profile</Link>
+					</li>
+
+					<li>
+						<Link to={'/register'}>Register</Link>
+					</li>
+					<li>
+						<Link to={'/login'}>Login</Link>
 					</li>
 				</ul>
 			</div>
