@@ -21,7 +21,6 @@ function App() {
                 <Route exact path={['/search-news', '/search-news/:title']} component={SearchNews}/>
                 <Route exact path={'/events/:eventId'} component={SingleEvent} />
                 <Route exact path={'/users/:userId/events'} component={CreateEvent} />
-                <Route exact path={'/users/:userId/settings'} component={Settings} />
                 <Route exact path={'/users/:userId/'} component={UserProfile} />
                 <Route exact path={'/users/:userId/settings'} component={Settings} />
                 <Route exact path={[ '/searchUsers/:search','/searchUsers/' ]} component={SearchUsers} />

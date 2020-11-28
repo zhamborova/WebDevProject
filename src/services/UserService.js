@@ -1,4 +1,4 @@
-const url = "https://evening-cliffs-15769.herokuapp.com"
+const url = "http://localhost:8080"
 
 export const fetchAllUsers = () => {
     return fetch(`${url}/users`, {
@@ -8,10 +8,15 @@ export const fetchAllUsers = () => {
 }
 
 export const fetchUserById = (userId) => {
+    console.log(userId)
     return fetch(`${url}/users/${userId}`, {
-        method: 'GET',
+        method: 'GET'
     })
-        .then(response => response.json())
+        .then(response => {
+            response.json()
+            console.log(response)
+        })
+
 }
 
 export const updateUser = (user) => {

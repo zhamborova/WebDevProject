@@ -80,10 +80,16 @@ const users = [
 ]
 
 
-let init = {
-    user: users[0],
-    userId: users[0].id,
-    users: users
+// let init = {
+//     user: users[0],
+//     userId: users[0].id,
+//     users: users
+// }
+
+const init = {
+    user: {},
+    userId: '',
+    users: []
 }
 
 
@@ -93,14 +99,14 @@ export const user_reducer = (state=init, action) => {
 
         case CREATE_USER:
             return {...state,
-                events: [...state.events, action.event]};
+                users: [...state.users, action.user]};
         case UPDATE_USER:
             return {...state,
-                events: state.events.map(e => e.id === action.event.id ? action.event : e)
+                users: state.users.map(user => user.id === action.user.id ? action.user : user)
             };
         case DELETE_USER:
             return {...state,
-                events: state.events.filter(ev => ev.id !== action.id)};
+                users: state.users.filter(user => user.id !== action.id)};
         case GET_USER:
             return {...state,
                 user: action.user,
@@ -112,10 +118,7 @@ export const user_reducer = (state=init, action) => {
             };
         default:
             return state;
-
     }
-
-
 }
 
 export default user_reducer
