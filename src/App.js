@@ -5,9 +5,8 @@ import Home from "./pages/home/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchNews from "./pages/search-news/search-news.js";
 import SingleEvent from "./pages/single-event/single-event";
-import {Login} from "./pages/login/login";
-import {Register} from "./pages/register/register";
-import {NavBar} from "./components/navbar/navbar";
+import Login from "./pages/login/login";
+import Register from "./pages/register/register";
 
 import CreateEvent from "./pages/create-event/create-event";
 import SearchEvents from "./pages/search-events/search-events";

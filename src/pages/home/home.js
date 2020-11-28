@@ -21,6 +21,7 @@ class Home extends React.Component{
    }
 
      componentDidMount() {
+       console.log(this.props)
         get_events().then(events => {
             this.setState({events:events.slice(0,3)})
             this.props.set_events(events);
@@ -93,7 +94,8 @@ class Home extends React.Component{
 
 const mapStateToProps = (state) =>{
 
-  return{ events: []}
+  return{events:[],
+         current_user: state.users.current_user}
 
 }
 const mapDispatchToProps = dispatch => ({

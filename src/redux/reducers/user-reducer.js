@@ -1,5 +1,3 @@
-
-
 import img4 from "../../assets/Ellipse 4.png";
 import img2 from "../../assets/Ellipse 2.png";
 import img3 from "../../assets/Ellipse 3.png";
@@ -84,7 +82,8 @@ const users = [
 
 let init = {
     user: users[0],
-    users: users
+    users: users,
+    current_user: null,
 }
 
 
@@ -102,6 +101,12 @@ export const user_reducer = (state=init, action) => {
         case DELETE_USER:
             return {...state,
                 events: state.events.filter(ev => ev.id !== action.id)};
+        case "SET_CURRENT_USER":
+          console.log(action)
+            return {
+                ...state,
+                current_user: action.current_user
+            }
 
         default: return state;
 
