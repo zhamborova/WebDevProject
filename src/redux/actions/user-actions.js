@@ -7,6 +7,8 @@ export const GET_ALL_USER = "GET_ALL_USER";
 export const GET_USER = "GET_USER";
 export const SEARCH_USER = "SEARCH_USER";
 
+
+
 export const create_user = (user, dispatch) =>{
     userService.createUser(user)
         .then(created_user => dispatch({

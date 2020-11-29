@@ -7,6 +7,7 @@ import {faLongArrowAltRight,  faMapMarkerAlt} from "@fortawesome/free-solid-svg-
 import EventCard from "../../components/event-card/event-card";
 import './user-profile.css'
 import img from '../../assets/Ellipse1.png'
+import {NavBar} from "../../components/navbar/navbar";
 
 const UserProfile = (props) => {
 
@@ -14,6 +15,8 @@ const UserProfile = (props) => {
 
   let {events} = props;
   return <div className="user-container d-flex flex-column">
+      <NavBar/>
+
       <div className="user-description mb-5">
           <div className="row ">
               <div className="profile-image col-3 mr-2">

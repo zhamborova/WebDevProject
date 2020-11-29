@@ -1,0 +1,48 @@
+
+.sticky {
+    position: fixed;
+    background-color: white;
+    top: 0;
+    width: 100%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    background-color: red;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: flex;
+    color: black;
+    text-align: center;
+    padding: 14px 40px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: darkgray;
+}
+
+
+.profile-nav-float-right {
+    margin-left: 40%;
+}
+.events-nav {
+    margin-left: 5%;
+}
+
+.news-nav {
+    margin-left: 5%;
+}
+
+.logo-nav {
+    margin-left: 5%;
+}
+
+

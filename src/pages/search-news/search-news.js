@@ -3,6 +3,7 @@ import NewsCard from "../../components/news-card/news-card";
 import newsService from '../../services/news-service'
 import './search-news.css'
 import {Link} from "react-router-dom";
+import {NavBar} from "../../components/navbar/navbar";
 class SearchNews extends React.Component{
 
     state={
@@ -42,8 +43,11 @@ class SearchNews extends React.Component{
     }
 
     render() {
-        return (<div className="news-search container d-flex flex-column">
-                    <h1 className="ml-3">News</h1>
+        return (
+            <div className="news-search container d-flex flex-column">
+                <NavBar/>
+
+                <h1 className="ml-3">News</h1>
                     <div className="d-flex container  ">
                         <input className="form-control"
                                placeholder="Search news..."

@@ -43,12 +43,8 @@ class SingleEvent extends React.Component{
          }
      }
     componentDidMount() {
-        this.setState({...this.props.event}, ()=>{
-            this.putHostFirst();
-        })
-
-        console.log(this.props)
-
+        this.setState({...this.props.event},
+            ()=>{if (this.state.participants.length > 0) this.putHostFirst();})
 
     }
 
@@ -203,13 +199,11 @@ class SingleEvent extends React.Component{
             </button>
         </div>
      </>
-
-        )}
+)}
 }
 
 const mapStateToProps = (state, ownProps) =>{
     let id = ownProps.match.params.eventId
-   console.log(state.events)
     return{  event: state.events.events.find(e => e.id === parseInt(id))}
 
 }

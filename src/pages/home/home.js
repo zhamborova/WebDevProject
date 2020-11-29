@@ -7,26 +7,11 @@ import {Link} from "react-router-dom";
 import bg from '../../assets/nature.png'
 import { faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import host_img from "../../assets/Ellipse 1.png";
-import event_img from "../../assets/lake.png";
+import {NavBar} from "../../components/navbar/navbar";
 import {connect} from "react-redux";
+import { get_events} from "../../services/events-service"
+import { set_events} from "../../redux/actions/event-actions";
 
-const event = {
-
-    title: "Lake Baikal cleanup",
-    host_name: "Bryan Young",
-    host_img: host_img,
-    event_img: event_img,
-    event_date:{startTime: "", endTime: "", date: ""},
-    event_location: {street: "", city:"", state: "", country: "", zip: ""},
-    event_dscrp: "Lorem ipsum dolor sit amet, consectetur adipiscing elit," +
-        " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
-        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit " +
-        "in voluptate velit esse cillum dolore eu fugiat nulla.",
-    event_tags: ["hashtag1", "hashtag2", "community-service",],
-    participants: [1,2,3,]
-}
 
 class Home extends React.Component{
 
@@ -36,6 +21,10 @@ class Home extends React.Component{
    }
 
      componentDidMount() {
+        get_events().then(events => {
+            this.setState({events:events.slice(0,3)})
+            this.props.set_events(events);
+        })
         this.setState({events:this.props.events})
           newsService.fetchAllNews(10).then(data=> {
             let src = data.articles
@@ -57,7 +46,8 @@ class Home extends React.Component{
         return (
 
             <div className="d-flex flex-column home-container">
-              <div className="search-container justify-content-center mb-3"
+                <NavBar/>
+                <div className="search-container justify-content-center mb-3"
                    style={{background: `url(${bg})`}}>
 
                   <div className="d-flex m-auto w-50">
@@ -65,8 +55,6 @@ class Home extends React.Component{
                          placeholder="Search events..."/>
                       <button className="btn btn-success btn-submit ml-2">Submit</button>
                   </div>
-
-
               </div>
 
 
@@ -105,8 +93,12 @@ class Home extends React.Component{
 
 const mapStateToProps = (state) =>{
 
-    return{ events: state.events.events.slice(0,3)}
+  return{ events: []}
 
 }
+const mapDispatchToProps = dispatch => ({
+    set_events: (events) => set_events(dispatch, events),
 
-export default connect(mapStateToProps)(Home);
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
