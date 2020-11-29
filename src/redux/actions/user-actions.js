@@ -1,4 +1,6 @@
 import userService from "../../services/UserService";
+import {login} from "../../services/user-service";
+
 export const CREATE_USER = "CREATE_USER";
 export const DELETE_USER = "DELETE_USER";
 export const UPDATE_USER = "UPDATE_USER";
@@ -54,6 +56,15 @@ export const get_all_users = (dispatch) => {
         }))
 }
 
+//request from backend should be done here
+export const setCurrentUser = (dispatch, current_user) =>
+    login(current_user).then(returnedUser => {
+            dispatch({
+                type: "SET_CURRENT_USER",
+                current_user : returnedUser
+            })
+
+    })
 
 
 

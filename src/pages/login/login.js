@@ -4,7 +4,7 @@ import './login.css'
 import {InputField} from "../../components/input-field/input-field";
 import {login} from "../../services/user-service";
 import {connect} from "react-redux";
-import {setCurrentUser} from "../../redux/actions/set-current-user-action"
+import {setCurrentUser} from "../../redux/actions/user-actions"
 
 
 export class Login extends React.Component {
@@ -12,44 +12,30 @@ export class Login extends React.Component {
 		email: '',
 		password: '',
 		firstName: '',
-		lastName: ''
-	}
-	currentUser = {
+		lastName: '',
+		current_user: {}
 	}
 
-	isValid = false
+
 
 	updateEmail = (event) => {
 		this.setState({
 						  email: event.target.value
 					  })
-		console.log(this.state.email)
+
 	}
 
 	updatePassword = (event) => {
 		this.setState({
 						  password: event.target.value
 					  })
-		console.log(this.state.password)
+
 	}
 
-	submitCredentials = (user) => {
-		console.log("Here is the data to be sent:")
-		console.log(this.state);
-		console.log("Here is the logged in user:")
-
+     submitCredentials = (user) => {
+         this.props.setCurrentUser(this.state)
 		// call user-service and get the response
-		login(user).then(returnedUser => {
-			if (returnedUser['firstName'] === 'none') {
-				console.log("Could not authenticate")
-			} else {
-				console.log('Success')
-				this.currentUser = returnedUser
-				console.log("Here is the new current user after logging in!")
-				console.log(this.currentUser)
-			}
-		})
-		this.props.setCurrentUser(this.currentUser)
+
 	}
 
 
@@ -92,12 +78,10 @@ export class Login extends React.Component {
 	}
 }
 
-const stateToPropertyMapper = (state) => ({
 
+
+const propertyToDispatchMapper = dispatch => ({
+	setCurrentUser: (current_user) => setCurrentUser(dispatch, current_user)
 })
 
-const propertyToDispatchMapper = (dispatch) => ({
-	setCurrentUser: (currentUser) => setCurrentUser(dispatch, currentUser)
-})
-
-export default connect(stateToPropertyMapper, propertyToDispatchMapper)(Login)
+export default connect(()=>{}, propertyToDispatchMapper)(Login)

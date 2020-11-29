@@ -80,16 +80,10 @@ const users = [
 ]
 
 
-// let init = {
-//     user: users[0],
-//     userId: users[0].id,
-//     users: users
-// }
-
-const init = {
-    user: {},
-    userId: '',
-    users: []
+let init = {
+    user: users[0],
+    users: users,
+    current_user: null,
 }
 
 
@@ -116,8 +110,15 @@ export const user_reducer = (state=init, action) => {
             return {...state,
                 users: action.users
             };
-        default:
-            return state;
+        case "SET_CURRENT_USER":
+          console.log(action)
+            return {
+                ...state,
+                current_user: action.current_user
+            }
+
+        default: return state;
+
     }
 }
 
