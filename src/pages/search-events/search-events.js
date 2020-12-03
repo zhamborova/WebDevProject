@@ -55,7 +55,7 @@ class SearchEvents extends React.Component{
     render(){
         return(
             <div className="container d-flex flex-column w-75 mt-5">
-                <NavBar/>
+
 
                 <h1 className="ml-3">Events</h1>
                 <div className="d-flex container  ">
