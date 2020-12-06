@@ -6,10 +6,37 @@ import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {connect} from "react-redux";
 
+import { useState, useEffect } from 'react';
+
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+        width,
+        height
+    };
+}
+
+ function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return windowDimensions;
+}
 
 const EventCard = ({event,vertical, users}) => {
-
+    const { height, width } = useWindowDimensions();
     let v = vertical ? "v" : "";
+    if(width <= 600){
+        v=""
+    }
     let length = event.participants.length;
     return <Link to={`/events/${event.id}`}>
         <div className={`card event-card ${v}`}>
