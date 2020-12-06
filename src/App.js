@@ -14,11 +14,15 @@ import Settings from "./pages/settings/settings";
 import UserProfile from "./pages/user-profile/user-profile";
 import SearchUsers from "./pages/search-users/seach-users";
 import TestingCurrentUser from "./pages/login/testing-current-user";
+import {NavBar} from "./components/navbar/navbar";
 
 
 function App() {
   return (
+      <>
+
     <BrowserRouter>
+
       <Switch>
           <Route excat path='/testingCurrentUser' component={TestingCurrentUser}/>
           <Route exact path='/' component={Home}/>
@@ -33,7 +37,8 @@ function App() {
           <Route exact path={[ '/searchUsers/:search','/searchUsers/' ]} component={SearchUsers} />
       </Switch>
     </BrowserRouter>
-    );
+</>
+  );
 }
 
 export default App;
