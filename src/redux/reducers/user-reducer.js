@@ -3,7 +3,7 @@ import img2 from "../../assets/Ellipse 2.png";
 import img3 from "../../assets/Ellipse 3.png";
 import {CREATE_USER, DELETE_USER, UPDATE_USER, GET_USER, GET_ALL_USER} from "../actions/user-actions";
 
-const users = [
+let users = [
     { id:123, first_name: "Michelle", last_name: "Steel",  img: img4,
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
             "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, q" +
@@ -82,6 +82,7 @@ const users = [
 
 let init = {
     user: users[0],
+    userId: users[0].id,
     users: users,
     current_user: null,
 }
@@ -93,7 +94,8 @@ export const user_reducer = (state=init, action) => {
 
         case CREATE_USER:
             return {...state,
-                users: [...state.users, action.user]};
+                users: [...state.users, action.user]
+            };
         case UPDATE_USER:
             return {...state,
                 users: state.users.map(user => user.id === action.user.id ? action.user : user)

@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from "redux";
 import {persistReducer, persistStore} from "redux-persist";
-import {event_reducer} from "./redux/reducers/event-reducer";
-import {user_reducer} from "./redux/reducers/user-reducer";
+import {event_reducer} from "./reducers/event-reducer";
+import {user_reducer} from "./reducers/user-reducer";
 
 import storage from "redux-persist/lib/storage"
 
