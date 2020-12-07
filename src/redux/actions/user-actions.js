@@ -10,6 +10,12 @@ export const SEARCH_USER = "SEARCH_USER"
 
 
 
+export const get_current_user = (user, dispatch) => {
+    dispatch({
+        type: "GET_CURRENT_USER",
+        user
+    })
+}
 
 export const create_user = (user, dispatch) =>{
     dispatch({
@@ -39,13 +45,11 @@ export const delete_user = (id, dispatch) =>{
 
 //request from backend should be done here
 export const setCurrentUser = (dispatch, current_user) =>
-    login(current_user).then(returnedUser => {
-            dispatch({
-                type: "SET_CURRENT_USER",
-                current_user : returnedUser
-            })
-
+    dispatch({
+        type: "SET_CURRENT_USER",
+        current_user : current_user
     })
+
 
 
 

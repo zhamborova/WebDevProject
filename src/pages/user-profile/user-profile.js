@@ -7,24 +7,15 @@ import {faLongArrowAltRight,  faMapMarkerAlt} from "@fortawesome/free-solid-svg-
 import EventCard from "../../components/event-card/event-card";
 import './user-profile.css'
 import img from '../../assets/Ellipse1.png'
-import {NavBar} from "../../components/navbar/navbar";
-
-
-
-
 
 
 
 const UserProfile = (props) => {
 
-  let {id,first_name, last_name, location, bio, friends} = props.user;
-
-
-
+  let {id,first_name, last_name, location, bio, friends} = props.current_user;
 
   let {events} = props;
   return <div className="user-container d-flex flex-column">
-      <NavBar/>
 
       <div className="user-description mb-5">
           <div className="row ">
@@ -42,6 +33,7 @@ const UserProfile = (props) => {
                       <span className="p-2">Settings</span>
                       <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
                   </Link>
+
               </div>
           </div>
 
@@ -87,10 +79,13 @@ const mapStateToProps = (state, ownProps) =>{
      let id = parseInt(ownProps.match.params.userId)
      let user = state.users.users.find(user => user.id === id)
      let events = state.events.events.filter(e => e.participants.some(id => id === id ))
+    let current_user = state.users.current_user
 
     return{  events: events,
-             user: user,
-             users: state.users.users}
+        user: user,
+        users: state.users.users,
+        current_user: current_user
+    }
 
 }
 

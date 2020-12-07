@@ -29,7 +29,7 @@ export class InputField extends React.Component {
 						 />
 						}
 						{this.props.fieldName === "Password" &&
-						 <input
+						 <input type="password"
 								className="form-control"
 								onChange={(event) => this.props.updatePassword(event)}
 						 />

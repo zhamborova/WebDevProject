@@ -13,32 +13,53 @@ import SearchEvents from "./pages/search-events/search-events";
 import Settings from "./pages/settings/settings";
 import UserProfile from "./pages/user-profile/user-profile";
 import SearchUsers from "./pages/search-users/seach-users";
-import TestingCurrentUser from "./pages/login/testing-current-user";
-import {NavBar} from "./components/navbar/navbar";
+import NavBar from "./components/navbar/navbar";
+import {connect} from "react-redux";
 
 
-function App() {
+function App(props) {
   return (
       <>
 
     <BrowserRouter>
+        <NavBar/>
 
-      <Switch>
-          <Route excat path='/testingCurrentUser' component={TestingCurrentUser}/>
-          <Route exact path='/' component={Home}/>
-          <Route exact path={['/events', '/events/search/:searchEvent' ]} component={SearchEvents}/>
-          <Route exact path={['/search-news', '/search-news/:title']} component={SearchNews}/>
-          <Route exact path={'/events/:eventId'} component={SingleEvent} />
-          <Route exact path={'/login'} component={Login}/>
-          <Route exact path={'/register'} component={Register}/>
-          <Route exact path={'/users/:userId/events'} component={CreateEvent} />
-          <Route exact path={'/users/:userId/settings'} component={Settings} />
-          <Route exact path={'/users/:userId/'} component={UserProfile} />
-          <Route exact path={[ '/searchUsers/:search','/searchUsers/' ]} component={SearchUsers} />
-      </Switch>
+
+        {props.current_user.id !== undefined &&
+        <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route exact path={['/events', '/events/search/:searchEvent' ]} component={SearchEvents}/>
+            <Route exact path={['/search-news', '/search-news/:title']} component={SearchNews}/>
+            <Route exact path={'/events/:eventId'} component={SingleEvent} />
+            <Route exact path={'/login'} component={Login}/>
+            <Route exact path={'/register'} component={Register}/>
+            <Route exact path={'/users/:userId/events'} component={CreateEvent} />
+            <Route exact path={'/users/:userId/settings'} component={Settings} />
+            <Route exact path={'/users/:userId/'} component={UserProfile} />
+            <Route exact path={[ '/searchUsers/:search','/searchUsers/' ]} component={SearchUsers} />
+        </Switch>
+        }
+
+        {props.current_user.id === undefined &&
+        <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route exact path={['/search-news', '/search-news/:title']} component={SearchNews}/>
+            <Route exact path={'/login'} component={Login}/>
+            <Route exact path={'/register'} component={Register}/>
+        </Switch>
+        }
+
+
     </BrowserRouter>
 </>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        current_user: state.users.current_user,
+    }
+}
+
+export default connect(mapStateToProps)(App)
+

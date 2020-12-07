@@ -18,6 +18,7 @@ class Home extends React.Component{
    state={
        articles: [],
        events: [],
+       current_user: {}
    }
 
      componentDidMount() {
@@ -47,7 +48,7 @@ class Home extends React.Component{
         return (
 
             <div className="d-flex flex-column home-container">
-                <NavBar/>
+
                 <div className="search-container justify-content-center mb-3"
                    style={{background: `url(${bg})`}}>
 
@@ -61,6 +62,7 @@ class Home extends React.Component{
 
                 <div className="news-container ">
                     <div className="d-flex">
+
                         <h3>News</h3>
                     <Link to={'/search-news'} className="ml-auto mr-1">View all
                     </Link>
@@ -84,8 +86,11 @@ class Home extends React.Component{
                     </div>
                 </div>
 
-               <Link to="/users/:userId/events" className="m-auto">
-                   <button className="btn btn-success host-btn " > Host event </button></Link>
+                {this.props.current_user.id !== undefined &&
+                <Link to="/users/:userId/events" className="m-auto">
+                    <button className="btn btn-success host-btn " > Host event </button></Link>
+                }
+
 
         </div>)
     }

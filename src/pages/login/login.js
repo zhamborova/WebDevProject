@@ -13,10 +13,19 @@ export class Login extends React.Component {
 		password: '',
 		firstName: '',
 		lastName: '',
-		current_user: {}
+		current_user: {},
+		loginStatus: "initial"
 	}
 
-
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		const lastStatus = prevState.loginStatus;
+		const newStatus = this.state.loginStatus;
+		if (lastStatus !== this.state.loginStatus) {
+			this.setState({loginStatus: newStatus})
+		}
+		console.log("We are in component did update, here is the old status: " + lastStatus)
+		console.log("We are in component did update, here is the new status: " + newStatus)
+	}
 
 	updateEmail = (event) => {
 		this.setState({
@@ -33,9 +42,23 @@ export class Login extends React.Component {
 	}
 
      submitCredentials = (user) => {
-         this.props.setCurrentUser(this.state)
-		// call user-service and get the response
+		console.log("We are in submit credentials")
+		 //login(user).then(response => console.log("Response status " + response.status))
+		 login(user).then(response => this.setState({
+			 current_user: {
+				 id: response.id,
+				 first_name: response.firstName,
+				 last_name: response.lastName,
+				 bio: response.bio,
+				 location: response.location,
+				 friends: response.friends,
+				 events: response.events,
+				 email: response.email,
+			 },
 
+			 loginStatus: response.loginStatus}))
+
+		 this.setState({loginStatus: "loading"})
 	}
 
 
@@ -47,28 +70,68 @@ export class Login extends React.Component {
 
 					<div>
 
-						<h1>Login</h1>
 
-						<InputField fieldName={"Email"} updateEmail={(e) => this.updateEmail(e)}/>
-						<InputField fieldName={"Password"} updatePassword={(e) => this.updatePassword(e)}/>
+						{this.state.loginStatus !== "success" &&
+						<div>
+							<h1>Login</h1>
+							<InputField fieldName={"Email"} updateEmail={(e) => this.updateEmail(e)}/>
+							<InputField fieldName={"Password"} updatePassword={(e) => this.updatePassword(e)}/>
+						</div>
+						}
 
 						<div className="form-group row">
 							<div className="col-sm-10">
-								<Link to='/'
+								{this.state.loginStatus === "initial" &&
+								<Link to='#'
 									  className="btn btn-block project-login-button" id="loginBtn"
 									  onClick={() => this.submitCredentials(this.state)}>
 									Login
 								</Link>
+								}
+
+								{this.state.loginStatus === "success" &&
+								<div>
+									Success!
+									<Link to='/'
+										  className="btn btn-block project-login-button" id="loginBtn"
+										  onClick={() => this.props.setCurrentUser(this.state.current_user)}>
+										To Home Page
+									</Link>
+								</div>
+
+								}
+
+								{this.state.loginStatus === "unsuccessful" &&
+								<div>
+									Sorry, credentials are invalid, try again
+									<Link to='#'
+										  className="btn btn-block project-login-button" id="loginBtn"
+										  onClick={() => this.submitCredentials(this.state)}>
+										Login
+									</Link>
+								</div>
+
+								}
+
+								{this.state.loginStatus === "loading" &&
+								<div>Loading, please wait...</div>
+								}
+
 							</div>
 						</div>
 
+						{this.state.loginStatus !== "success" &&
 						<div>
-							<a href="#">Forgot Password?</a>
-						</div>
+							<div>
+								<a href="#">Forgot Password?</a>
+							</div>
 
-						<div>
-							<Link to={'/register'}>Not registered yet? Sign Up</Link>
+							<div>
+								<Link to={'/register'}>Not registered yet? Sign Up</Link>
+							</div>
 						</div>
+						}
+
 					</div>
 
 				</div>

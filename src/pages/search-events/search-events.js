@@ -11,7 +11,8 @@ class SearchEvents extends React.Component{
     state={
         search: "",
         results: [],
-        all: []
+        all: [],
+        current_user: {}
     }
 
 
@@ -55,18 +56,22 @@ class SearchEvents extends React.Component{
     render(){
         return(
             <div className="container d-flex flex-column w-75 mt-5">
+                {this.props.current_user.id !== undefined &&
+                    <div>
+                        <h1 className="ml-3">Events</h1>
+                        <div className="d-flex container  ">
+                            <input className="form-control" placeholder="Search events..." value={this.state.search}
+                                   onChange={(e)=> this.setState({search:e.target.value})}/>
+                            <Link to={`/events/${this.state.search}`} className="ml-3 w-25">
+                                <button className="form-control search-btn ">Search</button></Link>
+                        </div>
+                        <div className="search-results container  m-auto">
+                            {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}
+                        </div>
+                    </div>
+                }
 
-
-                <h1 className="ml-3">Events</h1>
-                <div className="d-flex container  ">
-                <input className="form-control" placeholder="Search events..." value={this.state.search}
-                       onChange={(e)=> this.setState({search:e.target.value})}/>
-                <Link to={`/events/${this.state.search}`} className="ml-3 w-25">
-                <button className="form-control search-btn ">Search</button></Link>
-                </div>
-                <div className="search-results container  m-auto">
-                    {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}
-                </div>
+                Please log in or register first in order to access events
             </div>
 
 
@@ -77,7 +82,10 @@ class SearchEvents extends React.Component{
 
 const mapStateToProps = (state) =>{
 
-    return{  results: state.events.events}
+    return{
+        results: state.events.events,
+        current_user: state.users.current_user
+    }
 
 }
 

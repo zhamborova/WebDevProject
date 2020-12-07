@@ -83,14 +83,16 @@ const users = [
 let init = {
     user: users[0],
     users: users,
-    current_user: null,
+    current_user: {},
 }
 
 
 export const user_reducer = (state=init, action) => {
 
     switch (action.type) {
-
+        case "GET_CURRENT_USER":
+            console.log("We are in user-reducer. Getting the current user: " + state.current_user)
+            return state.current_user
         case CREATE_USER:
             return {...state,
                 events: [...state.events, action.event]};
@@ -102,7 +104,7 @@ export const user_reducer = (state=init, action) => {
             return {...state,
                 events: state.events.filter(ev => ev.id !== action.id)};
         case "SET_CURRENT_USER":
-          console.log(action)
+          console.log("We are in user-reducer, setting current user " + action.current_user.name)
             return {
                 ...state,
                 current_user: action.current_user
