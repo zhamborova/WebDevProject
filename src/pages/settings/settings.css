@@ -1,19 +1,29 @@
 .body {
     background-color: #f7f7f7;
     padding-right: 10%;
-    padding-top: 10%;
-    padding-bottom: 10%
+    padding-top: 20%;
+    padding-bottom: 10%;
     /*padding: 8%;*/
 
 }
-
-
 
 .profile-container {
     background-color: #FFFFFF;
     width: 80%;
     padding: 5%;
 
+}
+
+.left-column-padding {
+    padding-left: 10%
+}
+
+.container-padding {
+    padding-top: 5%
+}
+
+.button-padding {
+    padding-top: 5%
 }
 
 .default-size {
@@ -34,10 +44,18 @@ a:active {
     color: #3d8f32;
 }
 
+.header-location {
+    padding-left: 10%;
+}
+
 .right-column-container {
     background-color: #FFFFFF;
     width: auto;
     padding: 5%;
+}
+
+.bigger-font {
+    font-size: large
 }
 
 .outer-container-padding {

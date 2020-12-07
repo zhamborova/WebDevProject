@@ -20,6 +20,8 @@ export const fetchUserById = (userId) => {
 }
 
 export const updateUser = (user) => {
+    console.log("UPDATING USER")
+    console.log(user)
     return fetch(`${url}/users/${user.id}`, {
         method: 'PUT',
         body: JSON.stringify(user),

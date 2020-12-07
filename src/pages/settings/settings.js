@@ -55,8 +55,10 @@ class Settings extends React.Component {
             <div className={"body"}>
                 <div className={"row"}>
                     <NavBar/>
+                    {/*<h3 className={"header-location"}>Settings</h3>*/}
                     <div className={"container profile-container col-4"}>
                         <h3>Settings</h3>
+
                         {
                             this.state.editing &&
                                 <div>
@@ -120,21 +122,17 @@ class Settings extends React.Component {
                             this.state.editing &&
                                 <div>
                                     <div className={"container right-column-container"}>
-                                    <div className={'form-group row'}>
                                         <label>Email</label>
                                             <input className={"form-control"} placeholder={this.state.user.email}
                                                onChange={(event) =>
                                                     updateUser({...this.state.user, email: event.target.value})}/>
 
                                     </div>
-                                    </div>
                                     <div className={"container right-column-container"}>
-                                    <div className={'form-group row'}>
                                         <label>Password</label>
                                         <input className={"form-control"} placeholder={this.state.user.password}
                                                onChange={(event) =>
                                                    updateUser({...this.state.user, password: event.target.value})}/>
-                                    </div>
                                     </div>
                                 </div>
                         }
@@ -158,18 +156,32 @@ class Settings extends React.Component {
                                 </div>
                         }
 
+                        <div className={"container-padding"}>
                         <span>
-                            <div className={"container right-column-container"}>FAQ
+                            <div className={"container right-column-container bigger-font"}>FAQ
                             <FontAwesomeIcon className={"mt-1 display-right"} icon={faLongArrowAltRight}/>
                             </div>
                         </span>
+                        </div>
+                        <div className={"container-padding"}>
                         <span>
                             <div className={"container right-column-container"}>Report a problem
                             <FontAwesomeIcon className={"mt-1 display-right"} icon={faLongArrowAltRight}/>
                             </div>
                         </span>
+                        </div>
+                        {
+                            this.state.editing &&
+                            <span>
+                                <div className={"button-padding"}>
+                                    <a href={"#"} onClick={() =>
+                                        this.setState({editing: false})} className={'display-right'}>
+                                    <button type="button" className="btn btn-outline-secondary">Done Editing</button>
+                                    </a>
+                                </div>
+                            </span>
+                        }
                     </div>
-
                 </div>
             </div>
         )
