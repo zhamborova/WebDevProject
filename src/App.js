@@ -24,7 +24,6 @@ function App() {
     <BrowserRouter>
 
       <Switch>
-          <Route excat path='/testingCurrentUser' component={TestingCurrentUser}/>
           <Route exact path='/' component={Home}/>
           <Route exact path={['/events', '/events/search/:searchEvent' ]} component={SearchEvents}/>
           <Route exact path={['/search-news', '/search-news/:title']} component={SearchNews}/>

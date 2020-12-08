@@ -21,12 +21,14 @@ class Home extends React.Component{
    }
 
      componentDidMount() {
-       console.log(this.props)
+
         get_events().then(events => {
-            this.setState({events:events.slice(0,3)})
+            let evts= [events["0"], events["1"], events["2"]];
+
+            this.setState({events:evts})
             this.props.set_events(events);
         })
-        this.setState({events:this.props.events})
+
           newsService.fetchAllNews(10).then(data=> {
             let src = data.articles
             let obj = {}
@@ -94,8 +96,7 @@ class Home extends React.Component{
 
 const mapStateToProps = (state) =>{
 
-  return{events:[],
-         current_user: state.users.current_user}
+  return{current_user: state.users.current_user}
 
 }
 const mapDispatchToProps = dispatch => ({

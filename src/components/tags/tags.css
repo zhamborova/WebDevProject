@@ -7,3 +7,8 @@ svg.remove-tag-btn {
 .tag-name{
     width: 96%;
 }
+
+.events-tags > ul{
+    background-color: transparent!important;
+}
+
