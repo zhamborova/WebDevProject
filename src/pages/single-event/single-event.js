@@ -204,6 +204,7 @@ class SingleEvent extends React.Component{
 
 const mapStateToProps = (state, ownProps) =>{
     let id = ownProps.match.params.eventId
+    console.log(state)
     return{  event: state.events.events[id]}
 
 }

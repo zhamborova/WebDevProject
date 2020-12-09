@@ -3,64 +3,36 @@ import './settings.css';
 import {connect} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
-import InputBox from "../../components/input-box/input-box";
-import {create_user, delete_user, update_user, get_user} from '../../redux/actions/user-actions';
-import {
-    fetchAllUsers,
-    fetchUserById,
-    updateUser,
-    deleteUser,
-    createUser
-} from '../../services/UserService'
-import img4 from "../../assets/Ellipse 4.png";
-import {NavBar} from "../../components/navbar/navbar";
+import {create_user, delete_user, update_user,} from '../../redux/actions/user-actions';
+
 
 class Settings extends React.Component {
 
     state = {
-        user: { id:123, first_name: "Michelle", last_name: "Steel",  img: img4,
-            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
-                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, q" +
-                "uis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " +
-                "Duis aute irure dolor in reprehenderit i" +
-                "n voluptate velit esse cillum dolore eu fugiat nulla.",
-            location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
-            friends: [345, 234, 456,567,678],
-            events: [1,2,3,4,5],
-            email: "efe@gmail.com"},
-        // temporary
+        user: {},
         editing: false
     }
 
     componentDidMount() {
-        let {current_user} = this.props
-        console.log(this.props)
-        console.log(current_user)
-        if (current_user !== undefined) {
-        this.setState({user: current_user})
-        }
+        let {user} = this.props
+        this.setState({user},()=>{
+            console.log(this.state.user)
+        })
     }
 
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     const userId = this.props.match.params.userId
-    //     const previousUserId = prevProps.match.params.userId
-    //     if (userId !== previousUserId) {
-    //         this.props.getUser(userId)
-    //     }
-    // }
 
     render() {
+        console.log(this.state)
         return (
             <div className={"body"}>
                 <div className={"row"}>
-                    <NavBar/>
-                    {/*<h3 className={"header-location"}>Settings</h3>*/}
                     <div className={"container profile-container col-4"}>
-                        <h3>Settings</h3>
-
-                        {
-                            this.state.editing &&
+                        <div className="d-flex justify-content-between">
+                            <h3>Settings</h3> <a href={"#"}
+                                                 onClick={() => this.setState({editing: true})}
+                                                  className={'display-right edit-color mt-2'}>Edit</a></div>
+                        { this.state.editing &&
                                 <div>
                                     <p className={"align-center"}>
                                         <img src={this.state.user.img} className={"default-size"}/>
@@ -69,50 +41,42 @@ class Settings extends React.Component {
                                         <label>First Name</label>
                                         <input className={"form-control"} placeholder={this.state.user.first_name}
                                                onChange={(event) =>
-                                                   updateUser({...this.state.user, first_name: event.target.value})}/>
+                                                   update_user({...this.state.user, first_name: event.target.value})}/>
                                     </div>
                                     <div className={'form-group row'}>
                                         <label>Last Name</label>
                                         <input className={"form-control"} placeholder={this.state.user.last_name}
                                                onChange={(event) =>
-                                                   updateUser({...this.state.user, last_name: event.target.value})}/>
+                                                   update_user({...this.state.user, last_name: event.target.value})}/>
                                     </div>
                                     <div className={'form-group row'}>
                                         <label>Location</label>
                                         <input className={"form-control"} placeholder={this.state.user.location.street +
                                         " " + this.state.user.location.city + " " +
-                                        this.state.user.location.country + " " +
-                                        this.state.user.location.country}
+                                        this.state.user.location.country }
                                                onChange={(event) =>
-                                                   updateUser({...this.state.user, location: event.target.value})}/>
+                                                   update_user({...this.state.user, location: event.target.value})}/>
                                     </div>
                                     <div className={'form-group row'}>
                                         <label>Bio</label>
                                         <input className={"form-control"} placeholder={this.state.user.bio}
                                                onChange={(event) =>
-                                                   updateUser({...this.state.user, bio: event.target.value})}/>
+                                                   update_user({...this.state.user, bio: event.target.value})}/>
                                     </div>
                                 </div>
                         }
                         {
                             !this.state.editing &&
                                 <div>
-                                    <p className={"align-center"}>
                                     <img src={this.state.user.img} className={"default-size"}/>
-                                    </p>
                                     <label>Name</label>
-                                    <span>
-                                        {this.state.user.first_name + " " + this.state.user.last_name}
-                                        <a href={"#"} onClick={() => this.setState({editing: true})} className={'display-right edit-color'}>Edit</a>
-                                    </span>
+                                    <span>{this.state.user.first_name + " " + this.state.user.last_name}</span>
                                     <label>Location</label>
                                     <span>
-                                        {this.state.user.location.city}
-                                        <a href={"#"} onClick={() => this.setState({editing: true})} className={'display-right edit-color'}>Edit</a>
+                                        {/*{this.state.user.location.city}*/}
                                     </span>
                                     <label>Bio</label>
                                     <span>{this.state.user.bio}</span>
-                                    <a href={"#"} onClick={() => this.setState({editing: true})} className={'display-right edit-color'}>Edit</a>
                                 </div>
                         }
                     </div>
@@ -125,14 +89,14 @@ class Settings extends React.Component {
                                         <label>Email</label>
                                             <input className={"form-control"} placeholder={this.state.user.email}
                                                onChange={(event) =>
-                                                    updateUser({...this.state.user, email: event.target.value})}/>
+                                                    update_user({...this.state.user, email: event.target.value})}/>
 
                                     </div>
                                     <div className={"container right-column-container"}>
                                         <label>Password</label>
                                         <input className={"form-control"} placeholder={this.state.user.password}
                                                onChange={(event) =>
-                                                   updateUser({...this.state.user, password: event.target.value})}/>
+                                                   update_user({...this.state.user, password: event.target.value})}/>
                                     </div>
                                 </div>
                         }
@@ -174,8 +138,10 @@ class Settings extends React.Component {
                             this.state.editing &&
                             <span>
                                 <div className={"button-padding"}>
-                                    <a href={"#"} onClick={() =>
-                                        this.setState({editing: false})} className={'display-right'}>
+                                    <a href={"#"} onClick={() => {
+                                        this.setState({editing: false})
+                                        this.props.updateUser(this.state)
+                                    }} className={'display-right'}>
                                     <button type="button" className="btn btn-outline-secondary">Done Editing</button>
                                     </a>
                                 </div>
@@ -197,14 +163,10 @@ const stateToPropertyMapper = (state) => {
 
 
 const dispatchMapper = (dispatch) => ({
-    createUser: (user) => create_user(user, dispatch),
     deleteUser: (user) => delete_user(user, dispatch),
     updateUser: (user) => update_user(user, dispatch),
-    // getUser: (userId) => get_user(userId, dispatch)
 })
 
-export default connect
-(stateToPropertyMapper, dispatchMapper)
-(Settings)
+export default connect(stateToPropertyMapper, dispatchMapper)(Settings)
 
-// export default Settings;
+

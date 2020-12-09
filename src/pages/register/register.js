@@ -2,51 +2,30 @@ import React from "react";
 import {Link} from "react-router-dom";
 import './register.css'
 import {InputField} from "../../components/input-field/input-field";
-import {register} from "../../services/user-service";
+import {create_user} from "../../redux/actions/user-actions";
+import {connect} from "react-redux";
 
 
 export class Register extends React.Component {
 	state = {
-		firstName: '',
-		lastName: '',
+		first_name: '',
+		last_name: '',
 		email: '',
-		password: ''
-	}
-	isRegistered = false;
-
-	updateFirst = (event) => {
-		this.setState({
-			firstName: event.target.value
-		})
-		console.log(this.state.firstName)
+		password: '',
+		location: {city:"", country:"", street:""},
+		bio: "",
+		friends: [],
+		events: [],
+		image: ""
 	}
 
-	updateLast = (event) => {
-		this.setState({
-						  lastName: event.target.value
-					  })
-		console.log(this.state.lastName)
-	}
 
-	updateEmail = (event) => {
-		this.setState({
-						  email: event.target.value
-					  })
-		console.log(this.state.email)
-	}
+	update= (field, event) => this.setState({[field]: event.target.value})
 
-	updatePassword = (event) => {
-		this.setState({
-						  password: event.target.value
-					  })
-		console.log(this.state.password)
-	}
 
 	submitCredentials = (user) => {
-		console.log("Here is the data to be sent:")
-		console.log(this.state);
-		register(user).then(allUsers => console.log(allUsers))
-		this.isRegistered = true;
+	    this.props.create_user(user).then(id => this.props.history.push(`/users/${id}`) )
+
 	}
 
 
@@ -58,17 +37,11 @@ export class Register extends React.Component {
 				<div className="container-fluid d-flex justify-content-center align-content-center project-register-container">
 					<div>
 						<h1>Register</h1>
-
-						{this.isRegistered === false &&
 						<div>
-							<InputField fieldName={"First Name"} updateFirst={(e) => this.updateFirst(e)}/>
-
-							<InputField fieldName={"Last Name"} updateLast={(e) => this.updateLast(e)}/>
-
-							<InputField fieldName={"Email"} updateEmail={(e) => this.updateEmail(e)}/>
-
-							<InputField fieldName={"Password"} updatePassword={(e) => this.updatePassword(e)}/>
-
+							<InputField fieldName={"First Name"} name="first_name" update={this.update}/>
+							<InputField fieldName={"Last Name"}  name="last_name"update={this.update}/>
+							<InputField fieldName={"Email"}      name="email"    update={this.update}/>
+							<InputField fieldName={"Password"}   name="password" update={this.update}/>
 
 							<div className="form-group row">
 								<div className="col-sm-10">
@@ -80,33 +53,10 @@ export class Register extends React.Component {
 									</Link>
 								</div>
 							</div>
-
-							<div>
 								<Link to='/login'>
 									Already registered? Sign in
 								</Link>
-							</div>
 						</div>
-
-						}
-
-						{this.isRegistered === true &&
-						<div className="form-group row">
-							<div className="col-sm-12">
-
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-
-							<h2 className="alert-success text-center">Registered successfully</h2>
-							<Link to="/login" className="btn btn-outline-success">To Login</Link>
-							</div>
-						</div>
-						}
-
 					</div>
 				</div>
 
@@ -116,4 +66,14 @@ export class Register extends React.Component {
 	}
 }
 
-export default Register;
+
+const stateToPropertyMapper = (state) => {
+	return {user: state.users.current_user}
+}
+
+const mapDispatchToProps = dispatch => ({
+	create_user: (user) => create_user(dispatch, user)
+
+})
+
+export default connect(stateToPropertyMapper, mapDispatchToProps)(Register);

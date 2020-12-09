@@ -7,15 +7,16 @@ import {faLongArrowAltRight,  faMapMarkerAlt} from "@fortawesome/free-solid-svg-
 import EventCard from "../../components/event-card/event-card";
 import './user-profile.css'
 import img from '../../assets/Ellipse1.png'
-import {NavBar} from "../../components/navbar/navbar";
+
+
 
 const UserProfile = (props) => {
+   console.log(props)
+  let {id,first_name, last_name, location, bio, friends, image} = props.user;
 
-  let {id,first_name, last_name, location, bio, friends} = props.user;
 
   let {events} = props;
   return <div className="user-container d-flex flex-column">
-      <NavBar/>
 
       <div className="user-description mb-5">
           <div className="row ">
@@ -33,6 +34,7 @@ const UserProfile = (props) => {
                       <span className="p-2">Settings</span>
                       <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
                   </Link>
+
               </div>
           </div>
 
@@ -47,12 +49,12 @@ const UserProfile = (props) => {
               <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
           </div>
           <div className="d-flex justify-content-between">
-          {friends.slice(0, 5).map(p => {
-              return <UserCard id={p} key={p.id}
-                                host={false}
-                                profileView
-                                editing={false}/>
-          })}
+          {/*{friends.slice(0, 5).map(p => {*/}
+          {/*    return <UserCard id={p} key={p.id}*/}
+          {/*                      host={false}*/}
+          {/*                      profileView*/}
+          {/*                      editing={false}/>*/}
+          {/*})}*/}
 
           </div>
       </div>
@@ -75,13 +77,18 @@ const UserProfile = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) =>{
-     let id = parseInt(ownProps.match.params.userId)
-     let user = state.users.users.find(user => user.id === id)
-     let events = state.events.events.filter(e => e.participants.some(id => id === id ))
 
-    return{  events: events,
-             user: user,
-             users: state.users.users}
+     let id = ownProps.match.params.userId
+
+      let user = state.users.users[id]
+      let current_user = state.users.current_user
+
+    console.log(state.users.users, id)
+    return{
+        user,
+        current_user,
+        events:[]
+    }
 
 }
 

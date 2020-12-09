@@ -7,10 +7,11 @@ import {Link} from "react-router-dom";
 import bg from '../../assets/nature.png'
 import { faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {NavBar} from "../../components/navbar/navbar";
 import {connect} from "react-redux";
 import { get_events} from "../../services/events-service"
 import { set_events} from "../../redux/actions/event-actions";
+import {fetchAllUsers} from "../../services/user-service";
+import {set_users} from "../../redux/actions/user-actions";
 
 
 class Home extends React.Component{
@@ -18,17 +19,22 @@ class Home extends React.Component{
    state={
        articles: [],
        events: [],
+
    }
 
      componentDidMount() {
 
         get_events().then(events => {
-            let evts= [events["0"], events["1"], events["2"]];
-
-            this.setState({events:evts})
-            this.props.set_events(events);
+            if(events) {
+                let evts = [events["0"], events["1"], events["2"]];
+                this.setState({events: evts})
+                this.props.set_events(events);
+            }
         })
 
+        fetchAllUsers().then(users => {
+            this.props.set_users(users)
+        })
           newsService.fetchAllNews(10).then(data=> {
             let src = data.articles
             let obj = {}
@@ -39,7 +45,6 @@ class Home extends React.Component{
                 }
             }
             let articles =  Object.keys(obj).map(key => obj[key]);
-
            this.setState({articles})
         })
    }
@@ -49,7 +54,7 @@ class Home extends React.Component{
         return (
 
             <div className="d-flex flex-column home-container">
-                <NavBar/>
+
                 <div className="search-container justify-content-center mb-3"
                    style={{background: `url(${bg})`}}>
 
@@ -63,6 +68,7 @@ class Home extends React.Component{
 
                 <div className="news-container ">
                     <div className="d-flex">
+
                         <h3>News</h3>
                     <Link to={'/search-news'} className="ml-auto mr-1">View all
                     </Link>
@@ -86,8 +92,11 @@ class Home extends React.Component{
                     </div>
                 </div>
 
-               <Link to="/users/:userId/events" className="m-auto">
-                   <button className="btn btn-success host-btn " > Host event </button></Link>
+                {this.props.current_user &&
+                <Link to="/users/:userId/events" className="m-auto">
+                    <button className="btn btn-success host-btn " > Host event </button></Link>
+                }
+
 
         </div>)
     }
@@ -95,12 +104,12 @@ class Home extends React.Component{
 }
 
 const mapStateToProps = (state) =>{
-
   return{current_user: state.users.current_user}
 
 }
 const mapDispatchToProps = dispatch => ({
     set_events: (events) => set_events(dispatch, events),
+    set_users: (users)=> set_users(dispatch, users)
 
 })
 

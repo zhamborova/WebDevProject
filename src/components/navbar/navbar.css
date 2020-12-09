@@ -20,7 +20,7 @@ li a {
     display: flex;
     color: black;
     text-align: center;
-    padding: 14px 40px;
+    padding: 14px 10px;
     text-decoration: none;
 }
 
@@ -31,18 +31,22 @@ li a:hover {
 
 
 .profile-nav-float-right {
-    margin-left: 40%;
+    margin-left: 70%;
 }
 .events-nav {
-    margin-left: 5%;
+    margin-left: 1%;
 }
 
 .news-nav {
-    margin-left: 5%;
+    margin-left: 1%;
 }
 
 .logo-nav {
-    margin-left: 5%;
+    margin-left: 2%;
+}
+
+.loginRegister-nav {
+    margin-right: 2%;
 }
 
 

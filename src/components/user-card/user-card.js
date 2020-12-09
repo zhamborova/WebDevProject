@@ -7,14 +7,13 @@ import {connect} from "react-redux";
 
 
 const UserCard = (props) => {
- const{first_name,last_name, img, id} = props.user;
-  console.log(props)
+ const{first_name,last_name, image, id} = props.user;
   const {removeUser, editing, host} = props;
    return <div className="card  card-user" style={{width: "9rem"}}>
          <div className="card-body d-flex flex-column">
              <div className="d-flex ">
 
-                 <Link to={`/users/${id}`}><img src={img} /></Link>
+                 <Link to={`/users/${id}`}><img src={image} /></Link>
                  {(!host && editing)  ?
                      <FontAwesomeIcon icon={faTimes} onClick={(e) =>
 
@@ -34,9 +33,10 @@ const UserCard = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) =>{
-    let id = parseInt(ownProps.id)
-    let user = state.users.users.find(user => user.id === id)
 
+    let id = parseInt(ownProps.id)
+    let user = state.users.users[id]
+    console.log(id, state.users.users)
     return{ user}
 
 }

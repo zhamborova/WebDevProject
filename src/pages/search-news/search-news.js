@@ -45,7 +45,6 @@ class SearchNews extends React.Component{
     render() {
         return (
             <div className="news-search container d-flex flex-column">
-                <NavBar/>
 
                 <h1 className="ml-3">News</h1>
                     <div className="d-flex container  ">

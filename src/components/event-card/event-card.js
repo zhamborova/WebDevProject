@@ -32,7 +32,7 @@ function getWindowDimensions() {
 }
 
 const EventCard = ({event,vertical, users}) => {
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
     let v = vertical ? "v" : "";
     if(width <= 600){
         v=""
@@ -48,8 +48,8 @@ const EventCard = ({event,vertical, users}) => {
                 <p className={`card-text ${v}`}>{event.description}</p>
                 </div>
                 <div className={`participants-container d-flex ${v}`}>
-                    <div>{users.slice(0,3).map(p => {
-                        return <img src={p.img} className="participant-thumbnail"/>
+                    <div>{users.map(p => {
+                        return <img src={p.image} className="participant-thumbnail"/>
 
                     })}
                     </div>
@@ -66,10 +66,11 @@ const EventCard = ({event,vertical, users}) => {
 }
 
 const mapStateToProps = (state, ownProps) =>{
-    let ps = ownProps.event.participants;
-    let users = ps.map(p => state.users.users.find(u=> u.id===p))
+    let ps = [1,2,3]
+    let {users} = state.users
+    let list = ps.map(p => users[p])
 
-    return{users}
+    return{users:list}
 
 }
 

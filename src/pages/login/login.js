@@ -11,50 +11,37 @@ export class Login extends React.Component {
 	state = {
 		email: '',
 		password: '',
-		firstName: '',
-		lastName: '',
-		current_user: {}
 	}
 
 
-
-	updateEmail = (event) => {
-		this.setState({
-						  email: event.target.value
-					  })
-
-	}
-
-	updatePassword = (event) => {
-		this.setState({
-						  password: event.target.value
-					  })
-
-	}
+	update= (field, event) => this.setState({[field]: event.target.value})
 
      submitCredentials = (user) => {
-         this.props.setCurrentUser(this.state)
-		// call user-service and get the response
+		login(user).then(response => {
+			if(response[0] !== "failure") {
+				let user = response[0]
+				this.props.setCurrentUser(user)
+				this.props.history.push(`/users/${user.id}`)
 
+			}else {
+				window.alert("Login or password are incorrect :(")
+			}
+		})
 	}
 
 
 	render() {
 		return(
-			<div>
 
-				<div className="container-fluid d-flex justify-content-center align-content-center project-login-container">
-
-					<div>
-
-						<h1>Login</h1>
-
-						<InputField fieldName={"Email"} updateEmail={(e) => this.updateEmail(e)}/>
-						<InputField fieldName={"Password"} updatePassword={(e) => this.updatePassword(e)}/>
-
+				<div className="container-fluid d-flex justify-content-center
+				 align-content-center project-login-container">
+						<div>
+							<h1>Login</h1>
+							<InputField fieldName={"Email"} name="email" update={this.update}/>
+							<InputField fieldName={"Password"} name="password" update={this.update}/>
 						<div className="form-group row">
 							<div className="col-sm-10">
-								<Link to='/'
+								<Link to='#'
 									  className="btn btn-block project-login-button" id="loginBtn"
 									  onClick={() => this.submitCredentials(this.state)}>
 									Login
@@ -62,18 +49,11 @@ export class Login extends React.Component {
 							</div>
 						</div>
 
-						<div>
-							<a href="#">Forgot Password?</a>
-						</div>
 
-						<div>
-							<Link to={'/register'}>Not registered yet? Sign Up</Link>
-						</div>
+
 					</div>
 
 				</div>
-
-			</div>
 		)
 	}
 }
@@ -84,4 +64,4 @@ const propertyToDispatchMapper = dispatch => ({
 	setCurrentUser: (current_user) => setCurrentUser(dispatch, current_user)
 })
 
-export default connect(()=>{}, propertyToDispatchMapper)(Login)
+export default connect(()=>({}), propertyToDispatchMapper)(Login)
