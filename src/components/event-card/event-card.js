@@ -1,10 +1,9 @@
 import React from 'react';
 import './event-card.css';
-import img from './event-img.png'
+
 import {Link} from "react-router-dom";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {connect} from "react-redux";
 
 import {useState, useEffect} from 'react';
 import {get_users_for_event} from "../../services/events-service";
