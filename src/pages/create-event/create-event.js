@@ -117,7 +117,7 @@ class CreateEvent extends React.Component{
 
                     <div className="create-btns d-flex justify-content-between">
                         <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none'}}
-                            size="large" variant="outlined"><Link to="/"> Cancel</Link></Button>
+                            size="large" variant="outlined">   <Link to="/" className="w-100">Cancel</Link></Button>
                         <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none',
                         background:"#3a7347"}}
                                 size="large" variant="outlined"
@@ -127,7 +127,7 @@ class CreateEvent extends React.Component{
                                         this.props.history.push(`/events/${ev.id}`)
 
                                     })}}>
-                            <Link to="/">  Create event</Link></Button>
+                            <Link to="/" className="w-100">  Create event</Link></Button>
 
                     </div>
 

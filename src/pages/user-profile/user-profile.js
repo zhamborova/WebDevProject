@@ -40,6 +40,8 @@ class UserProfile  extends  React.Component{
 
     render(){
      let {id,first_name, last_name, location, bio, events, friends, image} = this.state;
+     let fL = friends.length < 5 ? `justify-start` : `justify-between`
+     let eL = events.length < 5 ? `justify-start` : `justify-between`
     return <div className="user-container d-flex flex-column">
         <div className="user-description mb-5">
             <div className="row ">
@@ -53,8 +55,8 @@ class UserProfile  extends  React.Component{
                         <FontAwesomeIcon className="mr-2" icon={faMapMarkerAlt}/>
                         {location.city}, {location.country}</p>
                     <p>{bio}</p>
-                    <Link to={`/users/${id}/settings`} className={"settings-link"}>
-                        <span className="p-2">Settings</span>
+                    <Link to={`/users/${id}/settings`} className="settings-link">
+                        <span className="pb-2 pt-2 pr-2">Settings</span>
                         <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
                     </Link>
 
@@ -70,7 +72,7 @@ class UserProfile  extends  React.Component{
                 </Link>
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
             </div>
-            <div className="d-flex justify-content-between">
+            <div className={`d-flex ${fL}`}>
                 {friends.slice(0, 5).map(p => {
                     return <UserCard id={p} key={p.id}
                                       host={false}
@@ -86,7 +88,7 @@ class UserProfile  extends  React.Component{
                 <Link to={'/events'} className="ml-auto mr-1">View all</Link>
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
             </div>
-            <div className="row justify-content-between ">
+            <div className={`d-flex ${eL}`}>
                 {events.slice(0, 3).map(e => <EventCard key={e.id}
                                                         event={e}
                                                         vertical={false}/>)}

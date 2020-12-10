@@ -22,3 +22,6 @@
     display: flex!important;
     color: #3a7347!important;
 }
+.profile-image > img{
+    border-radius: 102px;
+}

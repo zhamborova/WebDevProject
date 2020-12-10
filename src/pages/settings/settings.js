@@ -43,7 +43,13 @@ class Settings extends React.Component {
                                            className={'display-right edit-color mt-2'}>Edit</a></div>
                         { this.state.editing &&
                                 <div className="d-flex flex-column w-100">
-                                        <img src={this.state.user.image} className={"default-size"}/>
+                                    <div className={'form-group row'}>
+                                        <label>Avatar</label>
+                                        <input className={"form-control"} placeholder={this.state.user.image}
+                                               onChange={(event) =>
+                                                   this.update_user( "image", event.target.value)}/>
+                                    </div>
+                                    <img src={this.state.user.image} className="settings-image"/>
 
                                     <div className={'form-group row'}>
                                         <label>First Name</label>
@@ -59,7 +65,7 @@ class Settings extends React.Component {
                                     </div>
                                     <div className={'form-group row w-100 flex-column '}>
 
-                                        <label>Location</label>
+                                        <label>Address</label>
                                         <Location location={this.state.user.location}
                                                   setLocation={this.setLocation}
                                                   editing={this.state.editing}/>
@@ -75,16 +81,16 @@ class Settings extends React.Component {
                         }
                         {
                             !this.state.editing &&
-                                <div>
-                                    <img src={this.state.user.img} className={"default-size"}/>
-                                    <label>Name</label>
-                                    <span>{this.state.user.first_name + " " + this.state.user.last_name}</span>
+                                <div className="d-flex flex-column">
+                                    <img src={this.state.user.image} className="settings-image"/>
 
-                                    <label>Location</label>
+                                    <p>{this.state.user.first_name + " " + this.state.user.last_name}</p>
+
+                                    <label className="mb-0">Address</label>
                                     <Location location={this.state.user.location}
                                               setLocation={this.setLocation}
                                               editing={this.state.editing}/>
-                                    <label>Bio</label>
+                                    <label className="mb-0">Bio</label>
                                     <span>{this.state.user.bio}</span>
                                 </div>
                         }
@@ -129,7 +135,6 @@ class Settings extends React.Component {
                         {
                             this.state.editing &&
                                     <button  onClick={() => {
-                                        let {editing, ...state} = this.state;
                                         this.setState({editing: false});
                                                              this.props.updateUser(this.state.user)}}
                                              className="btn btn-outline-secondary button-padding display-right">

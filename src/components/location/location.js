@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 
 const Location = (props) => {
 
-    let {city, street, country,zip} = props.location;
+    let {city, street, country, zip} = props.location;
     const {setLocation} = props;
 
 
@@ -26,8 +26,8 @@ const Location = (props) => {
             </div>
        :
         <div>
-        <p className="event-loc-city mb-0">{street},{city}</p>
-        <p className="event-loc-city">{country}, </p>
+        <p className="event-loc-city mb-0">{street}, {city}</p>
+        <p className="event-loc-city">{country}, {zip} </p>
       </div>
 
 }
