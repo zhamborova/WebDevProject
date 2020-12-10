@@ -18,8 +18,10 @@ export const user_reducer = (state=init, action) => {
                 current_user: action.user
             };
         case UPDATE_USER:
+            console.log(action.user, "here")
             return {...state,
-                users: {...state.users, [action.user.id]:action.user}
+                users: {...state.users, [action.user.id]:action.user},
+                current_user: action.user
             };
         case DELETE_USER:
             return {...state,

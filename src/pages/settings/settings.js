@@ -1,67 +1,75 @@
 import React from 'react';
 import './settings.css';
 import {connect} from "react-redux";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
-import {create_user, delete_user, update_user,} from '../../redux/actions/user-actions';
+import { delete_user, update_user,} from '../../redux/actions/user-actions';
+import Location from "../../components/location/location";
 
 
 class Settings extends React.Component {
 
     state = {
-        user: {},
+        user: {first_name: '',
+            last_name: '',
+            email: '',
+            password: '',
+            location: {city:"", country:"", street:"", zip: ""},
+            bio: "",
+            friends: [],
+            image: ""},
         editing: false
     }
 
     componentDidMount() {
         let {user} = this.props
-        this.setState({user},()=>{
-            console.log(this.state.user)
-        })
+        this.setState({user: {...user}})
     }
 
-
-
+    update_user = (field, value) => {
+        let newUser = this.state.user;
+        newUser[field] = value;
+        this.setState({user:newUser})
+    }
+    setLocation = (location ) => {
+        this.update_user("location",location)
+    }
     render() {
-        console.log(this.state)
         return (
-            <div className={"body"}>
-                <div className={"row"}>
-                    <div className={"container profile-container col-4"}>
+            <div className="body">
+                <div className="row">
+                    <div className="container profile-container col-5 ">
                         <div className="d-flex justify-content-between">
-                            <h3>Settings</h3> <a href={"#"}
-                                                 onClick={() => this.setState({editing: true})}
-                                                  className={'display-right edit-color mt-2'}>Edit</a></div>
+                            <h3>Settings</h3>
+                            <a href={"#"} onClick={() => this.setState({editing: !this.state.editing})}
+                                           className={'display-right edit-color mt-2'}>Edit</a></div>
                         { this.state.editing &&
-                                <div>
-                                    <p className={"align-center"}>
-                                        <img src={this.state.user.img} className={"default-size"}/>
-                                    </p>
+                                <div className="d-flex flex-column w-100">
+                                        <img src={this.state.user.image} className={"default-size"}/>
+
                                     <div className={'form-group row'}>
                                         <label>First Name</label>
                                         <input className={"form-control"} placeholder={this.state.user.first_name}
                                                onChange={(event) =>
-                                                   update_user({...this.state.user, first_name: event.target.value})}/>
+                                                   this.update_user( "first_name", event.target.value)}/>
                                     </div>
                                     <div className={'form-group row'}>
                                         <label>Last Name</label>
                                         <input className={"form-control"} placeholder={this.state.user.last_name}
                                                onChange={(event) =>
-                                                   update_user({...this.state.user, last_name: event.target.value})}/>
+                                                   this.update_user("last_name", event.target.value)}/>
                                     </div>
-                                    <div className={'form-group row'}>
+                                    <div className={'form-group row w-100 flex-column '}>
+
                                         <label>Location</label>
-                                        <input className={"form-control"} placeholder={this.state.user.location.street +
-                                        " " + this.state.user.location.city + " " +
-                                        this.state.user.location.country }
-                                               onChange={(event) =>
-                                                   update_user({...this.state.user, location: event.target.value})}/>
-                                    </div>
+                                        <Location location={this.state.user.location}
+                                                  setLocation={this.setLocation}
+                                                  editing={this.state.editing}/>
+
+                                      </div>
                                     <div className={'form-group row'}>
                                         <label>Bio</label>
-                                        <input className={"form-control"} placeholder={this.state.user.bio}
+                                        <textarea className={"form-control"} placeholder={this.state.user.bio}
                                                onChange={(event) =>
-                                                   update_user({...this.state.user, bio: event.target.value})}/>
+                                                   this.update_user( "bio", event.target.value)}/>
                                     </div>
                                 </div>
                         }
@@ -71,10 +79,11 @@ class Settings extends React.Component {
                                     <img src={this.state.user.img} className={"default-size"}/>
                                     <label>Name</label>
                                     <span>{this.state.user.first_name + " " + this.state.user.last_name}</span>
+
                                     <label>Location</label>
-                                    <span>
-                                        {/*{this.state.user.location.city}*/}
-                                    </span>
+                                    <Location location={this.state.user.location}
+                                              setLocation={this.setLocation}
+                                              editing={this.state.editing}/>
                                     <label>Bio</label>
                                     <span>{this.state.user.bio}</span>
                                 </div>
@@ -89,63 +98,42 @@ class Settings extends React.Component {
                                         <label>Email</label>
                                             <input className={"form-control"} placeholder={this.state.user.email}
                                                onChange={(event) =>
-                                                    update_user({...this.state.user, email: event.target.value})}/>
-
+                                                    this.update_user("email", event.target.value)}/>
                                     </div>
                                     <div className={"container right-column-container"}>
                                         <label>Password</label>
                                         <input className={"form-control"} placeholder={this.state.user.password}
-                                               onChange={(event) =>
-                                                   update_user({...this.state.user, password: event.target.value})}/>
+                                               onChange={(event) => this.update_user("password",
+                                                   event.target.value)}/>
                                     </div>
                                 </div>
                         }
                         {
                             !this.state.editing &&
-                                <div>
+                                <>
                                     <div className={"container right-column-container"}>
                                         <label>Email</label>
                                         <span>
                                             {this.state.user.email}
-                                            <a href={"#"} onClick={() => this.setState({editing: true})} className={'display-right'}>Edit</a>
                                         </span>
                                     </div>
                                     <div className={'container right-column-container'}>
                                         <label>Password</label>
                                         <span>
                                             ••••••••••••
-                                            <a href={"#"} onClick={() => this.setState({editing: true})} className={'display-right'}>Edit</a>
                                         </span>
                                     </div>
-                                </div>
+                                </>
                         }
 
-                        <div className={"container-padding"}>
-                        <span>
-                            <div className={"container right-column-container bigger-font"}>FAQ
-                            <FontAwesomeIcon className={"mt-1 display-right"} icon={faLongArrowAltRight}/>
-                            </div>
-                        </span>
-                        </div>
-                        <div className={"container-padding"}>
-                        <span>
-                            <div className={"container right-column-container"}>Report a problem
-                            <FontAwesomeIcon className={"mt-1 display-right"} icon={faLongArrowAltRight}/>
-                            </div>
-                        </span>
-                        </div>
                         {
                             this.state.editing &&
-                            <span>
-                                <div className={"button-padding"}>
-                                    <a href={"#"} onClick={() => {
-                                        this.setState({editing: false})
-                                        this.props.updateUser(this.state)
-                                    }} className={'display-right'}>
-                                    <button type="button" className="btn btn-outline-secondary">Done Editing</button>
-                                    </a>
-                                </div>
-                            </span>
+                                    <button  onClick={() => {
+                                        let {editing, ...state} = this.state;
+                                        this.setState({editing: false});
+                                                             this.props.updateUser(this.state.user)}}
+                                             className="btn btn-outline-secondary button-padding display-right">
+                                            Done Editing</button>
                         }
                     </div>
                 </div>

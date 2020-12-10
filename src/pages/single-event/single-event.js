@@ -7,9 +7,11 @@ import Location from "../../components/location/location";
 import Tags from "../../components/tags/tags";
 import {faCheck, faPenAlt, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {delete_event, update_event} from "../../redux/actions/event-actions";
+import {delete_event} from "../../redux/actions/event-actions";
 import {connect} from "react-redux"
 import {Link} from "react-router-dom";
+import {get_event_by_id, update_event} from "../../services/events-service";
+import {fetchUserById} from "../../services/user-service";
 
 
 class SingleEvent extends React.Component{
@@ -43,19 +45,24 @@ class SingleEvent extends React.Component{
          }
      }
     componentDidMount() {
-        this.setState({...this.props.event},
-            ()=>{if (this.state.participants.length > 0) this.putHostFirst();})
+        let id = this.props.match.params.eventId
+
+        get_event_by_id(id).then(event=> {
+            fetchUserById(event.host_id).then(user=>{
+                this.setState({host_name:user.first_name + " " + user.last_name,
+                                    host_img: user.image})
+            })
+            this.setState({...event}, () => {
+                if (this.state.participants.length > 0) this.putHostFirst();
+            })
+
+        } )
+
 
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps !== this.props){
-            this.setState({...this.props.event})
-        }
 
-    }
-
-    setLocation = (location ) => {
+    setLocation = (location) => {
         this.setState({location})
     }
 
@@ -89,9 +96,10 @@ class SingleEvent extends React.Component{
                     <div onClick={()=>this.setState({editing:!this.state.editing})}
                          className="btn d-flex">
                         <FontAwesomeIcon icon={faCheck} onClick={()=> {
-                            this.setState({editing:false}, ()=> this.props.update_event(this.state));
-
-                           }}/>
+                            this.setState({editing:false}, ()=>{
+                                let {editing, ...state} = this.state
+                               update_event(state.id,state);
+                           })}}/>
                         <Link to={"/"}><FontAwesomeIcon icon={faTimes}
                                                onClick={()=> {this.props.delete_event(this.state.id)}}/>
                         </Link>
@@ -202,16 +210,10 @@ class SingleEvent extends React.Component{
 )}
 }
 
-const mapStateToProps = (state, ownProps) =>{
-    let id = ownProps.match.params.eventId
-    console.log(state)
-    return{  event: state.events.events[id]}
-
-}
 
 
 const mapDispatchToProps = dispatch => ({
         delete_event: (id) => delete_event(id, dispatch),
         update_event: (event) => update_event(event, dispatch),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(SingleEvent);
+export default connect(()=>({}), mapDispatchToProps)(SingleEvent);

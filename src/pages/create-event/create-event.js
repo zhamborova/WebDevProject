@@ -5,15 +5,13 @@ import TimePicker from "react-time-picker";
 import Location from "../../components/location/location";
 import Tags from "../../components/tags/tags";
 import {Link} from "react-router-dom";
-import {create_event} from "../../redux/actions/event-actions";
+import {create_event} from '../../services/events-service';
 import {connect} from "react-redux";
 
 class CreateEvent extends React.Component{
     state={
-        host_name: "",
         host_id: 0,
         id: 0,
-        host_img: "",
         editing: false,
         title: "",
         description: "",
@@ -24,6 +22,11 @@ class CreateEvent extends React.Component{
         tags: [],
         participants: [],
         image: ""
+    }
+
+    componentDidMount() {
+        let host_id = this.props.match.params["userId"]
+        this.setState({host_id})
     }
 
     setLocation = (location ) => {
@@ -38,6 +41,8 @@ class CreateEvent extends React.Component{
         const tags = this.state.tags;
         this.setState({tags: [...tags, tag]})
     }
+
+
     render() {
         return(
             <div className="create-event-bg">
@@ -92,18 +97,15 @@ class CreateEvent extends React.Component{
                     <div className="create-btns d-flex justify-content-between">
                         <button className="form-control ">
                             <Link to="/">Cancel</Link></button>
-                        <button className="form-control "
-                                onClick={()=> this.props.create_event(this.state)}>
-                            <Link to="/events">Create event</Link>
+                        <button className="form-control "  onClick={()=> {
+                            let {editing, ...state} = this.state
+                            create_event(state).then(ev=>{
+                                this.props.history.push(`/events/${ev.id}`)
+
+                            })}}>
+                         Create event
                         </button>
                     </div>
-
-                      <div className="create-btns d-flex justify-content-between">
-                       <button className="form-control ">   <Link to="/">Cancel</Link></button>
-                          <button className="form-control "
-                                  onClick={()=> this.props.create_event(this.state)}
-                               ><Link to="/events/0">Create event</Link></button>
-                      </div>
 
 
                 </div>
@@ -114,7 +116,5 @@ class CreateEvent extends React.Component{
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    create_event: (event) => create_event(event, dispatch),
-})
-export default connect(null, mapDispatchToProps)(CreateEvent);
+
+export default CreateEvent;

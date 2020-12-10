@@ -24,10 +24,11 @@ export const create_event = (event, dispatch) =>{
 }
 
 export const update_event = (event, dispatch) =>{
-    dispatch({
+    event_service.update_event(event.id, event).then(newEvent=>
+        dispatch({
         type: UPDATE_EVENT,
-        event
-    })
+        event:newEvent
+    }))
 
 }
 

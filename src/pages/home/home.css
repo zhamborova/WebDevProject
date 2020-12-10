@@ -4,6 +4,7 @@
     flex-direction: column;
     display: flex;
     margin: 20px auto auto auto;
+    min-width: 954px;
 }
 
 .search-container{

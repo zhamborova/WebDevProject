@@ -18,8 +18,8 @@ export class Login extends React.Component {
 
      submitCredentials = (user) => {
 		login(user).then(response => {
-			if(response[0] !== "failure") {
-				let user = response[0]
+			if(!response.hasOwnProperty("message")) {
+				let user = response
 				this.props.setCurrentUser(user)
 				this.props.history.push(`/users/${user.id}`)
 

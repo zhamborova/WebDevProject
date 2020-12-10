@@ -12,10 +12,9 @@ export class Register extends React.Component {
 		last_name: '',
 		email: '',
 		password: '',
-		location: {city:"", country:"", street:""},
+		location: {city:"", country:"", street:"", zip: ""},
 		bio: "",
 		friends: [],
-		events: [],
 		image: ""
 	}
 

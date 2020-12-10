@@ -26,15 +26,11 @@ class Home extends React.Component{
 
         get_events().then(events => {
             if(events) {
-                let evts = [events["0"], events["1"], events["2"]];
+                let evts = [events[0]];
                 this.setState({events: evts})
-                this.props.set_events(events);
             }
         })
 
-        fetchAllUsers().then(users => {
-            this.props.set_users(users)
-        })
           newsService.fetchAllNews(10).then(data=> {
             let src = data.articles
             let obj = {}
@@ -51,6 +47,7 @@ class Home extends React.Component{
 
 
     render() {
+       let style = this.state.events.length < 3 ? "justify-content-start" : "justify-content-center"
         return (
 
             <div className="d-flex flex-column home-container">
@@ -74,7 +71,7 @@ class Home extends React.Component{
                     </Link>
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
-              <div className="row justify-content-center">
+               <div className="row justify-content-center">
                   {this.state.articles.slice(0, 3).map( a => <NewsCard article={a} key={a.title } />)}
               </div>
           </div>
@@ -82,10 +79,10 @@ class Home extends React.Component{
                 <div className="events-container">
                     <div className="d-flex">
                         <h3>Events</h3>
-                        <Link to={'/events'} className="ml-auto mr-1">View all</Link>
+                        <Link to={this.props.current_user ? '/events' : '/'} className="ml-auto mr-1">View all</Link>
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
-                    <div className="row justify-content-center">
+                    <div className={`row ${style}`}>
                     {this.state.events.map(e => <EventCard event={e}
                                                            key={e.id}
                                                            vertical={false}/>)  }
@@ -93,7 +90,7 @@ class Home extends React.Component{
                 </div>
 
                 {this.props.current_user &&
-                <Link to="/users/:userId/events" className="m-auto">
+                <Link to={`/users/${this.props.current_user.id}/events`} className="m-auto">
                     <button className="btn btn-success host-btn " > Host event </button></Link>
                 }
 

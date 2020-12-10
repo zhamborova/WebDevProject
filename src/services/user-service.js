@@ -12,9 +12,8 @@ export const fetchUserById = (userId) => {
     return fetch(`${url}/users/${userId}`, {
         method: 'GET'
     })
-        .then(response => {
-            response.json()
-        })
+        .then(response => response.json())
+
 
 }
 
@@ -25,8 +24,7 @@ export const updateUser = (user) => {
         headers: {
             'content-type': 'application/json'
         }
-    })
-        .then(response => response.json())
+    }).then(response => response.json())
 }
 
 export const deleteUser = (user) => {
@@ -56,12 +54,27 @@ export const login = (user) =>
         }
     }).then(response => response.json())
 
+export const get_events_for_user = (userId) =>
+    fetch(`${url}/users/${userId}/events`, {
+        method: "GET",
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json())
 
-
+export const get_friends = (ids) =>{
+   return fetch(`${url}/${0}/users`, {
+        method: 'POST',
+        body: JSON.stringify(ids),
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => response.json())
+}
 export default {
     fetchAllUsers,
     fetchUserById,
     updateUser,
     deleteUser,
-    createUser,login,
+    createUser,login,get_friends
 }
