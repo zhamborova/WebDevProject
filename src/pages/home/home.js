@@ -10,7 +10,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {connect} from "react-redux";
 import { get_events} from "../../services/events-service"
 import { set_events} from "../../redux/actions/event-actions";
-import {fetchAllUsers} from "../../services/user-service";
 import {set_users} from "../../redux/actions/user-actions";
 
 

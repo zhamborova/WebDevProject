@@ -56,8 +56,6 @@ class SearchEvents extends React.Component{
     render(){
         return(
             <div className="container d-flex flex-column w-75 mt-5">
-                {this.props.current_user.id !== undefined &&
-                    <div>
                         <h1 className="ml-3">Events</h1>
                         <div className="d-flex container  ">
                             <input className="form-control" placeholder="Search events..." value={this.state.search}
@@ -65,13 +63,10 @@ class SearchEvents extends React.Component{
                             <Link to={`/events/${this.state.search}`} className="ml-3 w-25">
                                 <button className="form-control search-btn ">Search</button></Link>
                         </div>
-                        <div className="search-results container  m-auto">
+                        <div className="search-results container row m-auto">
+                            <div className="all">
                             {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}
                         </div>
-                    </div>
-                }
-
-                Please log in or register first in order to access events
             </div>
 
 

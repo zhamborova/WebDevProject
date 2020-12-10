@@ -16,12 +16,12 @@ import SearchUsers from "./pages/search-users/seach-users";
 import NavBar from "./components/navbar/navbar";
 import {connect} from "react-redux";
 
-const ProtectedRoute = ({ component: Component, loggedin:loggedin, ...rest }) => (
+const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, register, ...rest }) => (
     <Route {...rest} render={(props) => (
         loggedin ?
             <Component {...props} /> :
-            <>{window.alert("Login/register to see all our events")}
-                <Home/></>
+           !(login || register) ?  <>{window.alert("Login/register to see all our events")}
+                <Home/></> : <Home/>
 
     )} />
 );
@@ -49,12 +49,12 @@ function App(props) {
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId/'} component={UserProfile}
                                   loggedin= {props.current_user}/>
-                  <ProtectedRoute exact path={'/login'} component={Login}
+                  <ProtectedRoute exact path={'/login'} component={Login} login
                                   loggedin= {!props.current_user}/>
-                  <ProtectedRoute exact path={'/register'} component={Register}
+                  <ProtectedRoute exact path={'/register'} component={Register} register
                                   loggedin= {!props.current_user}/>
               </Switch>
-         }
+
 
 
     </BrowserRouter>
