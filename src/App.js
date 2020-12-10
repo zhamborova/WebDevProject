@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
-import {Switch, Route, BrowserRouter, Redirect} from 'react-router-dom';
+import {Switch, Route, BrowserRouter,} from 'react-router-dom';
 import Home from "./pages/home/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchNews from "./pages/search-news/search-news.js";
 import SingleEvent from "./pages/single-event/single-event";
 import Login from "./pages/login/login";
 import Register from "./pages/register/register";
-
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import CreateEvent from "./pages/create-event/create-event";
 import SearchEvents from "./pages/search-events/search-events";
 import Settings from "./pages/settings/settings";
@@ -29,15 +30,16 @@ const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, regist
 
 function App(props) {
   return (
-     <BrowserRouter>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+     <BrowserRouter >
            <NavBar/>
-              <Switch>
+              <Switch >
                   <Route exact path='/' component={Home}/>
                   <ProtectedRoute component={SingleEvent}
                                   exact path={'/events/:eventId'}
                                   loggedin= {props.current_user} />
                   <ProtectedRoute loggedin= {props.current_user}
-                      exact path={['/search-events,',
+                      exact path={['/search-events',
                       '/search-events/:search',
                       '/events']} component={SearchEvents}/>
                   <ProtectedRoute exact path={['/search-users', '/search-users/:search' ]}
@@ -58,6 +60,7 @@ function App(props) {
 
 
     </BrowserRouter>
+      </MuiPickersUtilsProvider>
   );
 }
 

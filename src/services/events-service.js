@@ -7,7 +7,7 @@ export const get_event_by_id = (id) => fetch(`${url}/${id}`).then(response => re
 export const delete_event = (eventId) =>
     fetch(`${url}/${eventId}`, {
         method: 'DELETE'
-    }).then(response => response.json())
+    }).then(response => console.log(response))
 
 export const get_users_for_event = (ids, eventId) =>
     fetch(`${url}/${eventId}/users`, {

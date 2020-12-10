@@ -25,8 +25,9 @@ class Home extends React.Component{
 
         get_events().then(events => {
             if(events) {
-                let evts = [events[0]];
-                this.setState({events: evts})
+                let ev = events.slice(0,3)
+                this.setState({events:ev})
+
             }
         })
 

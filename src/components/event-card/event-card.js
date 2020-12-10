@@ -40,7 +40,7 @@ class EventCard extends React.Component {
     componentDidMount() {
         let {participants} = this.props.event
         get_users_for_event([...participants, this.props.event.host_id], this.props.event.id).then(users =>
-           this.setState({users}, ()=>{console.log(users)}))
+           this.setState({users}, ))
 
     }
 

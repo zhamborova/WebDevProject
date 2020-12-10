@@ -1,12 +1,19 @@
 import React from 'react';
 import './create-event.css';
-import DatePicker from "react-date-picker";
-import TimePicker from "react-time-picker";
+import {DatePicker, TimePicker} from '@material-ui/pickers';
+
 import Location from "../../components/location/location";
 import Tags from "../../components/tags/tags";
 import {Link} from "react-router-dom";
 import {create_event} from '../../services/events-service';
-import {connect} from "react-redux";
+import TextField from '@material-ui/core/TextField';
+import {
+
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 class CreateEvent extends React.Component{
     state={
@@ -15,14 +22,28 @@ class CreateEvent extends React.Component{
         editing: false,
         title: "",
         description: "",
-        date:"",
-        time_start: "",
-        time_end:"",
+        date: new Date(),
+        time_start: new Date(),
+        time_end: new Date(),
         location: {},
         tags: [],
         participants: [],
         image: ""
     }
+
+     styles = theme => ({
+        textField: {
+            width: '90%',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            paddingBottom: 0,
+            marginTop: 0,
+            fontWeight: 500
+        },
+        input: {
+            color: 'white'
+        }
+    });
 
     componentDidMount() {
         let host_id = this.props.match.params["userId"]
@@ -47,43 +68,43 @@ class CreateEvent extends React.Component{
         return(
             <div className="create-event-bg">
                 <div className="d-flex flex-column create-event-container">
-                    <h2 className="m-auto">Create Event</h2>
-                    <label htmlFor="title">Add Title </label>
-                    <input className="form-control mb-3" name="title"
+                    <h2 className="ml-auto mr-auto mt-2 mb-4">Create Event</h2>
+                    <TextField  name="title" label="Title..." variant="outlined"
                            value={this.state.title}
-                           onChange={(e)=>this.setState({title: e.target.value})}/>
+                           onChange={(e)=>this.setState({title: e.target.value})}
+                                margin="normal"/>
+                    <TextField id="outlined-basic" label="Add image url..."
+                               variant="outlined"
+                               name="image"
+                               value={this.state.image}
+                               onChange={(e)=> this.setState({image: e.target.value})}
+                               margin="normal"
 
-                    <label htmlFor="image">Add Cover Image </label>
-                    <input className="form-control mb-3"
-                           name="image"
-                           value={this.state.image}
-                           onChange={(e)=> this.setState({image: e.target.value})}/>
-                    <label htmlFor="image-preview">Preview Image</label>
-                    <img src={this.state.image} className={"event-img"}   name="image-preview" />
+                    />
 
-                    <label htmlFor="description" >Description</label>
-                    <textarea className="form-control event-description-edit"
+                    <img src={this.state.image}  name="image-preview" />
+
+                    <TextField multiline variant="outlined" rows={4}  label="Description"
+                              className="form-control event-description-edit"
                               name="description"
                               value={this.state.description}
-                              onChange={(e)=>this.setState({description: e.target.value})}/>
+                              onChange={(e)=>this.setState({description: e.target.value})}
+                               margin="normal"/>
 
-
-                    <label htmlFor="date-picker" >Date</label>
-                    <DatePicker  name="date-picker"
-                                 onChange={(e)=>  this.setState({date: e})}
-                                 value={this.state.date}
-                    />
-                    <label htmlFor="time-picker-start"  > Start Time</label>
-                    <TimePicker  name="time-picker-start"
-                                 onChange={(e)=> this.setState({time_start: e})}
-                                 value={this.state.time_start}
-                                 disableClock={true}/>
-                    <label htmlFor="time-picker-end" > End Time</label>
-
-                    <TimePicker  name="time-picker-end"  onChange={(e)=> this.setState({time_end: e})}
-                                 value={this.state.time_end}
-                                 disableClock={true}/>
-
+                    <Box display="flex" p={1}
+                         bgcolor="background.paper"
+                         justifyContent="space-between"
+                         mt={1} mb={1}>
+                    <KeyboardDatePicker name="date-picker"  className="mb-3"
+                                value={this.state.date}
+                                onChange={(e)=> this.setState({date:e})} />
+                    <KeyboardTimePicker  name="time-picker-start"
+                                 onChange={(e)=> this.setState({time_start: e.toString()})}
+                                 value={this.state.time_start}/>
+                    <KeyboardTimePicker  name="time-picker-end"
+                                 onChange={(e)=>this.setState({time_end: e})}
+                                 value={this.state.time_end}/>
+                    </Box>
 
                     <Location location={this.state.location}
                               editing={true}
@@ -95,16 +116,19 @@ class CreateEvent extends React.Component{
 
 
                     <div className="create-btns d-flex justify-content-between">
-                        <button className="form-control ">
-                            <Link to="/">Cancel</Link></button>
-                        <button className="form-control "  onClick={()=> {
-                            let {editing, ...state} = this.state
-                            create_event(state).then(ev=>{
-                                this.props.history.push(`/events/${ev.id}`)
+                        <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none'}}
+                            size="large" variant="outlined"><Link to="/"> Cancel</Link></Button>
+                        <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none',
+                        background:"#3a7347"}}
+                                size="large" variant="outlined"
+                                onClick={()=> {
+                                    let {editing, ...state} = this.state
+                                    create_event(state).then(ev=>{
+                                        this.props.history.push(`/events/${ev.id}`)
 
-                            })}}>
-                         Create event
-                        </button>
+                                    })}}>
+                            <Link to="/">  Create event</Link></Button>
+
                     </div>
 
 

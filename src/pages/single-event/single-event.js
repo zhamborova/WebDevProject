@@ -1,7 +1,5 @@
 import React from 'react';
 import './single-event.css'
-import DatePicker from 'react-date-picker';
-import TimePicker from 'react-time-picker';
 import UserCard from "../../components/user-card/user-card";
 import Location from "../../components/location/location";
 import Tags from "../../components/tags/tags";
@@ -12,7 +10,7 @@ import {connect} from "react-redux"
 import {Link} from "react-router-dom";
 import {get_event_by_id, update_event} from "../../services/events-service";
 import {fetchUserById} from "../../services/user-service";
-
+import {DatePicker, TimePicker} from '@material-ui/pickers';
 
 class SingleEvent extends React.Component{
 
@@ -24,9 +22,9 @@ class SingleEvent extends React.Component{
       editing: false,
       title: "",
       description: "",
-      date:"",
-      time_start: "",
-      time_end:"",
+      date: new Date(),
+      time_start: new Date(),
+      time_end:new Date(),
       location: {},
       tags: [],
       participants: [],
@@ -61,6 +59,12 @@ class SingleEvent extends React.Component{
 
     }
 
+    getTime = (date)=>{
+
+        var date = new Date(date);
+       return date.getHours() + ":" + date.getMinutes()
+    }
+
 
     setLocation = (location) => {
         this.setState({location})
@@ -84,7 +88,7 @@ class SingleEvent extends React.Component{
     }
 
     render() {
-
+console.log(this.state)
         return (<>
 
             <div className="d-flex flex-column single-event-container">
@@ -145,19 +149,17 @@ class SingleEvent extends React.Component{
                                  {this.state.editing ?
                                    <>
                                        <label htmlFor="date-picker" className="mb-0">Date</label>
-                                       <DatePicker  name="date-picker" className="mb-2"
-                                         onChange={(e)=>  this.setState({date: e})}
-                                         value={this.state.date}
-                                     />
+                                       <DatePicker value={this.state.date}
+                                                   onChange={(e)=> this.setState({date:e})} />
                                            <label htmlFor="time-picker"  className="mb-0"> Time </label>
                                      <TimePicker  name={"time-picker"} className="mb-2"
-                                                onChange={(e)=> this.setState({time_start: e})}
+                                                onChange={(e)=> this.setState({time_start: e.toString()})}
                                                  value={this.state.time_start}
-                                                 disableClock={true}/>
+                                                />
                                        <TimePicker  name={"time-picker"} className="mb-2"
-                                                    onChange={(e)=> this.setState({time_end: e})}
+                                                    onChange={(e)=>this.setState({time_end: e})}
                                                     value={this.state.time_end}
-                                                    disableClock={true}/>
+                                                   />
 
 
                                        <Location location={this.state.location}
@@ -167,11 +169,15 @@ class SingleEvent extends React.Component{
                                      </>:
                                      <>
                                      <div className="event-date">
-                                     <p className="event-date mb-0">{this.state.date}</p>
+                                     <p className="event-date mb-0">{
+
+                                     }</p>
                                      <div className="d-flex">
                                          from
-                                     <p className="event-time mr-1 ml-1"> {this.state.time_start} </p> to
-                                         <p className="event-time mr-1 ml-1"> {this.state.time_end} </p>
+                                     <p className="event-time mr-1 ml-1">
+                                           {this.getTime(this.state.time_start)} </p> to
+                                         <p className="event-time mr-1 ml-1">
+                                             {this.getTime(this.state.time_end)} </p>
                                      </div>
                                      </div>
                                     <Location location={this.state.location}
@@ -199,7 +205,7 @@ class SingleEvent extends React.Component{
                 </div>
         <div className="event-attend d-flex ">
             <div className="event-summary">
-                <p className="event-date mb-0">{this.state.date}</p>
+                <p className="event-date mb-0">{}</p>
                 <h4 className="event-title">{this.state.title}</h4>
             </div>
             <button className="btn btn-success btn-attend">

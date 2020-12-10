@@ -5,6 +5,8 @@ import "./search-events.css";
 import stringSimilarity from 'string-similarity'
 import {Link} from "react-router-dom";
 import {NavBar} from "../../components/navbar/navbar";
+import {get_events} from "../../services/events-service";
+import {set_events} from "../../redux/actions/event-actions";
 
 
 class SearchEvents extends React.Component{
@@ -17,8 +19,10 @@ class SearchEvents extends React.Component{
 
 
     componentDidMount = () =>{
-        let {results} = this.props
-        this.setState({results: results, all:results}, ()=>{
+
+        get_events().then(events => {
+                this.setState({all:events, results:events})
+            this.props.set_events(events)
             let {searchEvent} = this.props.match.params
             if(searchEvent){
                 this.setState({search:searchEvent}, ()=>{
@@ -26,7 +30,10 @@ class SearchEvents extends React.Component{
                 })
 
             }
-        });
+
+        })
+
+
 
 
     }
@@ -60,12 +67,16 @@ class SearchEvents extends React.Component{
                         <div className="d-flex container  ">
                             <input className="form-control" placeholder="Search events..." value={this.state.search}
                                    onChange={(e)=> this.setState({search:e.target.value})}/>
-                            <Link to={`/events/${this.state.search}`} className="ml-3 w-25">
+                            <Link to={`/search-events/${this.state.search}`} className="ml-3 w-25">
                                 <button className="form-control search-btn ">Search</button></Link>
                         </div>
+                         <div className="d-flex justify-content-evenly mt-3">
+                         <button className="form-control w-25 ml-3 mr-2"> All events</button>
+                         <button className="form-control w-25"> Your events</button>
+                         </div>
                         <div className="search-results container row m-auto">
-                            <div className="all">
                             {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}
+
                         </div>
             </div>
 
@@ -75,13 +86,11 @@ class SearchEvents extends React.Component{
 
 }
 
-const mapStateToProps = (state) =>{
-
-    return{
-        results: state.events.events,
+const mapStateToProps = (state) => ({
         current_user: state.users.current_user
-    }
+    })
 
-}
-
-export default connect(mapStateToProps)(SearchEvents);
+const dispatchMapper = dispatch => ({
+    set_events: (events) => set_events(dispatch, events)
+})
+export default connect(mapStateToProps, dispatchMapper)(SearchEvents);

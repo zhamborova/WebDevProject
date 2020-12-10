@@ -34,7 +34,7 @@ export const update_event = (event, dispatch) =>{
 
 
 export const delete_event = (id, dispatch) =>{
-    event_service.delete_event(id).then(s =>
+    event_service.delete_event(id).then(()=>
         dispatch({
         type: DELETE_EVENT,
         id
