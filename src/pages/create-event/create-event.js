@@ -14,10 +14,13 @@ import {
 } from '@material-ui/pickers';
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import {fetchUserById} from "../../services/user-service";
 
 class CreateEvent extends React.Component{
     state={
         host_id: 0,
+        host_name:"",
+        host_img: "",
         id: 0,
         editing: false,
         title: "",
@@ -47,7 +50,11 @@ class CreateEvent extends React.Component{
 
     componentDidMount() {
         let host_id = this.props.match.params["userId"]
-        this.setState({host_id})
+        fetchUserById(host_id).then(user=>this.setState({
+            host_name: user.first_name + " " + user.last_name,
+            host_img: user.image
+        }))
+        this.setState({host_id:host_id, participants:[host_id]})
     }
 
     setLocation = (location ) => {
@@ -82,7 +89,7 @@ class CreateEvent extends React.Component{
 
                     />
 
-                    <img src={this.state.image}  name="image-preview" />
+                    <img src={this.state.image}  className="image-preview" />
 
                     <TextField multiline variant="outlined" rows={4}  label="Description"
                               className="form-control event-description-edit"
@@ -97,12 +104,12 @@ class CreateEvent extends React.Component{
                          mt={1} mb={1}>
                     <KeyboardDatePicker name="date-picker"  className="mb-3"
                                 value={this.state.date}
-                                onChange={(e)=> this.setState({date:e})} />
+                                onChange={(e)=> this.setState({date:e.toString()})} />
                     <KeyboardTimePicker  name="time-picker-start"
                                  onChange={(e)=> this.setState({time_start: e.toString()})}
                                  value={this.state.time_start}/>
                     <KeyboardTimePicker  name="time-picker-end"
-                                 onChange={(e)=>this.setState({time_end: e})}
+                                 onChange={(e)=>this.setState({time_end: e.toString()})}
                                  value={this.state.time_end}/>
                     </Box>
 

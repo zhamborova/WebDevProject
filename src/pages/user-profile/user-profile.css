@@ -24,4 +24,5 @@
 }
 .profile-image > img{
     border-radius: 102px;
+    width: 100%;
 }

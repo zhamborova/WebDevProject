@@ -5,7 +5,6 @@ import Home from "./pages/home/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchNews from "./pages/search-news/search-news.js";
 import SingleEvent from "./pages/single-event/single-event";
-import Login from "./pages/login/login";
 import Register from "./pages/register/register";
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -16,6 +15,8 @@ import UserProfile from "./pages/user-profile/user-profile";
 import SearchUsers from "./pages/search-users/seach-users";
 import NavBar from "./components/navbar/navbar";
 import {connect} from "react-redux";
+import SignInSide from "./pages/sign-in/sign-in";
+import SignUp from "./pages/register/sign-up";
 
 const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, register, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -51,9 +52,9 @@ function App(props) {
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId/'} component={UserProfile}
                                   loggedin= {props.current_user}/>
-                  <ProtectedRoute exact path={'/login'} component={Login} login
+                  <ProtectedRoute exact path={'/sign-in'} component={SignInSide} login
                                   loggedin= {!props.current_user}/>
-                  <ProtectedRoute exact path={'/register'} component={Register} register
+                  <ProtectedRoute exact path={'/register'} component={SignUp} register
                                   loggedin= {!props.current_user}/>
               </Switch>
 

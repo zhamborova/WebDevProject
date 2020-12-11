@@ -9,10 +9,13 @@ import {delete_event} from "../../redux/actions/event-actions";
 import {connect} from "react-redux"
 import {Link} from "react-router-dom";
 import {get_event_by_id, update_event} from "../../services/events-service";
-import {fetchUserById} from "../../services/user-service";
-import {DatePicker, TimePicker} from '@material-ui/pickers';
+
+import {KeyboardDatePicker, KeyboardTimePicker} from '@material-ui/pickers';
+import Box from "@material-ui/core/Box";
+import TextField from "@material-ui/core/TextField";
 
 class SingleEvent extends React.Component{
+    is_mounted = false;
 
     state= {
       host_name: "",
@@ -42,29 +45,43 @@ class SingleEvent extends React.Component{
 
          }
      }
+     addParticipant = () =>{
+        let p = this.state.participants
+       let m = [...p, this.props.current_user.id]
+        this.setState({participants: m}, ()=>{
+            let {editing, ...state}  = this.state
+            update_event(state.id, state).then(event=> {
+                this.setState({...event})
+        })
+
+     })
+    }
     componentDidMount() {
         let id = this.props.match.params.eventId
+        this.is_mounted = true;
 
         get_event_by_id(id).then(event=> {
-            fetchUserById(event.host_id).then(user=>{
-                this.setState({host_name:user.first_name + " " + user.last_name,
-                                    host_img: user.image})
-            })
             this.setState({...event}, () => {
-                if (this.state.participants.length > 0) this.putHostFirst();
+                //if (this.state.participants.length > 0) this.putHostFirst();
             })
 
         } )
 
-
     }
-
+    componentWillUnmount() {
+        this.is_mounted = false;
+    }
     getTime = (date)=>{
 
         var date = new Date(date);
        return date.getHours() + ":" + date.getMinutes()
     }
 
+    getDate = (date) => {
+        var date = new Date(date);
+        return date.toDateString()
+
+    }
 
     setLocation = (location) => {
         this.setState({location})
@@ -80,15 +97,26 @@ class SingleEvent extends React.Component{
         this.setState({tags: [...tags, tag]})
     }
 
-    removeUser = (id) => {
+    removeParticipant = (id) => {
+        let p = this.state.participants.filter(pid => pid !==id);
+        this.setState({participants: p}, ()=>{
+            let {editing, ...state}  = this.state
+            update_event(state.id, state).then(event=> {
+                this.setState({...event}, () => {
 
-        const list = this.state.participants.filter(p => p.id!==id);
-        this.setState({participants: list});
+                })
+            })
 
+        })
     }
 
+    participates = (id) => {
+
+      return  this.state.participants.some(p => p === id) ||
+              this.state.host_id === id
+    }
     render() {
-console.log(this.state)
+        let cur_id = this.props.current_user.id
         return (<>
 
             <div className="d-flex flex-column single-event-container">
@@ -96,24 +124,32 @@ console.log(this.state)
                 {this.state.editing ?
                     <><input className="form-control"
                            value={this.state.title}
-                           onChange={(e)=>this.setState({title: e.target.value})}/>
+                           onChange={(e)=>this.setState({title: e.target.value})}
+
+
+                    />
+
                     <div onClick={()=>this.setState({editing:!this.state.editing})}
                          className="btn d-flex">
-                        <FontAwesomeIcon icon={faCheck} onClick={()=> {
+                        <FontAwesomeIcon className="fa-check-i" icon={faCheck} onClick={()=> {
                             this.setState({editing:false}, ()=>{
                                 let {editing, ...state} = this.state
                                update_event(state.id,state);
                            })}}/>
-                        <Link to={"/"}><FontAwesomeIcon icon={faTimes}
+                        <Link to={"/"}><FontAwesomeIcon icon={faTimes} className="delete-btn"
                                                onClick={()=> {this.props.delete_event(this.state.id)}}/>
                         </Link>
                     </div> </>:
                     <>
                     <h4 className="event-title">{this.state.title}</h4>
-                    <div onClick={()=>this.setState({editing:!this.state.editing})}
-                    className="btn">
-                        <FontAwesomeIcon icon={faPenAlt}/>
-                    </div> </>
+
+                        {this.state.host_id === this.props.current_user.id ?
+                            <div onClick={() => this.setState({editing: !this.state.editing})}
+                                 className="btn">
+                                <FontAwesomeIcon icon={faPenAlt}/>
+                            </div> : null
+                        }
+                        </>
                 }
 
 
@@ -148,20 +184,24 @@ console.log(this.state)
                          <div className="event-time-location">
                                  {this.state.editing ?
                                    <>
+                                   <Box mb={2}>
                                        <label htmlFor="date-picker" className="mb-0">Date</label>
-                                       <DatePicker value={this.state.date}
-                                                   onChange={(e)=> this.setState({date:e})} />
-                                           <label htmlFor="time-picker"  className="mb-0"> Time </label>
-                                     <TimePicker  name={"time-picker"} className="mb-2"
+                                       <KeyboardDatePicker value={this.state.date}
+                                                   onChange={(e)=> this.setState({date:e.toString()})}
+                                       />
+                                   </Box>
+                                       <Box mb={2}>
+                                  <label htmlFor="time-picker"  className="mb-0"> Time </label>
+                                      <KeyboardTimePicker name={"time-picker"} className="mb-2"
                                                 onChange={(e)=> this.setState({time_start: e.toString()})}
                                                  value={this.state.time_start}
                                                 />
-                                       <TimePicker  name={"time-picker"} className="mb-2"
-                                                    onChange={(e)=>this.setState({time_end: e})}
+                                       <KeyboardTimePicker  name={"time-picker"} className="mb-2"
+                                                    onChange={(e)=>this.setState({time_end: e.toString()})}
                                                     value={this.state.time_end}
                                                    />
 
-
+                                       </Box>
                                        <Location location={this.state.location}
                                                   editing={this.state.editing}
                                                   setLocation = {this.setLocation}
@@ -169,14 +209,12 @@ console.log(this.state)
                                      </>:
                                      <>
                                      <div className="event-date">
-                                     <p className="event-date mb-0">{
-
-                                     }</p>
-                                     <div className="d-flex">
+                                     <p className="event-date mb-2">{this.getDate(this.state.date)}</p>
+                                     <div className="d-flex mb-2">
                                          from
-                                     <p className="event-time mr-1 ml-1">
+                                     <p className="event-time mb-0 mr-1 ml-1">
                                            {this.getTime(this.state.time_start)} </p> to
-                                         <p className="event-time mr-1 ml-1">
+                                         <p className="event-time mb-0 mr-1 ml-1">
                                              {this.getTime(this.state.time_end)} </p>
                                      </div>
                                      </div>
@@ -195,31 +233,49 @@ console.log(this.state)
             </div>
                 </div>
             </div>
+                <h5 className="event-partic-title ">Participants</h5>
                 <div className="event-participants ">
                     {this.state.participants.map(p => {
-                        return <UserCard id={p} key={p}
+                        return <UserCard key={p} id={p}
                                 host={this.state.host_id === p}
-                                removeUser={this.removeUser}
+                                removeUser={this.removeParticipant}
                                 editing={this.state.editing}/>
                     })}
                 </div>
-        <div className="event-attend d-flex ">
-            <div className="event-summary">
-                <p className="event-date mb-0">{}</p>
-                <h4 className="event-title">{this.state.title}</h4>
-            </div>
-            <button className="btn btn-success btn-attend">
-                Attend
-            </button>
-        </div>
+                {!this.participates(cur_id) ?
+                    <div className="event-attend d-flex ">
+                        <div className="event-summary">
+                            <p className="event-date mb-0">{this.getDate(this.state.date)}</p>
+                            <h4 className="event-title">{this.state.title}</h4>
+                        </div>
+                        <button className="btn btn-success btn-attend" onClick={() => this.addParticipant()}>
+                            Attend
+                        </button>
+                    </div> :
+                    this.participates(cur_id) && cur_id !== this.state.host_id &&
+                    <div className="event-attend d-flex ">
+                        <div className="event-summary">
+                            <p className="event-date mb-0">{this.getDate(this.state.date)}</p>
+                            <h4 className="event-title">{this.state.title}</h4>
+                        </div>
+                        <button className="btn btn-danger btn-attend"
+                                onClick={() => this.removeParticipant(cur_id)}>
+                            Leave event
+                        </button>
+                    </div>
+
+                }
      </>
 )}
 }
 
 
+const mapStateToProps = (state) =>{
+    return{current_user: state.users.current_user}
 
+}
 const mapDispatchToProps = dispatch => ({
         delete_event: (id) => delete_event(id, dispatch),
         update_event: (event) => update_event(event, dispatch),
 })
-export default connect(()=>({}), mapDispatchToProps)(SingleEvent);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleEvent);

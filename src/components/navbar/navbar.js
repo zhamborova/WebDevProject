@@ -25,7 +25,7 @@ export class NavBar extends React.Component {
 						{this.props.current_user &&
 						<li className="profile-nav-float-right">
 							<Link to={`/users/${this.props.current_user.id}`}>
-							<FontAwesomeIcon icon={faUserCircle}/>
+							<FontAwesomeIcon className="profile-icon" icon={faUserCircle}/>
 							</Link>
 						</li>
 						}
@@ -37,7 +37,7 @@ export class NavBar extends React.Component {
 						}
 						{!this.props.current_user &&
 						<li className="float-right loginRegister-nav">
-							<Link to={'/login'}>Login</Link>
+							<Link to={'/sign-in'}>Login</Link>
 						</li>
 						}
 

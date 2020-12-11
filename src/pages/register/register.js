@@ -12,10 +12,10 @@ export class Register extends React.Component {
 		last_name: '',
 		email: '',
 		password: '',
-		location: {city:"", country:"", street:"", zip: ""},
-		bio: "",
+		location: {city:"London", country:"UK", street:"Baker's St 26B", zip: "025021"},
+		bio: "Tell something about yourself!",
 		friends: [],
-		image: ""
+		image: "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg"
 	}
 
 

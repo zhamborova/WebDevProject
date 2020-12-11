@@ -5,7 +5,15 @@
 }
 .card-user{
     min-height: 230px!important;
-    margin: 10px 30px 10px 0;
+    margin: 0px 30px 10px 0;
     color:black;
 }
 
+.card-name-container> .card-title{
+    text-align: center;
+
+}
+.user-img{
+    width: 100%;
+    border-radius: 50px;
+}

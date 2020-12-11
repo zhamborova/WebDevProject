@@ -43,7 +43,11 @@ class EventCard extends React.Component {
 
     }
 
+    getDate = (date) => {
+        var date = new Date(date);
+        return date.toDateString()
 
+    }
     render() {
     let {event,vertical} = this.props
     let {users} = this.state
@@ -54,12 +58,12 @@ class EventCard extends React.Component {
    // }
     let length = users.length;
 
-    return <Link to={`/events/${event.id}`}>
+    return <Link to={`/events/${event.id}`} key={event.id}>
         <div className={`card event-card ${v}`}>
             <img className={`card-img-top ${v}`} src={event.image} alt="Card image cap"/>
             <div className={`card-body ${v}`}>
                 <div className={`card-details ${v}`}>
-                    <h5 className="card-title">{event.date}, {event.start_time}</h5>
+                    <h5 className="card-title">{this.getDate(event.date)}, {event.start_time}</h5>
                     <h6 className="card-subtitle mb-2">{event.title}</h6>
                     <p className={`card-text ${v}`}>{event.description}</p>
                 </div>

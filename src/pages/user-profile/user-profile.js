@@ -74,7 +74,7 @@ class UserProfile  extends  React.Component{
             </div>
             <div className={`d-flex ${fL}`}>
                 {friends.slice(0, 5).map(p => {
-                    return <UserCard id={p} key={p.id}
+                    return <UserCard id={p} key={p}
                                       host={false}
                                       profileView
                                       editing={false}/>

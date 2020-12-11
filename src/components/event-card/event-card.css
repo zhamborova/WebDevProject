@@ -13,6 +13,7 @@
 .event-card > .card-body >  div >.card-subtitle{
      font-weight: bold;
 
+
 }
 
 .event-card > .card-body > div >.card-text{
@@ -53,10 +54,14 @@
     max-height: 205px;
 }
 
+.card-img-top{
+    height: 200px;
+}
 .card-img-top.v{
     margin-bottom: 0;
     width: 40%;
 }
+
 
 .others{
     margin: auto;

@@ -52,6 +52,11 @@
     font-weight: bold;
     font-size: 24px;
     line-height: 24px;
+
+}
+
+.event-description{
+    margin-bottom: 30px;
 }
 
 .event-description > p{
@@ -79,9 +84,15 @@
     display: flex;
     flex-wrap: wrap;
     width:80%;
-    margin: 50px auto 50px auto;
+    margin: 20px auto 50px auto;
 }
-
+.event-partic-title{
+    margin: 20px 125px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+}
 
 .event-attend{
 
@@ -118,4 +129,11 @@
 }
 label{
     display: block;
+}
+
+.fa-check-i{
+    margin: 1px 1px 0 0;
+}
+.delete-btn > path{
+    fill: rgba(194, 21, 21, 0.7);
 }
