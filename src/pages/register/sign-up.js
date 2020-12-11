@@ -10,9 +10,13 @@ import Box from '@material-ui/core/Box';
 import PersonIcon from '@material-ui/icons/Person';
 import './sign-up.css'
 import Typography from '@material-ui/core/Typography';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
+import { withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {create_user} from "../../redux/actions/user-actions";
 import {connect} from "react-redux";
+import {Register} from "./register";
+
+
 let grey ="rgba(143, 143, 143, 0.5)"
 
 
@@ -71,9 +75,28 @@ const styles = (theme) => ({
 });
 
 class SignUp extends React.Component{
-    const {classes} = this.props
+    state = {
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        location: {city:"London", country:"UK", street:"Baker's St 26B", zip: "025021"},
+        bio: "Tell something about yourself!",
+        friends: [],
+        image: "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg"
+    }
 
-   render(){ return (
+    submitCredentials = (user) => {
+
+        this.props.createUser(user).then(id => {
+            this.props.history.push(`/users/${id}`)   } )
+
+    }
+   render(){
+
+       const {classes} = this.props
+
+       return (
         <div className="bg">
         <Container component="main" maxWidth="xs" className={classes.root}>
             <CssBaseline />
@@ -96,7 +119,11 @@ class SignUp extends React.Component{
                                 id="firstName"
                                 label="First Name"
                                 autoFocus
-
+                                defaultValue={this.state.first_name}
+                                onChange={event => {
+                                    const { value } = event.target;
+                                    this.setState({ first_name: value });
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -108,6 +135,11 @@ class SignUp extends React.Component{
                                 label="Last Name"
                                 name="lastName"
                                 autoComplete="lname"
+                                defaultValue={this.state.last_name}
+                                onChange={event => {
+                                    const { value } = event.target;
+                                    this.setState({ last_name: value });
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -119,6 +151,11 @@ class SignUp extends React.Component{
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                defaultValue={this.state.email}
+                                onChange={event => {
+                                    const { value } = event.target;
+                                    this.setState({ email: value });
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -131,23 +168,27 @@ class SignUp extends React.Component{
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                defaultValue={this.state.password}
+                                onChange={event => {
+                                    const { value } = event.target;
+                                    this.setState({ password: value });
+                                }}
                             />
                         </Grid>
 
                     </Grid>
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                    >
+                        onClick={() => this.submitCredentials(this.state)}>
                         Sign Up
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
 
-                            <Link href="/login" variant="body2">
+                            <Link href="/sign-in" variant="body2">
                                 Already have an account? Sign in
                             </Link>
                             <Box mt={2}/>
@@ -163,4 +204,10 @@ class SignUp extends React.Component{
 }
 
 }
-export default withStyles(styles)(SignUp)
+
+const mapDispatchToProps = dispatch => ({
+    create_user: (user) => create_user(dispatch, user)
+
+})
+
+export default withStyles(styles)(connect(()=>({}), mapDispatchToProps)(SignUp));

@@ -35,6 +35,7 @@ function App(props) {
      <BrowserRouter >
            <NavBar/>
               <Switch >
+
                   <Route exact path='/' component={Home}/>
                   <ProtectedRoute component={SingleEvent}
                                   exact path={'/events/:eventId'}
@@ -56,6 +57,7 @@ function App(props) {
                                   loggedin= {!props.current_user}/>
                   <ProtectedRoute exact path={'/register'} component={SignUp} register
                                   loggedin= {!props.current_user}/>
+                  <Route to={"/registerOld"} component={Register}/>
               </Switch>
 
 
