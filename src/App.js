@@ -51,7 +51,7 @@ function App(props) {
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId/settings'} component={Settings}
                                   loggedin= {props.current_user}/>
-                  <ProtectedRoute exact path={'/users/:userId/'} component={UserProfile}
+                  <ProtectedRoute exact path={'/users/:userId'} component={UserProfile}
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/sign-in'} component={SignInSide} login
                                   loggedin= {!props.current_user}/>

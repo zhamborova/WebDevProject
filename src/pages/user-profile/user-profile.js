@@ -1,14 +1,12 @@
 import React from "react";
-import {connect} from "react-redux";
 import UserCard from "../../components/user-card/user-card";
-import {Link} from "react-router-dom";
+import {Link,} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLongArrowAltRight,  faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons";
 import EventCard from "../../components/event-card/event-card";
 import './user-profile.css'
 
-import {render} from "react-dom";
-import {fetchUserById, get_events_for_user, get_friends} from "../../services/user-service";
+import {fetchUserById, get_events_for_user} from "../../services/user-service";
 
 
 
@@ -28,15 +26,25 @@ class UserProfile  extends  React.Component{
 
   componentDidMount() {
       let {userId} = this.props.match.params;
-      fetchUserById(userId).then(user => this.setState({...user}, )).then(()=>{
-          get_friends(this.state.friends).then(friends => this.setState({friends}))
-      })
-
-      get_events_for_user(userId).then(events =>{
-          this.setState({events})})}
+      this.fetch_user(userId)
 
 
+    }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        let {userId} = this.props.match.params;
+        if(prevProps.match.params.userId !== userId){
+           this.fetch_user(userId)
+        }
+
+    }
+
+    fetch_user = (userId) =>{
+        fetchUserById(userId).then(user => this.setState({...user} ))
+        get_events_for_user(userId).then(events =>{
+            this.setState({events})})
+
+    }
 
     render(){
      let {id,first_name, last_name, location, bio, events, friends, image} = this.state;
@@ -68,13 +76,14 @@ class UserProfile  extends  React.Component{
         <div className="user-friends mb-5">
             <div className="d-flex">
                 <h3>Friends</h3>
-                <Link to={'/searchUsers/'} className="ml-auto mr-1">View all
+                <Link to={`/users/${this.state.id}/friends`} className="ml-auto mr-1">View all
                 </Link>
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
             </div>
             <div className={`d-flex ${fL}`}>
-                {friends.slice(0, 5).map(p => {
-                    return <UserCard id={p} key={p}
+                {friends.slice(0,5).map(p => {
+                    return <UserCard id={p}
+                                      key={p}
                                       host={false}
                                       profileView
                                       editing={false}/>
@@ -85,7 +94,7 @@ class UserProfile  extends  React.Component{
         <div className="user-events mb-4">
             <div className="d-flex">
                 <h3>Events</h3>
-                <Link to={'/events'} className="ml-auto mr-1">View all</Link>
+                <Link to={`/users/${this.state.id}/events`} className="ml-auto mr-1">View all</Link>
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
             </div>
             <div className={`d-flex ${eL}`}>

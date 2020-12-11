@@ -12,7 +12,6 @@ import {get_event_by_id, update_event} from "../../services/events-service";
 
 import {KeyboardDatePicker, KeyboardTimePicker} from '@material-ui/pickers';
 import Box from "@material-ui/core/Box";
-import TextField from "@material-ui/core/TextField";
 
 class SingleEvent extends React.Component{
     is_mounted = false;
@@ -34,17 +33,7 @@ class SingleEvent extends React.Component{
       image: ""
     }
 
-     putHostFirst = () => {
-         let hostIndex = this.state.participants.findIndex(p =>  p === this.state.host_id)
-         if(hostIndex !== 0){
-             let list =this.state.participants;
-             let temp = list[0];
-             list[0] = list[hostIndex];
-             list[hostIndex] = temp;
-             this.setState({participants:list})
 
-         }
-     }
      addParticipant = () =>{
         let p = this.state.participants
        let m = [...p, this.props.current_user.id]
@@ -62,7 +51,6 @@ class SingleEvent extends React.Component{
 
         get_event_by_id(id).then(event=> {
             this.setState({...event}, () => {
-                //if (this.state.participants.length > 0) this.putHostFirst();
             })
 
         } )

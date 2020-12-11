@@ -62,10 +62,9 @@ export const get_events_for_user = (userId) =>
         }
     }).then(response => response.json())
 
-export const get_friends = (ids) =>{
-   return fetch(`${url}/${0}/users`, {
-        method: 'POST',
-        body: JSON.stringify(ids),
+export const get_friends = (id) =>{
+   return fetch(`${url}/users/${id}/friends`, {
+        method: 'GET',
         headers: {
             'content-type': 'application/json'
         }
