@@ -14,8 +14,6 @@ import { withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {create_user} from "../../redux/actions/user-actions";
 import {connect} from "react-redux";
-import {Register} from "./register";
-
 
 let grey ="rgba(143, 143, 143, 0.5)"
 
@@ -88,7 +86,7 @@ class SignUp extends React.Component{
 
     submitCredentials = (user) => {
 
-        this.props.createUser(user).then(id => {
+        this.props.create_user(user).then(id => {
             this.props.history.push(`/users/${id}`)   } )
 
     }
@@ -207,7 +205,6 @@ class SignUp extends React.Component{
 
 const mapDispatchToProps = dispatch => ({
     create_user: (user) => create_user(dispatch, user)
-
 })
 
 export default withStyles(styles)(connect(()=>({}), mapDispatchToProps)(SignUp));

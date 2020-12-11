@@ -16,6 +16,7 @@ class SearchUsers extends React.Component{
 
 
     componentDidMount = () =>{
+        //fetch here
         let {results} = this.props
         this.setState({results: results, all:results}, ()=>{
             let {search} = this.props.match.params
@@ -83,10 +84,5 @@ class SearchUsers extends React.Component{
 
 }
 
-const mapStateToProps = (state) =>{
 
-    return{results: state.users.users}
-
-}
-
-export default connect(mapStateToProps)(SearchUsers);
+export default SearchUsers;

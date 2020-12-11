@@ -32,7 +32,7 @@ export class NavBar extends React.Component {
 
 						{!this.props.current_user &&
 						<li className="float-right loginRegister-nav">
-							<Link to={'/register'}>Register</Link>
+							<Link to={'/sign-up'}>Register</Link>
 						</li>
 						}
 						{!this.props.current_user &&

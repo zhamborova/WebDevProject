@@ -12,11 +12,11 @@ class SearchNews extends React.Component{
     }
 
       componentDidMount() {
-        const {title} = this.props.match.params;
+        const {search} = this.props.match.params;
 
-        if(title){
-            this.setState({search:title});
-            this.searchByTitle(title);
+        if(search){
+            this.setState({search:search});
+            this.searchByTitle(search);
         }else {
             this.searchAll();
         }
@@ -24,9 +24,9 @@ class SearchNews extends React.Component{
 
 
      componentDidUpdate(prevProps, prevState, snapshot) {
-        const {title} = prevProps.match.params;
-        const newTitle =  this.props.match.params.title;
-        if(title !== this.props.match.params.title){
+        const {search} = prevProps.match.params;
+        const newTitle =  this.props.match.params.search;
+        if(search !== newTitle){
             this.setState({search: newTitle})
             this.searchByTitle(newTitle)
         }
@@ -52,7 +52,7 @@ class SearchNews extends React.Component{
                                placeholder="Search news..."
                                value={this.state.search}
                                onChange={(e)=> this.setState({search:e.target.value})}/>
-                        <Link to={`/news/${this.state.search}`} className="ml-3 w-25">
+                        <Link to={`/search-news/${this.state.search}`} className="ml-3 w-25">
                             <button className="form-control search-btn ">Search</button></Link>
                     </div>
                 <div className="news-list">
