@@ -3,31 +3,21 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PersonIcon from '@material-ui/icons/Person';
+import './sign-up.css'
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {connect} from "react-redux";
 let grey ="rgba(143, 143, 143, 0.5)"
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
-const useStyles = makeStyles((theme) => ({
+
+const styles = (theme) => ({
     root:{
         '& label.Mui-focused': {
             color: grey,
@@ -46,35 +36,50 @@ const useStyles = makeStyles((theme) => ({
                 borderColor: grey,
             },
         },
+        backgroundColor:"white",
+
+    },
+    image: {
+        backgroundImage: 'url(https://cdn.dribbble.com/users/3474264/screenshots/12096178/media/b0e6d4b5c0c65cff9ee0bff500274cbc.jpg?compress=1&resize=1600x1200)',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
     },
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(4),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
     avatar: {
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor:  "rgba(143, 143, 143, 0.5)",
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
+        width: '100%',
+
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+        backgroundColor: "#3a7347",
+        '&:hover': {
+            backgroundColor: "#40a657",
+        },
     },
-}));
+});
 
-export default function SignUp() {
-    const classes = useStyles();
+class SignUp extends React.Component{
+    const {classes} = this.props
 
-    return (
-        <Container component="main" maxWidth="xs">
+   render(){ return (
+        <div className="bg">
+        <Container component="main" maxWidth="xs" className={classes.root}>
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <PersonIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign up
@@ -91,6 +96,7 @@ export default function SignUp() {
                                 id="firstName"
                                 label="First Name"
                                 autoFocus
+
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -127,12 +133,7 @@ export default function SignUp() {
                                 autoComplete="current-password"
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
-                            />
-                        </Grid>
+
                     </Grid>
                     <Button
                         type="submit"
@@ -145,16 +146,21 @@ export default function SignUp() {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+
+                            <Link href="/login" variant="body2">
                                 Already have an account? Sign in
                             </Link>
+                            <Box mt={2}/>
                         </Grid>
                     </Grid>
                 </form>
             </div>
             <Box mt={5}>
-                <Copyright />
             </Box>
         </Container>
+        </div>
     );
 }
+
+}
+export default withStyles(styles)(SignUp)
