@@ -90,7 +90,7 @@ class Home extends React.Component{
                 </div>
 
                 {this.props.current_user &&
-                <Link to={`/users/${this.props.current_user.id}/events`} className="m-auto">
+                <Link to={`/users/${this.props.current_user.id}/create`} className="m-auto">
                     <button className="btn btn-success host-btn " > Host event </button></Link>
                 }
 

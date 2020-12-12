@@ -18,6 +18,7 @@ import {connect} from "react-redux";
 import SignInSide from "./pages/sign-in/sign-in";
 import SignUp from "./pages/sign-up/sign-up";
 import UserFriends from "./pages/user-friends/user-friends"
+import UserEvents from "./pages/user-events/user-events"
 
 const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, register, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -48,13 +49,15 @@ function App(props) {
                   <ProtectedRoute exact path={['/search-users', '/search-users/:search' ]}
                                   component={SearchUsers} loggedin= {props.current_user} />
                   <Route exact path={['/search-news', '/search-news/:search']} component={SearchNews}/>
-                  <ProtectedRoute exact path={'/users/:userId/events'} component={CreateEvent}
+                  <ProtectedRoute exact path={'/users/:userId/create'} component={CreateEvent}
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId/settings'} component={Settings}
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId'} component={UserProfile}
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId/friends'} component={UserFriends}
+                                  loggedin= {props.current_user}/>
+                  <ProtectedRoute exact path={'/users/:userId/events'} component={UserEvents}
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/sign-in'} component={SignInSide} login
                                   loggedin= {!props.current_user}/>
