@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import './register.css'
 import {InputField} from "../../components/input-field/input-field";
 import {register} from "../../services/user-service";
+import {Redirect} from "react-router";
 
 
 export class Register extends React.Component {
@@ -92,18 +93,7 @@ export class Register extends React.Component {
 
 						{this.isRegistered === true &&
 						<div className="form-group row">
-							<div className="col-sm-12">
-
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-
-							<h2 className="alert-success text-center">Registered successfully</h2>
-							<Link to="/login" className="btn btn-outline-success">To Login</Link>
-							</div>
+							<Redirect to='/login'/>
 						</div>
 						}
 

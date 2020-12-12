@@ -5,6 +5,7 @@ import {InputField} from "../../components/input-field/input-field";
 import {login} from "../../services/user-service";
 import {connect} from "react-redux";
 import {setCurrentUser} from "../../redux/actions/user-actions"
+import {Redirect} from "react-router";
 
 
 export class Login extends React.Component {
@@ -92,11 +93,7 @@ export class Login extends React.Component {
 								{this.state.loginStatus === "success" &&
 								<div>
 									Success!
-									<Link to='/'
-										  className="btn btn-block project-login-button" id="loginBtn"
-										  onClick={() => this.props.setCurrentUser(this.state.current_user)}>
-										To Home Page
-									</Link>
+									<Redirect to='/'>{this.props.setCurrentUser(this.state.current_user)}</Redirect>
 								</div>
 
 								}

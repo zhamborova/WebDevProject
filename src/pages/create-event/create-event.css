@@ -1,4 +1,3 @@
-
 .create-event-bg{
     background-color: #f7f7f7;
     padding:  100px 0;
@@ -28,7 +27,7 @@
 }
 
 .create-btns> button:nth-child(2){
-   background-color: #3a7347!important;
+    background-color: #3a7347!important;
     color: white;
 }
 
@@ -45,4 +44,3 @@
     padding: 50px;
     background-color: white;
 }
-

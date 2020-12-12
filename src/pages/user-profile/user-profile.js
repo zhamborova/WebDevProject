@@ -7,8 +7,7 @@ import {faLongArrowAltRight,  faMapMarkerAlt} from "@fortawesome/free-solid-svg-
 import EventCard from "../../components/event-card/event-card";
 import './user-profile.css'
 import img from '../../assets/Ellipse1.png'
-
-
+import {NavBar} from "../../components/navbar/navbar";
 
 const UserProfile = (props) => {
 

@@ -1,9 +1,9 @@
 import img4 from "../../assets/Ellipse 4.png";
 import img2 from "../../assets/Ellipse 2.png";
 import img3 from "../../assets/Ellipse 3.png";
-import {CREATE_USER, DELETE_USER, UPDATE_USER} from "../actions/user-actions";
+import {CREATE_USER, DELETE_USER, UPDATE_USER, GET_USER, GET_ALL_USER} from "../actions/user-actions";
 
-const users = [
+let users = [
     { id:123, first_name: "Michelle", last_name: "Steel",  img: img4,
       bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
             "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, q" +
@@ -75,13 +75,14 @@ const users = [
         location: {city:"Boston", street: "48 Calumet St", zip: "02215", country: "USA"},
         friends: [345, 234, 456,567,678],
         events: [1,2,3,4,5],
-        email: "efe@gmail.com"},
+        email: "efe@gmail.com"}
 
 ]
 
 
 let init = {
     user: users[0],
+    userId: users[0].id,
     users: users,
     current_user: {},
 }
@@ -95,14 +96,24 @@ export const user_reducer = (state=init, action) => {
             return state.current_user
         case CREATE_USER:
             return {...state,
-                events: [...state.events, action.event]};
+                users: [...state.users, action.user]
+            };
         case UPDATE_USER:
             return {...state,
-                events: state.events.map(e => e.id === action.event.id ? action.event : e)
+                users: state.users.map(user => user.id === action.user.id ? action.user : user)
             };
         case DELETE_USER:
             return {...state,
-                events: state.events.filter(ev => ev.id !== action.id)};
+                users: state.users.filter(user => user.id !== action.id)};
+        case GET_USER:
+            return {...state,
+                user: action.user,
+                userId: action.userId
+            };
+        case GET_ALL_USER:
+            return {...state,
+                users: action.users
+            };
         case "SET_CURRENT_USER":
           console.log("We are in user-reducer, setting current user " + action.current_user.name)
             return {
@@ -113,6 +124,6 @@ export const user_reducer = (state=init, action) => {
         default: return state;
 
     }
-
-
 }
+
+export default user_reducer

@@ -41,52 +41,62 @@ class CreateEvent extends React.Component{
     render() {
         return(
             <div className="create-event-bg">
-            <div className="d-flex flex-column create-event-container">
-                <h2 className="m-auto">Create Event</h2>
-                        <label htmlFor="title">Add Title </label>
-                         <input className="form-control mb-3" name="title"
-                                     value={this.state.title}
-                                     onChange={(e)=>this.setState({title: e.target.value})}/>
+                <div className="d-flex flex-column create-event-container">
+                    <h2 className="m-auto">Create Event</h2>
+                    <label htmlFor="title">Add Title </label>
+                    <input className="form-control mb-3" name="title"
+                           value={this.state.title}
+                           onChange={(e)=>this.setState({title: e.target.value})}/>
 
-                        <label htmlFor="image">Add Cover Image </label>
-                        <input className="form-control mb-3"
-                               name="image"
-                               value={this.state.image}
-                               onChange={(e)=> this.setState({image: e.target.value})}/>
-                        <label htmlFor="image-preview">Preview Image</label>
-                          <img src={this.state.image} className={"event-img"}   name="image-preview" />
+                    <label htmlFor="image">Add Cover Image </label>
+                    <input className="form-control mb-3"
+                           name="image"
+                           value={this.state.image}
+                           onChange={(e)=> this.setState({image: e.target.value})}/>
+                    <label htmlFor="image-preview">Preview Image</label>
+                    <img src={this.state.image} className={"event-img"}   name="image-preview" />
 
-                         <label htmlFor="description" >Description</label>
-                                    <textarea className="form-control event-description-edit"
-                                               name="description"
-                                              value={this.state.description}
-                                              onChange={(e)=>this.setState({description: e.target.value})}/>
+                    <label htmlFor="description" >Description</label>
+                    <textarea className="form-control event-description-edit"
+                              name="description"
+                              value={this.state.description}
+                              onChange={(e)=>this.setState({description: e.target.value})}/>
 
 
-                                                <label htmlFor="date-picker" >Date</label>
-                                                <DatePicker  name="date-picker"
-                                                             onChange={(e)=>  this.setState({date: e})}
-                                                             value={this.state.date}
-                                                />
-                                                <label htmlFor="time-picker-start"  > Start Time</label>
-                                                <TimePicker  name="time-picker-start"
-                                                             onChange={(e)=> this.setState({time_start: e})}
-                                                             value={this.state.time_start}
-                                                             disableClock={true}/>
+                    <label htmlFor="date-picker" >Date</label>
+                    <DatePicker  name="date-picker"
+                                 onChange={(e)=>  this.setState({date: e})}
+                                 value={this.state.date}
+                    />
+                    <label htmlFor="time-picker-start"  > Start Time</label>
+                    <TimePicker  name="time-picker-start"
+                                 onChange={(e)=> this.setState({time_start: e})}
+                                 value={this.state.time_start}
+                                 disableClock={true}/>
                     <label htmlFor="time-picker-end" > End Time</label>
 
                     <TimePicker  name="time-picker-end"  onChange={(e)=> this.setState({time_end: e})}
-                                                             value={this.state.time_end}
-                                                             disableClock={true}/>
+                                 value={this.state.time_end}
+                                 disableClock={true}/>
 
 
-                                                <Location location={this.state.location}
-                                                          editing={true}
-                                                          setLocation = {this.setLocation}/>
+                    <Location location={this.state.location}
+                              editing={true}
+                              setLocation = {this.setLocation}/>
 
 
                     <Tags tags={this.state.tags} editing={true}
                           addTag={this.addTag} removeTag={this.removeTag}/>
+
+
+                    <div className="create-btns d-flex justify-content-between">
+                        <button className="form-control ">
+                            <Link to="/">Cancel</Link></button>
+                        <button className="form-control "
+                                onClick={()=> this.props.create_event(this.state)}>
+                            <Link to="/events">Create event</Link>
+                        </button>
+                    </div>
 
                       <div className="create-btns d-flex justify-content-between">
                        <button className="form-control ">   <Link to="/">Cancel</Link></button>
@@ -94,6 +104,7 @@ class CreateEvent extends React.Component{
                                   onClick={()=> this.props.create_event(this.state)}
                                ><Link to="/events/0">Create event</Link></button>
                       </div>
+
 
                 </div>
 
