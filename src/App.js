@@ -17,6 +17,7 @@ import NavBar from "./components/navbar/navbar";
 import {connect} from "react-redux";
 import SignInSide from "./pages/sign-in/sign-in";
 import SignUp from "./pages/sign-up/sign-up";
+import UserFriends from "./pages/user-friends/user-friends"
 
 const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, register, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -53,27 +54,14 @@ function App(props) {
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId'} component={UserProfile}
                                   loggedin= {props.current_user}/>
+                  <ProtectedRoute exact path={'/users/:userId/friends'} component={UserFriends}
+                                  loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/sign-in'} component={SignInSide} login
                                   loggedin= {!props.current_user}/>
                   <ProtectedRoute exact path={'/sign-up'} component={SignUp} register
                                   loggedin= {!props.current_user}/>
+
               </Switch>
-
-        {props.current_user.id === undefined &&
-        <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route exact path={['/events', '/events/search/:searchEvent']}><Redirect to="/"/></Route>
-            <Route exact path={['/search-news', '/search-news/:title']} component={SearchNews}/>
-            <Route exact path={'/events/:eventId'} component={Home}><Redirect to="/"/></Route>
-            <Route exact path={'/login'} component={Login}/>
-            <Route exact path={'/register'} component={Register}/>
-            <Route exact path={'/users/:userId/events'} component={Home}><Redirect to="/"/></Route>
-            <Route exact path={'/users/:userId/settings'} component={Home}><Redirect to="/"/></Route>
-            <Route exact path={'/users/:userId/'} component={Home}><Redirect to="/"/></Route>
-            <Route exact path={[ '/searchUsers/:search','/searchUsers/' ]} component={Home}><Redirect to="/"/></Route>
-        </Switch>
-        }
-
 
     </BrowserRouter>
       </MuiPickersUtilsProvider>

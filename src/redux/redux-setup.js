@@ -1,15 +1,8 @@
 import {combineReducers, createStore} from "redux";
 import {persistReducer, persistStore} from "redux-persist";
-<<<<<<< HEAD
 import storage from "redux-persist/lib/storage"
 import {event_reducer} from "./reducers/event-reducer";
 import {user_reducer} from "./reducers/user-reducer";
-=======
-import {event_reducer} from './reducers/event-reducer';
-import {user_reducer} from './reducers/user-reducer';
-
-import storage from "redux-persist/lib/storage"
->>>>>>> 0ccb03c6b2158ce239a037c0f3da7ea6bd8a2ecb
 
 const persist_config = {
     key: "root",
