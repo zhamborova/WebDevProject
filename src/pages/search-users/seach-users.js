@@ -99,9 +99,9 @@ class SearchUsers extends React.Component{
         return(
             <div className="container d-flex flex-column w-75 mt-5">
                 <h1 className="ml-3">Friends</h1>
-                <div className="d-flex container  ">
-                    <button className="form-control w-25 ml-3 mr-2" onClick={() => this.displayAll()}> All users</button>
-                    <button className="form-control w-25" onClick={() => this.displayFriends()}> Your friends</button>
+                <div className="d-flex justify-content-evenly flex-fill mt-3">
+                    <button className="form-control ml-3 mr-2" onClick={() => this.displayAll()}> All users</button>
+                    <button className="form-control" onClick={() => this.displayFriends()}> Your friends</button>
                     {/*<input className="form-control" placeholder="Search friends..." value={this.state.search}*/}
                     {/*       onChange={(e)=> this.setState({search:e.target.value})}/>*/}
                     {/*<Link to={`/searchUsers/${this.state.search}`} className="ml-3 w-25">*/}
