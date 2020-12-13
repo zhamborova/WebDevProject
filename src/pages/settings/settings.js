@@ -44,8 +44,8 @@ class Settings extends React.Component {
                         { this.state.editing &&
                                 <div className="d-flex flex-column w-100">
                                     <div className={'form-group row'}>
-                                        <label>Avatar</label>
-                                        <input className={"form-control"} placeholder={this.state.user.image}
+                                        <label>Avatar URL</label>
+                                        <input className={"form-control"} value={this.state.user.image}
                                                onChange={(event) =>
                                                    this.update_user( "image", event.target.value)}/>
                                     </div>
@@ -53,13 +53,13 @@ class Settings extends React.Component {
 
                                     <div className={'form-group row'}>
                                         <label>First Name</label>
-                                        <input className={"form-control"} placeholder={this.state.user.first_name}
+                                        <input className={"form-control"} value={this.state.user.first_name}
                                                onChange={(event) =>
                                                    this.update_user( "first_name", event.target.value)}/>
                                     </div>
                                     <div className={'form-group row'}>
                                         <label>Last Name</label>
-                                        <input className={"form-control"} placeholder={this.state.user.last_name}
+                                        <input className={"form-control"} value={this.state.user.last_name}
                                                onChange={(event) =>
                                                    this.update_user("last_name", event.target.value)}/>
                                     </div>
@@ -82,7 +82,9 @@ class Settings extends React.Component {
                         {
                             !this.state.editing &&
                                 <div className="d-flex flex-column">
+                                    {this.state.user.image !== '' &&
                                     <img src={this.state.user.image} className="settings-image"/>
+                                    }
 
                                     <p>{this.state.user.first_name + " " + this.state.user.last_name}</p>
 
@@ -102,13 +104,13 @@ class Settings extends React.Component {
                                 <div>
                                     <div className={"container right-column-container"}>
                                         <label>Email</label>
-                                            <input className={"form-control"} placeholder={this.state.user.email}
+                                            <input className={"form-control"} value={this.state.user.email}
                                                onChange={(event) =>
                                                     this.update_user("email", event.target.value)}/>
                                     </div>
                                     <div className={"container right-column-container"}>
                                         <label>Password</label>
-                                        <input className={"form-control"} placeholder={this.state.user.password}
+                                        <input className={"form-control"} value={this.state.user.password}
                                                onChange={(event) => this.update_user("password",
                                                    event.target.value)}/>
                                     </div>
@@ -135,8 +137,30 @@ class Settings extends React.Component {
                         {
                             this.state.editing &&
                                     <button  onClick={() => {
-                                        this.setState({editing: false});
-                                                             this.props.updateUser(this.state.user)}}
+
+                                        if ((this.state.user.first_name !== '' &&
+                                            this.state.user.last_name !== '' ) &&
+                                            this.state.user.email !== '' &&
+                                            this.state.user.password !== '' &&
+                                            this.state.user.email.includes("@") &&
+                                            this.state.user.email.includes(".") &&
+                                            /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
+                                            /^[a-zA-Z]+$/.test(this.state.user.last_name)) {
+                                            if (this.state.user.image === '') {
+                                                this.update_user( "image", "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
+                                            }
+
+                                            this.setState({editing: false});
+                                            this.props.updateUser(this.state.user)
+
+                                        } else {
+                                            window.alert("Please provide valid inputs. First and last names should only contain letters. " +
+                                                "Email should have email attributes. Name, email, and password must not be empty.")
+                                        }
+
+                                    }
+                                    }
+
                                              className="btn btn-outline-secondary button-padding display-right">
                                             Done Editing</button>
                         }

@@ -67,6 +67,9 @@ class UserProfile  extends  React.Component{
                         <span className="pb-2 pt-2 pr-2">Settings</span>
                         <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
                     </Link>
+                    <br/>
+                    <button className="btn btn-outline-success"><Link to={`/users/${this.state.id}/events`}>Create Event</Link></button>
+
 
                 </div>
             </div>

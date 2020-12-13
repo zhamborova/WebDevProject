@@ -24,8 +24,14 @@ const Tags =  (props) => {
 
             />
 
-       <FontAwesomeIcon icon={faPlus} onClick={()=> {addTag(tag);
-                                                     setTag("")}}
+       <FontAwesomeIcon icon={faPlus} onClick={()=> {
+           if (tag === '') {
+               window.alert("Can't add an empty tag")
+           } else {
+               addTag(tag);
+               setTag("")
+           }
+           }}
                         className="mr-auto mt-auto mb-auto ml-4"/>
        </Box>
        </>

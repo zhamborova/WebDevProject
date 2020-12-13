@@ -9,7 +9,7 @@
 ul {
     list-style-type: none;
     margin: 0;
-    background-color: red;
+    background-color: orange;
 }
 
 li {
@@ -26,12 +26,12 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: darkgray;
+    background-color: mediumseagreen;
 }
 
 
 .profile-nav-float-right {
-    margin-left: 70%;
+    margin-left: 1000px;
 }
 .events-nav {
     margin-left: 1%;
@@ -52,5 +52,32 @@ li a:hover {
 
 .profile-icon{
     margin: 4px 0;
+}
 
+.link-is-active {
+    background-color: darkseagreen;
+}
+
+@media screen and (max-width: 44em) {
+    .events-nav {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 100em) {
+    .profile-nav-float-right {
+        margin-left: 1000px;
+    }
+}
+
+@media screen and (max-width: 80em) {
+    .profile-nav-float-right {
+        margin-left: 800px;
+    }
+}
+
+@media screen and (max-width: 50em) {
+    .profile-nav-float-right {
+        margin-left: 500px;
+    }
 }
