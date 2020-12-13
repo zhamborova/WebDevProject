@@ -46,7 +46,7 @@ function App(props) {
                       exact path={['/search-events',
                       '/search-events/:search',
                       '/events']} component={SearchEvents}/>
-                  <ProtectedRoute exact path={['/search-users', '/search-users/:search' ]}
+                  <ProtectedRoute exact path={['/search-users', '/search-users/:search', '/users']}
                                   component={SearchUsers} loggedin= {props.current_user} />
                   <Route exact path={['/search-news', '/search-news/:search']} component={SearchNews}/>
                   <ProtectedRoute exact path={'/users/:userId/create'} component={CreateEvent}
