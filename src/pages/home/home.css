@@ -9,7 +9,7 @@
 
 .search-container{
     display: flex;
-    height: 389px;
+    height: 450px;
     background-repeat: no-repeat!important;
     background-size: cover!important;
     background-position: center!important;
@@ -18,6 +18,8 @@
 .search-container > div{
     margin: auto;
     width: 50%;
+    color: rgb(57, 85, 54);
+    background-color: rgba(255, 255, 255, 0.32);
 }
 
 .search-container > div > .fa-search{

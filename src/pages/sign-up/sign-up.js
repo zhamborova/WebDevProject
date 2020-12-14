@@ -50,7 +50,7 @@ const styles = (theme) => ({
         backgroundPosition: 'center',
     },
     paper: {
-        marginTop: theme.spacing(4),
+
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

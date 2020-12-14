@@ -1,10 +1,8 @@
 import {combineReducers, createStore} from "redux";
 import {persistReducer, persistStore} from "redux-persist";
-
-import {event_reducer} from './reducers/event-reducer';
-import {user_reducer} from './reducers/user-reducer';
-
 import storage from "redux-persist/lib/storage"
+import {event_reducer} from "./reducers/event-reducer";
+import {user_reducer} from "./reducers/user-reducer";
 
 const persist_config = {
     key: "root",
@@ -23,7 +21,6 @@ const rootReducer = (state, action) => {
     if (action.type === 'LOGOUT') {
         state = {
             users:{
-                users: null,
                 current_user: null
             },
         }

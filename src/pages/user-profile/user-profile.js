@@ -1,14 +1,15 @@
 import React from "react";
-import UserCard from "../../components/user-card/user-card";
 import {Link,} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLongArrowAltRight,  faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons";
-import EventCard from "../../components/event-card/event-card";
+
 import './user-profile.css'
 
-import {fetchUserById, get_events_for_user} from "../../services/user-service";
-import {connect} from "react-redux";
 
+import {fetchUserById, get_events_for_user} from "../../services/user-service";
+import UserCard from "../../components/user-card/user-card";
+import EventCard from "../../components/event-card/event-card";
+import {connect} from "react-redux";
 
 
 class UserProfile  extends  React.Component{
@@ -51,7 +52,7 @@ class UserProfile  extends  React.Component{
      let {id,first_name, last_name, location, bio, events, friends, image} = this.state;
      let fL = friends.length < 5 ? `justify-start` : `justify-between`
      let eL = events.length < 5 ? `justify-start` : `justify-between`
-    return <div className="user-container d-flex flex-column">
+    return  <div className="user-container d-flex flex-column">
         <div className="user-description mb-5">
             <div className="row ">
                 <div className="profile-image col-3 mr-2">
@@ -66,16 +67,15 @@ class UserProfile  extends  React.Component{
                     <p>{bio}</p>
                     {this.props.user.id === id ?
                         <div>
-                            <Link to={`/users/${id}/settings`} className="settings-link">
-                                <span className="pb-2 pt-2 pr-2">Settings</span>
-                                <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
-                            </Link>
-
-                            <br/>
-                            <button className="btn btn-outline-success"><Link to={`/users/${this.state.id}/events`}>Create Event</Link></button>
+                        <Link to={`/users/${id}/settings`} className="settings-link">
+                            <span className="pb-2 pt-2 pr-2">Settings</span>
+                            <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
+                        </Link>
+                        <button className="btn btn-outline-success create-button-padding"><Link to={`/users/${this.state.id}/create`}>Create Event</Link></button>
                         </div>
                         : null
                     }
+
                 </div>
             </div>
 

@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 
 import {Switch, Route, BrowserRouter,} from 'react-router-dom';
+
+
 import Home from "./pages/home/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchNews from "./pages/search-news/search-news.js";
@@ -17,6 +19,8 @@ import NavBar from "./components/navbar/navbar";
 import {connect} from "react-redux";
 import SignInSide from "./pages/sign-in/sign-in";
 import SignUp from "./pages/sign-up/sign-up";
+import UserFriends from "./pages/user-friends/user-friends"
+import UserEvents from "./pages/user-events/user-events"
 import ViewAllParticipants from "./pages/single-event/view-all-participants";
 
 const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, register, ...rest }) => (
@@ -45,25 +49,31 @@ function App(props) {
                       exact path={['/search-events',
                       '/search-events/:search',
                       '/events']} component={SearchEvents}/>
-                  <ProtectedRoute exact path={['/search-users', '/search-users/:search' ]}
+                  <ProtectedRoute exact path={['/search-users', '/search-users/:search', '/users']}
                                   component={SearchUsers} loggedin= {props.current_user} />
                   <Route exact path={['/search-news', '/search-news/:search']} component={SearchNews}/>
-                  <ProtectedRoute exact path={'/users/:userId/events'} component={CreateEvent}
+                  <ProtectedRoute exact path={'/users/:userId/create'} component={CreateEvent}
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId/settings'} component={Settings}
                                   loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/users/:userId'} component={UserProfile}
                                   loggedin= {props.current_user}/>
+                  <ProtectedRoute exact path={'/users/:userId/friends'} component={UserFriends}
+                                  loggedin= {props.current_user}/>
+                  <ProtectedRoute exact path={'/users/:userId/events'} component={UserEvents}
+                                  loggedin= {props.current_user}/>
                   <ProtectedRoute exact path={'/sign-in'} component={SignInSide} login
                                   loggedin= {!props.current_user}/>
                   <ProtectedRoute exact path={'/sign-up'} component={SignUp} register
                                   loggedin= {!props.current_user}/>
-                  <Route exact path={'/events/:eventId/participants'} component={ViewAllParticipants}/>
+                  <ProtectedRoute exact path={'/events/:eventId/participants'}
+                                  component={ViewAllParticipants}
+                                  loggedin= {props.current_user}/>
               </Switch>
 
 
+ </BrowserRouter>
 
-    </BrowserRouter>
       </MuiPickersUtilsProvider>
   );
 }

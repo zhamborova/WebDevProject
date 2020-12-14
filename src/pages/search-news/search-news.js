@@ -44,16 +44,16 @@ class SearchNews extends React.Component{
 
     render() {
         return (
-            <div className="news-search container d-flex flex-column">
+            <div className="news-search container d-flex flex-wrap">
 
                 <h1 className="ml-3">News</h1>
-                    <div className="d-flex container  ">
+                    <div className="d-flex container">
                         <input className="form-control"
                                placeholder="Search news..."
                                value={this.state.search}
                                onChange={(e)=> this.setState({search:e.target.value})}/>
-                        <Link to={`/search-news/${this.state.search}`} className="ml-3 w-25">
-                            <button className="form-control search-btn ">Search</button></Link>
+                        <Link to={`/search-news/${this.state.search}`} className="ml-3">
+                            <button className="form-control search-btn flex-grow">Search</button></Link>
                     </div>
                 <div className="news-list">
 

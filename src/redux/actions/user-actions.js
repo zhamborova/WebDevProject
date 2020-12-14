@@ -33,13 +33,11 @@ export const update_user = (user, dispatch) =>{
 
 }
 
-export const delete_user = (user, dispatch) =>{
-    userService.deleteUser(user)
-        .then(deleted_user => dispatch({
-        type: DELETE_USER,
-        user: deleted_user
-    }))
-
+export const delete_user = (id, dispatch) =>{
+    console.log(id)
+  userService.deleteUser(id).then(()=> {
+       logout(dispatch)
+    })
 }
 
 //request from backend should be done here
