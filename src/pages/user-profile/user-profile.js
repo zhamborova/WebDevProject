@@ -7,6 +7,7 @@ import EventCard from "../../components/event-card/event-card";
 import './user-profile.css'
 
 import {fetchUserById, get_events_for_user} from "../../services/user-service";
+import {connect} from "react-redux";
 
 
 
@@ -63,14 +64,18 @@ class UserProfile  extends  React.Component{
                         <FontAwesomeIcon className="mr-2" icon={faMapMarkerAlt}/>
                         {location.city}, {location.country}</p>
                     <p>{bio}</p>
-                    <Link to={`/users/${id}/settings`} className="settings-link">
-                        <span className="pb-2 pt-2 pr-2">Settings</span>
-                        <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
-                    </Link>
-                    <br/>
-                    <button className="btn btn-outline-success"><Link to={`/users/${this.state.id}/events`}>Create Event</Link></button>
+                    {this.props.user.id === id ?
+                        <div>
+                            <Link to={`/users/${id}/settings`} className="settings-link">
+                                <span className="pb-2 pt-2 pr-2">Settings</span>
+                                <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
+                            </Link>
 
-
+                            <br/>
+                            <button className="btn btn-outline-success"><Link to={`/users/${this.state.id}/events`}>Create Event</Link></button>
+                        </div>
+                        : null
+                    }
                 </div>
             </div>
 
@@ -112,6 +117,10 @@ class UserProfile  extends  React.Component{
 
 }
 
+const matchStateToProps = (state) => ({
 
-export default UserProfile;
+    user: state.users.current_user
+})
+
+export default connect(matchStateToProps)(UserProfile);
 
