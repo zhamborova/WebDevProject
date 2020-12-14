@@ -3,7 +3,7 @@ import './single-event.css'
 import UserCard from "../../components/user-card/user-card";
 import Location from "../../components/location/location";
 import Tags from "../../components/tags/tags";
-import {faCheck, faPenAlt, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faLongArrowAltRight, faPenAlt, faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {delete_event} from "../../redux/actions/event-actions";
 import {connect} from "react-redux"
@@ -150,9 +150,9 @@ class SingleEvent extends React.Component{
                         }
                         </>
                 }
-
-
                 </div>
+
+
                 <div className="event-hosted-by-container d-flex flex-column">
                     <div className="host-info">
                  <img src={this.state.host_img} className="host-img" />
@@ -161,6 +161,7 @@ class SingleEvent extends React.Component{
                      <span className="host-name">{this.state.host_name}</span>
                  </div>
                     </div>
+
                  <div className="event-description-container row ">
                      <div className="event-description col-8 p-0">
                          {this.state.editing ?
@@ -169,7 +170,7 @@ class SingleEvent extends React.Component{
                                  onChange={(e)=> this.setState({image: e.target.value})}/>  :
                              null
                          }
-                         <img src={this.state.image} className={"event-img"} />
+                         <img src={this.state.image} className="event-img-single" />
                          <h5 >Description</h5>
                          {this.state.editing ?
                           <textarea className="form-control event-description-edit"
@@ -178,6 +179,7 @@ class SingleEvent extends React.Component{
                          <p>{this.state.description}</p>
                          }
                      </div>
+
                      <div className="event-details col-4 ">
                          <div className="details-inner-div">
                          <div className="event-time-location">
@@ -232,50 +234,56 @@ class SingleEvent extends React.Component{
             </div>
                 </div>
             </div>
-                <h5 className="event-partic-title ">Participants</h5>
 
-                <button className="event-partic-view-all btn">
-                    <Link to={{
-                        pathname: `/events/${this.state.id}/participants`,
-                        state: {
-                            people: this.state.participants
-                        }}}>
-                        View All
-                    </Link>
-                </button>
+                <div>
+                    <h5 className="event-partic-title ">Participants</h5>
 
-                <div className="event-participants ">
-                    {this.state.participants.map(p => {
-                        return <UserCard key={p} id={p}
-                                host={this.state.host_id === p}
-                                removeUser={this.removeParticipant}
-                                editing={this.state.editing}/>
-                    })}
-                </div>
+                    <button className="event-partic-view-all btn">
+                        <Link to={{
+                            pathname: `/events/${this.state.id}/participants`,
+                            state: {
+                                people: this.state.participants
+                            }}}>
+                            View All
+                            <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
+                        </Link>
+                    </button>
 
-                {!this.participates(cur_id) ?
-                    <div className="event-attend d-flex ">
-                        <div className="event-summary">
-                            <p className="event-date mb-0">{this.getDate(this.state.date)}</p>
-                            <h4 className="event-title">{this.state.title}</h4>
-                        </div>
-                        <button className="btn btn-success btn-attend" onClick={() => this.addParticipant()}>
-                            Attend
-                        </button>
-                    </div> :
-                    this.participates(cur_id) && cur_id !== this.state.host_id &&
-                    <div className="event-attend d-flex ">
-                        <div className="event-summary">
-                            <p className="event-date mb-0">{this.getDate(this.state.date)}</p>
-                            <h4 className="event-title">{this.state.title}</h4>
-                        </div>
-                        <button className="btn btn-danger btn-attend"
-                                onClick={() => this.removeParticipant(cur_id)}>
-                            Leave event
-                        </button>
+                    <div className="event-participants flex-column flex-md-row">
+                        {this.state.participants.map(p => {
+                            return <UserCard key={p} id={p}
+                                             host={this.state.host_id === p}
+                                             removeUser={this.removeParticipant}
+                                             editing={this.state.editing}/>
+                        })}
                     </div>
 
-                }
+                    {!this.participates(cur_id) ?
+                        <div className="event-attend d-flex ">
+                            <div className="event-summary">
+                                <p className="event-date mb-0">{this.getDate(this.state.date)}</p>
+                                <h4 className="event-title">{this.state.title}</h4>
+                            </div>
+                            <button className="btn btn-success btn-attend" onClick={() => this.addParticipant()}>
+                                Attend
+                            </button>
+                        </div> :
+                        this.participates(cur_id) && cur_id !== this.state.host_id &&
+                        <div className="event-attend d-flex ">
+                            <div className="event-summary">
+                                <p className="event-date mb-0">{this.getDate(this.state.date)}</p>
+                                <h4 className="event-title">{this.state.title}</h4>
+                            </div>
+                            <button className="btn btn-danger btn-attend"
+                                    onClick={() => this.removeParticipant(cur_id)}>
+                                Leave event
+                            </button>
+                        </div>
+
+                    }
+
+                </div>
+
      </>
 )}
 }
