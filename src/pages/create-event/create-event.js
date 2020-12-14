@@ -31,7 +31,7 @@ class CreateEvent extends React.Component{
         location: {},
         tags: [],
         participants: [],
-        image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Lake_mapourika_NZ.jpeg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Lake_mapourika_NZ.jpeg",
     }
 
      styles = theme => ({
@@ -69,6 +69,36 @@ class CreateEvent extends React.Component{
         const tags = this.state.tags;
         this.setState({tags: [...tags, tag]})
     }
+
+    fieldsAreNotEmpty = () => {
+        if (this.state.description !== '' &&
+            this.state.title !== '' &&
+            this.state.tags.length > 0 &&
+            this.state.location.street !== '' &&
+            this.state.location.city !== '' &&
+            this.state.location.country !== '' &&
+            this.state.location.zip !== '') {
+            return true
+        }
+    }
+
+
+
+
+    anyFieldIsEmpty = () => {
+        if ((this.state.description === '' ||
+            this.state.title === '' ||
+            this.state.tags.length === 0 ||
+            this.state.location.street === '' ||
+            this.state.location.city === '' ||
+            this.state.location.country === '' ||
+            this.state.location.zip === '' ||
+            Object.keys(this.state.location).length < 4)) {
+            return true
+        }
+    }
+
+
 
 
     render() {
@@ -129,14 +159,7 @@ class CreateEvent extends React.Component{
                         </Button>
 
 
-                        {(this.state.description !== '' &&
-                        this.state.title !== '' &&
-                        this.state.tags.length > 0 &&
-                        this.state.location.street !== '' &&
-                        this.state.location.city !== '' &&
-                        this.state.location.country !== '' &&
-                        this.state.location.zip !== '' &&
-                        Object.keys(this.state.location).length > 3) &&
+                        {this.fieldsAreNotEmpty === true &&
                         <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none', background:"#3a7347"}}
                                 size="large" variant="outlined"
                                 onClick={()=> {
@@ -154,14 +177,8 @@ class CreateEvent extends React.Component{
                         </Button>
                         }
 
-                        {(this.state.description === '' ||
-                            this.state.title === '' ||
-                            this.state.tags.length === 0 ||
-                            this.state.location.street === '' ||
-                            this.state.location.city === '' ||
-                            this.state.location.country === '' ||
-                            this.state.location.zip === '' ||
-                            Object.keys(this.state.location).length < 4) &&
+                        {
+                            this.fieldsAreNotEmpty === false &&
                         <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none',
                             background:"#3a7347"}}
                                 size="large" variant="outlined">
