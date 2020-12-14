@@ -1,83 +1,40 @@
-
-.sticky {
-    position: fixed;
-    background-color: white;
-    top: 0;
+ul{
+    background: transparent;
     width: 100%;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    background-color: orange;
+
+.nav-item:hover {
+    background-color: #3a7347;
+}
+.nav-link:hover {
+
+    color:white!important;
+}
+.nav-item{
+    font-size: 1rem!important;
 }
 
-li {
-    float: left;
+.profile{
+    margin: auto 4px auto auto;
 }
 
-li a {
-    display: flex;
-    color: black;
-    text-align: center;
-    padding: 14px 10px;
-    text-decoration: none;
+.profile:hover{
+    background-color: transparent!important;
+
 }
 
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: mediumseagreen;
+.sign-in{
+    margin-left: auto ;
 }
 
-
-.profile-nav-float-right {
-    margin-left: 1000px;
-}
-.events-nav {
-    margin-left: 1%;
-}
-
-.news-nav {
-    margin-left: 1%;
-}
-
-.logo-nav {
-    margin-left: 2%;
-}
-
-.loginRegister-nav {
-    margin-right: 2%;
-}
-
-
-.profile-icon{
-    margin: 4px 0;
-}
-
-.link-is-active {
-    background-color: darkseagreen;
-}
-
-@media screen and (max-width: 44em) {
-    .events-nav {
-        display: none;
+@media screen and (max-width: 1000px){
+    .profile{
+        margin: 0!important;
     }
-}
 
-@media screen and (max-width: 100em) {
-    .profile-nav-float-right {
-        margin-left: 1000px;
+    .sign-in{
+        margin-left: 0 ;
     }
-}
 
-@media screen and (max-width: 80em) {
-    .profile-nav-float-right {
-        margin-left: 800px;
-    }
-}
-
-@media screen and (max-width: 50em) {
-    .profile-nav-float-right {
-        margin-left: 500px;
-    }
 }

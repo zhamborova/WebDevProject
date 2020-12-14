@@ -1,6 +1,5 @@
-.search-btn{
-    background-color: #3a7347!important;
-    color: white!important;
+.evnts-container{
+    width: 105%;
+    display: flex;
+    flex-wrap: wrap;
 }
-
-

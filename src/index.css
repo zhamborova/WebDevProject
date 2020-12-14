@@ -22,3 +22,16 @@ a{
 }
 
 
+.btn-outline-secondary:hover {
+  color: #fff;
+  background-color: #bdcbb0!important;
+  border-color:  #bdcbb0!important;
+}
+
+
+
+.btn-outline-secondary {
+
+  background-color: transparent!important;
+  border-color:#3a7347!important;
+}

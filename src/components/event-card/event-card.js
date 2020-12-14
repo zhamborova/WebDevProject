@@ -8,28 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useState, useEffect} from 'react';
 import {get_users_for_event} from "../../services/events-service";
 
-function getWindowDimensions() {
-    const {innerWidth: width, innerHeight: height} = window;
-    return {
-        width,
-        height
-    };
-}
 
-function useWindowDimensions() {
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-    useEffect(() => {
-        function handleResize() {
-            setWindowDimensions(getWindowDimensions());
-        }
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return windowDimensions;
-}
 
 class EventCard extends React.Component {
  state ={
@@ -55,7 +34,6 @@ class EventCard extends React.Component {
     render() {
     let {event,vertical} = this.props
     let {users} = this.state
-   // let width  = useWindowDimensions();
     let v = false
         console.log(this.getInitialState().windowWidth)
    if (this.getInitialState().windowWidth <= 600) {
@@ -65,10 +43,8 @@ class EventCard extends React.Component {
 
     return (
         <Link to={`/events/${event.id}`} key={event.id}>
-        {
-            !v ?
+        {!v ?
                     <div className={`card event-card ${v}`}>
-                        {console.log("NOT V")}
                         <img className={`card-img-top ${v}`} src={event.image} alt="Card image cap"/>
                         <div className={`card-body ${v}`}>
                             <div className={`card-details ${v}`}>
@@ -94,7 +70,6 @@ class EventCard extends React.Component {
                     </div>
                 :
                 <div className="card" style="width: 18rem;">
-                    {console.log("V")}
                     <img className="card-img-top" src={event.image} alt="Card image cap"/>
                         <div className="card-body">
                             <h5 className="card-title">{event.title}</h5>

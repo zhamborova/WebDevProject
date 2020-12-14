@@ -1,4 +1,4 @@
-const url = "http://localhost:8080"
+const url = "https://evening-cliffs-15769.herokuapp.com"
 
 export const fetchAllUsers = () => {
     return fetch(`${url}/users`, {
@@ -27,11 +27,10 @@ export const updateUser = (user) => {
     }).then(response => response.json())
 }
 
-export const deleteUser = (user) => {
-    return fetch(`${url}/users/${user.id}`, {
+export const deleteUser = (id) => {
+    return fetch(`${url}/users/${id}`, {
         method: 'DELETE'
-    })
-        .then(response => response.json())
+    }).then(response => response)
 }
 
 export const createUser = (user) => {

@@ -13,7 +13,6 @@ class SearchNews extends React.Component{
 
       componentDidMount() {
         const {search} = this.props.match.params;
-
         if(search){
             this.setState({search:search});
             this.searchByTitle(search);

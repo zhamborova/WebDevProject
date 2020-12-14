@@ -2,9 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 import EventCard from "../../components/event-card/event-card";
 import "./search-events.css";
-import stringSimilarity from 'string-similarity'
-import {Link} from "react-router-dom";
-import {NavBar} from "../../components/navbar/navbar";
 import {get_events} from "../../services/events-service";
 import {set_events} from "../../redux/actions/event-actions";
 import {get_events_for_user} from "../../services/user-service";
@@ -12,107 +9,46 @@ import {get_events_for_user} from "../../services/user-service";
 
 class SearchEvents extends React.Component{
     state={
-        search: "",
-        results: [],
         all: [],
+        user_events: [],
         current_user: {},
         my_events: true,
-        user_events: []
-    }
 
+    }
 
     componentDidMount = () =>{
-
         const userId = this.props.current_user.id
-
         get_events().then(events => {
-                this.setState({all:events, results:events})
-            this.props.set_events(events)
-            let {searchEvent} = this.props.match.params
-            if(searchEvent){
-                this.setState({search:searchEvent}, ()=>{
-                    this.searchEvents();
-                })
-
-            }
-
+            this.setState({all: events})
         })
-
-        this.getCurrentUserEvents(userId)
-
-
-
-
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-        if(prevProps.match.params.search !== this.props.match.params.search){
-            let {searchEvent} = this.props.match.params
-            if(searchEvent){
-                this.setState({search:searchEvent})
-                this.searchEvents();
-            }
-        }
-
-    }
-
-
-    searchEvents = () => {
-       let search = this.format(this.state.search)
-       let new_results = this.state.all.filter(e =>
-           stringSimilarity.compareTwoStrings(this.format(e.title), search) >= 0.3)
-       this.setState({results:new_results})
-    }
-
-    displayAllEvents = () => {
-        this.setState({my_events: false})
-    }
-
-    displayMyEvents = () => {
-        this.setState({my_events: true})
-    }
-
-    getCurrentUserEvents = (userId) => {
         get_events_for_user(userId)
             .then(es => this.setState({user_events: es}))
+
+
     }
 
-   format = (str) => str.trim().toLowerCase();
+
+
 
     render(){
+        let my_events = this.state.my_events ? "btn-success" : "btn-outline-secondary";
+        let all_events = !this.state.my_events ? "btn-success" : "btn-outline-secondary";
         return(
             <div className="container d-flex flex-column w-75 mt-5">
                         <h1 className="ml-3">Events</h1>
-                        {/*<div className="d-flex container  ">*/}
-                        {/*    <input className="form-control" placeholder="Search events..." value={this.state.search}*/}
-                        {/*           onChange={(e)=> this.setState({search:e.target.value})}/>*/}
-                        {/*    <Link to={`/search-events/${this.state.search}`} className="ml-3 w-25">*/}
-                        {/*        <button className="form-control search-btn ">Search</button></Link>*/}
-                        {/*</div>*/}
-                {
-                    this.state.my_events ?
                         <div className="d-flex justify-content-evenly flex-fill mt-3">
-                            <button className="form-control ml-3 mr-2 btn btn-outline-secondary" onClick={() => this.displayAllEvents()}> All events</button>
-                            <button className="form-control active btn btn-outline-secondary" onClick={() => this.displayMyEvents()}> Your events</button>
+                            <button className={`form-control ml-3 mr-2 btn ${all_events}`}
+                                    onClick={() => this.setState({my_events:false})}> All events</button>
+                            <button className={`form-control  btn ${my_events}`}
+                                    onClick={() => this.setState({my_events:true})}> Your events</button>
                         </div>
-                        :
-                        <div className="d-flex justify-content-evenly flex-fill mt-3">
-                            <button className="form-control ml-3 mr-2 active btn btn-outline-secondary" onClick={() => this.displayAllEvents()}> All events</button>
-                            <button className="form-control btn btn-outline-secondary" onClick={() => this.displayMyEvents()}> Your events</button>
-                        </div>
-                }
-
                 {
-                    !this.state.my_events &&
-                    <div className="search-results container row m-auto">
-                        {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}
+                    !this.state.my_events ?
+                    <div className="evnts-container ">
+                        {this.state.all.map(e => <EventCard event={e} key={e.id} vertical />)}
 
-                    </div>
-                }
-                {
-                    this.state.my_events &&
-                    <div className="search-results container row m-auto">
+                    </div> :
+                    <div className="evnts-container">
                         {this.state.user_events.map(e => <EventCard event={e} key={e.id} vertical />)}
 
                     </div>
@@ -130,7 +66,5 @@ const mapStateToProps = (state) => ({
         current_user: state.users.current_user
     })
 
-const dispatchMapper = dispatch => ({
-    set_events: (events) => set_events(dispatch, events)
-})
-export default connect(mapStateToProps, dispatchMapper)(SearchEvents);
+
+export default connect(mapStateToProps)(SearchEvents);

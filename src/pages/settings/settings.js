@@ -3,6 +3,8 @@ import './settings.css';
 import {connect} from "react-redux";
 import { delete_user, update_user,} from '../../redux/actions/user-actions';
 import Location from "../../components/location/location";
+import {Link} from "react-router-dom";
+
 import TextField from '@material-ui/core/TextField';
 
 
@@ -16,7 +18,8 @@ class Settings extends React.Component {
             location: {city:"", country:"", street:"", zip: ""},
             bio: "",
             friends: [],
-            image: ""},
+            image: "",
+        id: ""},
         editing: false
     }
 
@@ -50,10 +53,6 @@ class Settings extends React.Component {
                         </div>
                         { this.state.editing &&
                                 <div className="d-flex flex-column w-100">
-                                        {/*<label>Avatar URL</label>*/}
-                                        {/*<input className={"form-control"} value={this.state.user.image}*/}
-                                        {/*       onChange={(event) =>*/}
-                                        {/*           this.update_user( "image", event.target.value)}/>*/}
                                         <TextField
                                             label="Avatar URL"
                                             defaultValue={this.state.user.image}
@@ -63,12 +62,6 @@ class Settings extends React.Component {
                                         />
                                     <img src={this.state.user.image} className="settings-image"/>
 
-                                    {/*<div className={'form-group row'}>*/}
-                                    {/*    <label>First Name</label>*/}
-                                    {/*    <input className={"form-control"} value={this.state.user.first_name}*/}
-                                    {/*           onChange={(event) =>*/}
-                                    {/*               this.update_user( "first_name", event.target.value)}/>*/}
-                                    {/*</div>*/}
 
                                     <TextField
                                         label="First Name"
@@ -77,12 +70,6 @@ class Settings extends React.Component {
                                         margin={"normal"}
                                         onChange={(event) => this.update_user("first_name", event.target.value)}
                                     />
-                                    {/*<div className={'form-group row'}>*/}
-                                    {/*    <label>Last Name</label>*/}
-                                    {/*    <input className={"form-control"} value={this.state.user.last_name}*/}
-                                    {/*           onChange={(event) =>*/}
-                                    {/*               this.update_user("last_name", event.target.value)}/>*/}
-                                    {/*</div>*/}
 
                                     <TextField
                                         label="Last Name"
@@ -99,13 +86,6 @@ class Settings extends React.Component {
                                                   editing={this.state.editing}/>
 
                                       </div>
-
-                                    {/*<div className={'form-group row'}>*/}
-                                    {/*    <label>Bio</label>*/}
-                                    {/*    <textarea className={"form-control"} placeholder={this.state.user.bio}*/}
-                                    {/*           onChange={(event) =>*/}
-                                    {/*               this.update_user( "bio", event.target.value)}/>*/}
-                                    {/*</div>*/}
 
                                     <TextField
                                         label="Bio"
@@ -141,10 +121,6 @@ class Settings extends React.Component {
                                 <div>
                                     <div className={"container right-column-container"}>
 
-                                        {/*<label>Email</label>*/}
-                                        {/*    <input className={"form-control"} value={this.state.user.email}*/}
-                                        {/*       onChange={(event) =>*/}
-                                        {/*            this.update_user("email", event.target.value)}/>*/}
                                         <TextField
                                             label="Email"
                                             defaultValue={this.state.user.email}
@@ -154,10 +130,6 @@ class Settings extends React.Component {
                                         />
                                     </div>
                                     <div className={"container right-column-container"}>
-                                        {/*<label>Password</label>*/}
-                                        {/*<input className={"form-control"} value={this.state.user.password}*/}
-                                        {/*       onChange={(event) => this.update_user("password",*/}
-                                        {/*           event.target.value)}/>*/}
                                         <TextField
                                             label="Password"
                                             defaultValue={this.state.user.password}
@@ -188,34 +160,41 @@ class Settings extends React.Component {
 
                         {
                             this.state.editing &&
-                                    <button  onClick={() => {
+                            <>
+                                <button  onClick={() => {
 
-                                        if ((this.state.user.first_name !== '' &&
-                                            this.state.user.last_name !== '' ) &&
-                                            this.state.user.email !== '' &&
-                                            this.state.user.password !== '' &&
-                                            this.state.user.email.includes("@") &&
-                                            this.state.user.email.includes(".") &&
-                                            /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
-                                            /^[a-zA-Z]+$/.test(this.state.user.last_name)) {
-                                            if (this.state.user.image === '') {
-                                                this.update_user( "image", "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
-                                            }
-
-                                            this.setState({editing: false});
-                                            this.props.updateUser(this.state.user)
-
-                                        } else {
-                                            window.alert("Please provide valid inputs. First and last names should only contain letters. " +
-                                                "Email should have email attributes. Name, email, and password must not be empty.")
+                                    if ((this.state.user.first_name !== '' &&
+                                        this.state.user.last_name !== '' ) &&
+                                        this.state.user.email !== '' &&
+                                        this.state.user.password !== '' &&
+                                        this.state.user.email.includes("@") &&
+                                        this.state.user.email.includes(".") &&
+                                        /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
+                                        /^[a-zA-Z]+$/.test(this.state.user.last_name)) {
+                                        if (this.state.user.image === '') {
+                                            this.update_user( "image",
+                                                "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
                                         }
 
-                                    }
-                                    }
+                                        this.setState({editing: false});
+                                        this.props.updateUser(this.state.user)
 
-                                             className="btn btn-outline-secondary button-padding display-right">
-                                            Done Editing</button>
+                                    } else {
+                                        window.alert("Please provide valid inputs. First and last names should only contain letters. " +
+                                            "Email should have email attributes. Name, email, and password must not be empty.")
+                                    }
+                                }
+                                } className="btn btn-outline-secondary button-padding ">
+                                    Done Editing</button>
+                            <Link to={"/"}
+                                  onClick={() => {
+                                this.props.deleteUser(this.state.user.id)}}
+                                     className="btn btn-danger button-padding float-right ">
+                                Delete Account</Link>
+
+                            </>
                         }
+
                     </div>
                 </div>
             </div>
@@ -232,7 +211,7 @@ const stateToPropertyMapper = (state) => {
 
 
 const dispatchMapper = (dispatch) => ({
-    deleteUser: (user) => delete_user(user, dispatch),
+    deleteUser: (id) => delete_user(id, dispatch),
     updateUser: (user) => update_user(user, dispatch),
 })
 
