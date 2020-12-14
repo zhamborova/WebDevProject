@@ -3,6 +3,7 @@ import './settings.css';
 import {connect} from "react-redux";
 import { delete_user, update_user,} from '../../redux/actions/user-actions';
 import Location from "../../components/location/location";
+import TextField from '@material-ui/core/TextField';
 
 
 class Settings extends React.Component {
@@ -39,30 +40,57 @@ class Settings extends React.Component {
                     <div className="container profile-container col-5 ">
                         <div className="d-flex justify-content-between">
                             <h3>Settings</h3>
-                            <a href={"#"} onClick={() => this.setState({editing: !this.state.editing})}
-                                           className={'display-right edit-color mt-2'}>Edit</a></div>
+                            {
+                                !this.state.editing ?
+                                <button className="btn btn-outline-secondary button-padding display-right edit-color mt-2" onClick={() => this.setState({editing: !this.state.editing})}>
+                                    Edit
+                                </button> : null
+                            }
+
+                        </div>
                         { this.state.editing &&
                                 <div className="d-flex flex-column w-100">
-                                    <div className={'form-group row'}>
-                                        <label>Avatar URL</label>
-                                        <input className={"form-control"} value={this.state.user.image}
-                                               onChange={(event) =>
-                                                   this.update_user( "image", event.target.value)}/>
-                                    </div>
+                                        {/*<label>Avatar URL</label>*/}
+                                        {/*<input className={"form-control"} value={this.state.user.image}*/}
+                                        {/*       onChange={(event) =>*/}
+                                        {/*           this.update_user( "image", event.target.value)}/>*/}
+                                        <TextField
+                                            label="Avatar URL"
+                                            defaultValue={this.state.user.image}
+                                            variant="outlined"
+                                            margin={"normal"}
+                                            onChange={(event) => this.update_user("image", event.target.value)}
+                                        />
                                     <img src={this.state.user.image} className="settings-image"/>
 
-                                    <div className={'form-group row'}>
-                                        <label>First Name</label>
-                                        <input className={"form-control"} value={this.state.user.first_name}
-                                               onChange={(event) =>
-                                                   this.update_user( "first_name", event.target.value)}/>
-                                    </div>
-                                    <div className={'form-group row'}>
-                                        <label>Last Name</label>
-                                        <input className={"form-control"} value={this.state.user.last_name}
-                                               onChange={(event) =>
-                                                   this.update_user("last_name", event.target.value)}/>
-                                    </div>
+                                    {/*<div className={'form-group row'}>*/}
+                                    {/*    <label>First Name</label>*/}
+                                    {/*    <input className={"form-control"} value={this.state.user.first_name}*/}
+                                    {/*           onChange={(event) =>*/}
+                                    {/*               this.update_user( "first_name", event.target.value)}/>*/}
+                                    {/*</div>*/}
+
+                                    <TextField
+                                        label="First Name"
+                                        defaultValue={this.state.user.first_name}
+                                        variant="outlined"
+                                        margin={"normal"}
+                                        onChange={(event) => this.update_user("first_name", event.target.value)}
+                                    />
+                                    {/*<div className={'form-group row'}>*/}
+                                    {/*    <label>Last Name</label>*/}
+                                    {/*    <input className={"form-control"} value={this.state.user.last_name}*/}
+                                    {/*           onChange={(event) =>*/}
+                                    {/*               this.update_user("last_name", event.target.value)}/>*/}
+                                    {/*</div>*/}
+
+                                    <TextField
+                                        label="Last Name"
+                                        defaultValue={this.state.user.last_name}
+                                        variant="outlined"
+                                        margin={"normal"}
+                                        onChange={(event) => this.update_user("last_name", event.target.value)}
+                                    />
                                     <div className={'form-group row w-100 flex-column '}>
 
                                         <label>Address</label>
@@ -71,12 +99,21 @@ class Settings extends React.Component {
                                                   editing={this.state.editing}/>
 
                                       </div>
-                                    <div className={'form-group row'}>
-                                        <label>Bio</label>
-                                        <textarea className={"form-control"} placeholder={this.state.user.bio}
-                                               onChange={(event) =>
-                                                   this.update_user( "bio", event.target.value)}/>
-                                    </div>
+
+                                    {/*<div className={'form-group row'}>*/}
+                                    {/*    <label>Bio</label>*/}
+                                    {/*    <textarea className={"form-control"} placeholder={this.state.user.bio}*/}
+                                    {/*           onChange={(event) =>*/}
+                                    {/*               this.update_user( "bio", event.target.value)}/>*/}
+                                    {/*</div>*/}
+
+                                    <TextField
+                                        label="Bio"
+                                        defaultValue={this.state.user.bio}
+                                        variant="outlined"
+                                        margin={"normal"}
+                                        onChange={(event) => this.update_user("bio", event.target.value)}
+                                    />
                                 </div>
                         }
                         {
@@ -103,16 +140,31 @@ class Settings extends React.Component {
                             this.state.editing &&
                                 <div>
                                     <div className={"container right-column-container"}>
-                                        <label>Email</label>
-                                            <input className={"form-control"} value={this.state.user.email}
-                                               onChange={(event) =>
-                                                    this.update_user("email", event.target.value)}/>
+
+                                        {/*<label>Email</label>*/}
+                                        {/*    <input className={"form-control"} value={this.state.user.email}*/}
+                                        {/*       onChange={(event) =>*/}
+                                        {/*            this.update_user("email", event.target.value)}/>*/}
+                                        <TextField
+                                            label="Email"
+                                            defaultValue={this.state.user.email}
+                                            variant="outlined"
+                                            margin={"normal"}
+                                            onChange={(event) => this.update_user("email", event.target.value)}
+                                        />
                                     </div>
                                     <div className={"container right-column-container"}>
-                                        <label>Password</label>
-                                        <input className={"form-control"} value={this.state.user.password}
-                                               onChange={(event) => this.update_user("password",
-                                                   event.target.value)}/>
+                                        {/*<label>Password</label>*/}
+                                        {/*<input className={"form-control"} value={this.state.user.password}*/}
+                                        {/*       onChange={(event) => this.update_user("password",*/}
+                                        {/*           event.target.value)}/>*/}
+                                        <TextField
+                                            label="Password"
+                                            defaultValue={this.state.user.password}
+                                            variant="outlined"
+                                            margin={"normal"}
+                                            onChange={(event) => this.update_user("password", event.target.value)}
+                                        />
                                     </div>
                                 </div>
                         }
