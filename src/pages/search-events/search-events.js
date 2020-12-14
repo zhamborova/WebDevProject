@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {NavBar} from "../../components/navbar/navbar";
 import {get_events} from "../../services/events-service";
 import {set_events} from "../../redux/actions/event-actions";
+import {get_events_for_user} from "../../services/user-service";
 
 
 class SearchEvents extends React.Component{
@@ -14,11 +15,15 @@ class SearchEvents extends React.Component{
         search: "",
         results: [],
         all: [],
-        current_user: {}
+        current_user: {},
+        my_events: true,
+        user_events: []
     }
 
 
     componentDidMount = () =>{
+
+        const userId = this.props.current_user.id
 
         get_events().then(events => {
                 this.setState({all:events, results:events})
@@ -32,6 +37,8 @@ class SearchEvents extends React.Component{
             }
 
         })
+
+        this.getCurrentUserEvents(userId)
 
 
 
@@ -58,26 +65,59 @@ class SearchEvents extends React.Component{
        this.setState({results:new_results})
     }
 
+    displayAllEvents = () => {
+        this.setState({my_events: false})
+    }
+
+    displayMyEvents = () => {
+        this.setState({my_events: true})
+    }
+
+    getCurrentUserEvents = (userId) => {
+        get_events_for_user(userId)
+            .then(es => this.setState({user_events: es}))
+    }
+
    format = (str) => str.trim().toLowerCase();
 
     render(){
         return(
             <div className="container d-flex flex-column w-75 mt-5">
                         <h1 className="ml-3">Events</h1>
-                        <div className="d-flex container  ">
-                            <input className="form-control" placeholder="Search events..." value={this.state.search}
-                                   onChange={(e)=> this.setState({search:e.target.value})}/>
-                            <Link to={`/search-events/${this.state.search}`} className="ml-3 w-25">
-                                <button className="form-control search-btn ">Search</button></Link>
+                        {/*<div className="d-flex container  ">*/}
+                        {/*    <input className="form-control" placeholder="Search events..." value={this.state.search}*/}
+                        {/*           onChange={(e)=> this.setState({search:e.target.value})}/>*/}
+                        {/*    <Link to={`/search-events/${this.state.search}`} className="ml-3 w-25">*/}
+                        {/*        <button className="form-control search-btn ">Search</button></Link>*/}
+                        {/*</div>*/}
+                {
+                    this.state.my_events ?
+                        <div className="d-flex justify-content-evenly flex-fill mt-3">
+                            <button className="form-control ml-3 mr-2 btn btn-outline-secondary" onClick={() => this.displayAllEvents()}> All events</button>
+                            <button className="form-control active btn btn-outline-secondary" onClick={() => this.displayMyEvents()}> Your events</button>
                         </div>
-                         <div className="d-flex justify-content-evenly mt-3">
-                         <button className="form-control w-25 ml-3 mr-2"> All events</button>
-                         <button className="form-control w-25"> Your events</button>
-                         </div>
-                        <div className="search-results container row m-auto">
-                            {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}
+                        :
+                        <div className="d-flex justify-content-evenly flex-fill mt-3">
+                            <button className="form-control ml-3 mr-2 active btn btn-outline-secondary" onClick={() => this.displayAllEvents()}> All events</button>
+                            <button className="form-control btn btn-outline-secondary" onClick={() => this.displayMyEvents()}> Your events</button>
+                        </div>
+                }
 
-                        </div>
+                {
+                    !this.state.my_events &&
+                    <div className="search-results container row m-auto">
+                        {this.state.results.map(e => <EventCard event={e} key={e.id} vertical />)}
+
+                    </div>
+                }
+                {
+                    this.state.my_events &&
+                    <div className="search-results container row m-auto">
+                        {this.state.user_events.map(e => <EventCard event={e} key={e.id} vertical />)}
+
+                    </div>
+                }
+
             </div>
 
 

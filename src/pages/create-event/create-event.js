@@ -31,7 +31,7 @@ class CreateEvent extends React.Component{
         location: {},
         tags: [],
         participants: [],
-        image: ""
+        image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Lake_mapourika_NZ.jpeg"
     }
 
      styles = theme => ({
@@ -124,17 +124,52 @@ class CreateEvent extends React.Component{
 
                     <div className="create-btns d-flex justify-content-between">
                         <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none'}}
-                            size="large" variant="outlined">   <Link to="/" className="w-100">Cancel</Link></Button>
-                        <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none',
-                        background:"#3a7347"}}
+                            size="large" variant="outlined">
+                            <Link to="/" className="w-100">Cancel</Link>
+                        </Button>
+
+
+                        {(this.state.description !== '' &&
+                        this.state.title !== '' &&
+                        this.state.tags.length > 0 &&
+                        this.state.location.street !== '' &&
+                        this.state.location.city !== '' &&
+                        this.state.location.country !== '' &&
+                        this.state.location.zip !== '' &&
+                        Object.keys(this.state.location).length > 3) &&
+                        <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none', background:"#3a7347"}}
                                 size="large" variant="outlined"
                                 onClick={()=> {
+                                    if (this.state.image === "") {
+                                        this.setState({image: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Lake_mapourika_NZ.jpeg'})
+                                    }
                                     let {editing, ...state} = this.state
                                     create_event(state).then(ev=>{
                                         this.props.history.push(`/events/${ev.id}`)
-
                                     })}}>
-                            <Link to="/" className="w-100">  Create event</Link></Button>
+
+                            <Link to="/" className="w-100">
+                                Create event
+                            </Link>
+                        </Button>
+                        }
+
+                        {(this.state.description === '' ||
+                            this.state.title === '' ||
+                            this.state.tags.length === 0 ||
+                            this.state.location.street === '' ||
+                            this.state.location.city === '' ||
+                            this.state.location.country === '' ||
+                            this.state.location.zip === '' ||
+                            Object.keys(this.state.location).length < 4) &&
+                        <Button style={{minWidth: '45%', minHeight: '45%', textTransform:'none',
+                            background:"#3a7347"}}
+                                size="large" variant="outlined">
+
+                            Please fill out all of the fields
+                        </Button>
+                        }
+
 
                     </div>
 

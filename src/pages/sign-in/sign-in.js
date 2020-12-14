@@ -85,16 +85,26 @@ class SignInSide extends React.Component{
     update= (field, event) => this.setState({[field]: event.target.value})
 
     submitCredentials = (user) => {
-        login(user).then(response => {
-            if(!response.hasOwnProperty("message")) {
-                let user = response
-                this.props.setCurrentUser(user)
-                this.props.history.push(`/users/${user.id}`)
+        if (this.state.email !== ''
+            && this.state.password !== ''
+            && this.state.email.includes("@")
+            && this.state.email.includes(".")) {
+            login(user).then(response => {
+                if(!response.hasOwnProperty("message")) {
+                    let user = response
+                    this.props.setCurrentUser(user)
+                    this.props.history.push(`/users/${user.id}`)
 
-            }else {
-                window.alert("Login or password are incorrect :(")
-            }
-        })
+                }else {
+                    window.alert("Login or password are incorrect :(")
+                }
+            })
+        } else {
+            window.alert("Please provide valid inputs. First and last names should only contain letters. " +
+                "Email should have email attributes. Name, email, and password must not be empty.")
+        }
+
+
     }
 
 render(){
@@ -122,6 +132,8 @@ render(){
                             autoComplete="email"
                             autoFocus
                             defaultValue={this.state.email}
+                            type="email"
+                            error={!this.state.email.includes("@") || !this.state.email.includes(".")}
                             onChange={event => {
                                 const { value } = event.target;
                                 this.setState({ email: value });
@@ -143,6 +155,7 @@ render(){
                                 this.setState({ password: value });
                             }}
                         />
+
                         <Button
                             fullWidth
                             variant="contained"
@@ -152,6 +165,7 @@ render(){
                         >
                             Sign In
                         </Button>
+
                         <Grid container>
                             <Grid item xs>
                             </Grid>

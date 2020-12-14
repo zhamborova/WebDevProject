@@ -85,9 +85,24 @@ class SignUp extends React.Component{
     }
 
     submitCredentials = (user) => {
+        if (
+            this.state.first_name !== '' &&
+            this.state.last_name !== '' &&
+            this.state.email !== '' &&
+            this.state.password !== '' &&
+            /^[a-zA-Z]+$/.test(this.state.first_name) &&
+            /^[a-zA-Z]+$/.test(this.state.last_name) &&
+            this.state.email.includes("@") &&
+            this.state.email.includes(".")) {
 
-        this.props.create_user(user).then(id => {
-            this.props.history.push(`/users/${id}`)   } )
+            this.props.create_user(user).then(id => {
+                this.props.history.push(`/users/${id}`)   } )
+        } else {
+            window.alert("Please provide valid inputs. First and last names should only contain letters. " +
+                "Email should have email attributes. Name, email, and password must not be empty.")
+        }
+
+
 
     }
    render(){
@@ -116,6 +131,7 @@ class SignUp extends React.Component{
                                 fullWidth
                                 id="firstName"
                                 label="First Name"
+                                error={this.state.first_name !== '' && !/^[a-zA-Z]+$/.test(this.state.first_name)}
                                 autoFocus
                                 defaultValue={this.state.first_name}
                                 onChange={event => {
@@ -133,6 +149,7 @@ class SignUp extends React.Component{
                                 label="Last Name"
                                 name="lastName"
                                 autoComplete="lname"
+                                error={this.state.last_name !== '' && !/^[a-zA-Z]+$/.test(this.state.last_name)}
                                 defaultValue={this.state.last_name}
                                 onChange={event => {
                                     const { value } = event.target;
@@ -149,6 +166,7 @@ class SignUp extends React.Component{
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                error={this.state.email !== '' && (!this.state.email.includes("@") || !this.state.email.includes("."))}
                                 defaultValue={this.state.email}
                                 onChange={event => {
                                     const { value } = event.target;

@@ -55,11 +55,14 @@ class Home extends React.Component{
                 <div className="search-container justify-content-center mb-3"
                    style={{background: `url(${bg})`}}>
 
-                  <div className="d-flex m-auto w-50">
-                  <input className="form-control"
-                         placeholder="Search events..."/>
-                      <button className="btn btn-success btn-submit ml-2">Submit</button>
-                  </div>
+                  <p className="d-flex m-auto w-50 the-text">
+                      <p>Welcome!
+                          Our clean-up platform aims to bring people and communities together to help clean
+                          natural sites or places that would benefit from that.
+                          Here you can register, attend such events, create new cleaning events, and look up related news!
+                      </p>
+
+                  </p>
               </div>
 
 
@@ -90,7 +93,7 @@ class Home extends React.Component{
                 </div>
 
                 {this.props.current_user &&
-                <Link to={`/users/${this.props.current_user.id}/events`} className="m-auto">
+                <Link to={`/users/${this.props.current_user.id}/create`} className="m-auto">
                     <button className="btn btn-success host-btn " > Host event </button></Link>
                 }
 

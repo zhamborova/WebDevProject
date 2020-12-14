@@ -46,44 +46,69 @@ class EventCard extends React.Component {
     getDate = (date) => {
         var date = new Date(date);
         return date.toDateString()
-
     }
+
+    getInitialState = () => {
+        return {windowWidth: window.innerWidth};
+    }
+
     render() {
     let {event,vertical} = this.props
     let {users} = this.state
    // let width  = useWindowDimensions();
-    let v = vertical ? "v" : "";
-  //  if (width <= 600) {
-   //     v = ""
-   // }
+    let v = false
+        console.log(this.getInitialState().windowWidth)
+   if (this.getInitialState().windowWidth <= 600) {
+       v = true
+   }
     let length = users.length;
 
-    return <Link to={`/events/${event.id}`} key={event.id}>
-        <div className={`card event-card ${v}`}>
-            <img className={`card-img-top ${v}`} src={event.image} alt="Card image cap"/>
-            <div className={`card-body ${v}`}>
-                <div className={`card-details ${v}`}>
-                    <h5 className="card-title">{this.getDate(event.date)}, {event.start_time}</h5>
-                    <h6 className="card-subtitle mb-2">{event.title}</h6>
-                    <p className={`card-text ${v}`}>{event.description}</p>
-                </div>
+    return (
+        <Link to={`/events/${event.id}`} key={event.id}>
+        {
+            !v ?
+                    <div className={`card event-card ${v}`}>
+                        {console.log("NOT V")}
+                        <img className={`card-img-top ${v}`} src={event.image} alt="Card image cap"/>
+                        <div className={`card-body ${v}`}>
+                            <div className={`card-details ${v}`}>
+                                <h5 className="card-title">{this.getDate(event.date)}, {event.start_time}</h5>
+                                <h6 className="card-subtitle mb-2">{event.title}</h6>
+                                <p className={`card-text ${v}`}>{event.description}</p>
+                            </div>
 
-                <div className={`participants-container d-flex ${v}`}>
-                    <div>{users.map(p => {
-                        return <img src={p.image} className="participant-thumbnail"/>
+                            <div className={`participants-container d-flex ${v}`}>
+                                <div>{users.map(p => {
+                                    return <img src={p.image} className="participant-thumbnail"/>
 
-                    })}
+                                })}
+                                </div>
+                                <span className={`others ${v}`}> & {length < 4 ? 0 : length - 3} others </span>
+                            </div>
+                            <div className={`m-auto more-info ${v}`}>
+                                <p>More info <FontAwesomeIcon icon={faArrowRight}/></p>
+
+                            </div>
+                        </div>
+
                     </div>
-                    <span className={`others ${v}`}> & {length < 4 ? 0 : length - 3} others </span>
+                :
+                <div className="card" style="width: 18rem;">
+                    {console.log("V")}
+                    <img className="card-img-top" src={event.image} alt="Card image cap"/>
+                        <div className="card-body">
+                            <h5 className="card-title">{event.title}</h5>
+                            <p className="card-text">{event.description}</p>
+                            <div className={`m-auto more-info ${v}`}>
+                                <p>More info <FontAwesomeIcon icon={faArrowRight}/></p>
+                            </div>
+                        </div>
                 </div>
-                <div className={`m-auto more-info ${v}`}>
-                    <p>More info <FontAwesomeIcon icon={faArrowRight}/></p>
+        }
+        </Link>
 
-                </div>
-            </div>
 
-        </div>
-    </Link>
+    )
   }
 }
 

@@ -65,11 +65,18 @@ class UserProfile  extends  React.Component{
                         {location.city}, {location.country}</p>
                     <p>{bio}</p>
                     {this.props.user.id === id ?
+
+                        <div>
+
                         <Link to={`/users/${id}/settings`} className="settings-link">
                             <span className="pb-2 pt-2 pr-2">Settings</span>
                             <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
-                        </Link>: null
+                        </Link>
+                        <button className="btn btn-outline-success create-button-padding"><Link to={`/users/${this.state.id}/create`}>Create Event</Link></button>
+                        </div>
+                        : null
                     }
+
                 </div>
             </div>
 

@@ -111,23 +111,34 @@ class SingleEvent extends React.Component{
                 <div className="event-editing d-flex">
                 {this.state.editing ?
                     <><input className="form-control"
-                           value={this.state.title}
+                           value={this.state.title} placeholder="Don't leave the title empty"
                            onChange={(e)=>this.setState({title: e.target.value})}
-
 
                     />
 
-                    <div onClick={()=>this.setState({editing:!this.state.editing})}
-                         className="btn d-flex">
-                        <FontAwesomeIcon className="fa-check-i" icon={faCheck} onClick={()=> {
-                            this.setState({editing:false}, ()=>{
-                                let {editing, ...state} = this.state
-                               update_event(state.id,state);
-                           })}}/>
-                        <Link to={"/"}><FontAwesomeIcon icon={faTimes} className="delete-btn"
-                                               onClick={()=> {this.props.delete_event(this.state.id)}}/>
-                        </Link>
-                    </div> </>:
+                        {(this.state.title !== '' && this.state.description !== '' && this.state.location.street !== '' &&
+                            this.state.location.city !== '' && this.state.location.country !== '' &&
+                            this.state.location.zip !== '') &&
+                        <div onClick={()=>this.setState({editing:!this.state.editing})}
+                             className="btn d-flex">
+
+                            <FontAwesomeIcon className="fa-check-i" icon={faCheck} onClick={()=> {
+
+                                if (this.state.title !== '' && this.state.description !== '') {
+                                    this.setState({editing:false}, ()=>{
+                                        let {editing, ...state} = this.state
+                                        update_event(state.id,state);
+                                    })
+                                } else {
+                                    window.alert("Please don't leave title or description empty")
+                                }}}
+                            />
+                            <Link to={"/"}><FontAwesomeIcon icon={faTimes} className="delete-btn"
+                                                            onClick={()=> {this.props.delete_event(this.state.id)}}/>
+                            </Link>
+                        </div>
+                        }
+                     </>:
                     <>
                     <h4 className="event-title">{this.state.title}</h4>
 
@@ -156,13 +167,13 @@ class SingleEvent extends React.Component{
 
                           <input className="form-control mb-3" value={this.state.image}
                                  onChange={(e)=> this.setState({image: e.target.value})}/>  :
-                          null
+                             null
                          }
                          <img src={this.state.image} className={"event-img"} />
                          <h5 >Description</h5>
                          {this.state.editing ?
                           <textarea className="form-control event-description-edit"
-                                    value={this.state.description}
+                                    value={this.state.description} placeholder="Don't leave the description empty"
                                     onChange={(e)=>this.setState({description: e.target.value})}/> :
                          <p>{this.state.description}</p>
                          }
@@ -222,6 +233,17 @@ class SingleEvent extends React.Component{
                 </div>
             </div>
                 <h5 className="event-partic-title ">Participants</h5>
+
+                <button className="event-partic-view-all btn">
+                    <Link to={{
+                        pathname: `/events/${this.state.id}/participants`,
+                        state: {
+                            people: this.state.participants
+                        }}}>
+                        View All
+                    </Link>
+                </button>
+
                 <div className="event-participants ">
                     {this.state.participants.map(p => {
                         return <UserCard key={p} id={p}
@@ -230,6 +252,7 @@ class SingleEvent extends React.Component{
                                 editing={this.state.editing}/>
                     })}
                 </div>
+
                 {!this.participates(cur_id) ?
                     <div className="event-attend d-flex ">
                         <div className="event-summary">
