@@ -29,9 +29,8 @@ Backend:
 Can be found here https://github.com/zhamborova/cs4550-f20-final-project-backend
 
 ```shell
-cd back-end
 npm install
-ts-node index
+node bin/www
 ```
 Npm will install all the required packages and ts-node index will start the server
 
