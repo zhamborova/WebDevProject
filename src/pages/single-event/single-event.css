@@ -3,6 +3,13 @@
     width:80%;
     margin: 50px auto 20px;
 }
+@media screen and (max-width: 50em) {
+    .single-event-container{
+        width:95%;
+        margin: 10px auto 10px;
+    }
+}
+
 
 .host-img{
     width:50px;
@@ -25,9 +32,16 @@
     line-height: 0.8;
 }
 
-.event-img{
+.event-img-single{
     width: 100%;
 }
+
+@media screen and (max-width: 50em) {
+    .event-img-single{
+        width: 300px;
+    }
+}
+
 
 .event-description-container{
     margin: 13px 0;
@@ -75,9 +89,13 @@
 
 
 .details-inner-div{
-
     width:88%;
     margin: 0 auto;
+}
+@media screen and (max-width: 50em) {
+    .details-inner-div{
+        visibility: hidden;
+    }
 }
 
 .event-participants{
@@ -86,6 +104,15 @@
     width:80%;
     margin: 20px auto 50px auto;
 }
+@media screen and (max-width: 50em) {
+    .event-participants{
+        display: flex;
+        flex-wrap: wrap;
+        width:95%;
+        margin: 20px auto 50px auto;
+    }
+}
+
 .event-partic-title{
     margin: 20px 125px 20px 10%;
     font-style: normal;
@@ -93,6 +120,16 @@
     font-size: 24px;
     line-height: 24px;
 }
+@media screen and (max-width: 50em) {
+    .event-partic-title{
+        margin: 20px 125px 20px 3%;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 24px;
+    }
+}
+
 
 .event-partic-view-all {
     display: flex;
@@ -100,23 +137,50 @@
     width:17%;
     margin: 20px auto 50px 10%;
 }
+@media screen and (max-width: 50em) {
+    .event-partic-view-all {
+        display: flex;
+        flex-wrap: wrap;
+        width:17%;
+        margin: 20px auto 50px 2%;
+    }
+}
 
 .event-attend{
-
     height: 125px;
     background-color: black;
     color: white;
     align-items: center;
     justify-content: space-between;
 }
+@media screen and (max-width: 50em) {
+    .event-attend{
+        height: 140px;
+        background-color: black;
+        color: white;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
 
 .event-summary{
     margin: 0 150px;
+}
+@media screen and (max-width: 50em) {
+    .event-summary{
+        margin: 0 10px;
+    }
 }
 
 .btn-attend{
     margin: 15px 150px 0;
     padding: 12px 50px;
+}
+@media screen and (max-width: 50em) {
+    .btn-attend{
+        margin: 15px 50px 0;
+        padding: 12px 50px;
+    }
 }
 
 .event-tags > nav{
