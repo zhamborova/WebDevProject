@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import UserSearchCard from "../../components/user-search-card/user-search-card";
 import FriendCard from "../../components/friend-card/friend-card"
 import userService from "../../services/user-service"
-import {setCurrentUser, update_user} from "../../redux/actions/user-actions";
+import {setCurrentUser,} from "../../redux/actions/user-actions";
 
 
 class SearchUsers extends React.Component{
@@ -20,62 +20,18 @@ class SearchUsers extends React.Component{
 
 
     componentDidMount = () =>{
-        // fetch all users and all friends of current user
-        const userId = this.props.current_user.id
-        userService.fetchUserById(userId)
-            .then(current => this.props.setCurrentUser(current))
-
-        userService.get_friends(userId)
-            .then(friends => {
-                this.setState({friends}, () => {
-                    userService.fetchAllUsers()
-                        .then(users => {
-                            let not_friends = []
-                            for (let i = 0; i < users.length; i++) {
-                                let user = users[i]
-                                if (!this.state.friends.some(f => user.id === f.id)
-                                && userId !== user.id) {
-                                    not_friends.push(user)
-                                }
-                            }
-
-                            this.setState({all: not_friends})
-                        })
-                })
-            })
-
-
+        this.fetchUsers()
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     const userId = this.props.current_user.id
-    //
-    //     userService.get_friends(userId)
-    //         .then(friends => {
-    //             console.log(friends)
-    //             this.setState({friends}, () => {
-    //                 userService.fetchAllUsers()
-    //                     .then(users => {
-    //                         let not_friends = []
-    //                         for (let i = 0; i < users.length; i++) {
-    //                             let user = users[i]
-    //                             if (!this.state.friends.some(f => user.id === f.id)
-    //                                 && userId !== user.id) {
-    //                                 not_friends.push(user)
-    //                             }
-    //                         }
-    //
-    //                         this.setState({all: not_friends})
-    //                     })
-    //             })
-    //         })
-    // }
 
-    updateCurrentUser = (u) => {
+
+
+
+    fetchUsers = (u={}) => {
         const userId = this.props.current_user.id
         userService.fetchUserById(userId)
             .then(current => this.props.setCurrentUser(current))
-        userService.get_friends(u.id)
+        userService.get_friends(userId)
             .then(friends => {
                 this.setState({friends}, () => {
                     userService.fetchAllUsers()
@@ -88,40 +44,39 @@ class SearchUsers extends React.Component{
                                     not_friends.push(user)
                                 }
                             }
-
                             this.setState({all: not_friends})
                         })
                 })
             })
+
     }
 
     render(){
+        let my_friends = this.state.my_friends ? "btn-success" : "btn-outline-secondary";
+        let all_users = !this.state.my_friends ? "btn-success" : "btn-outline-secondary";
         return(
             <div className="container d-flex flex-column w-75 mt-5">
                 <h1 className="ml-3">Friends</h1>
-                    {
-                        this.state.my_friends ?
-                            <div className="d-flex justify-content-evenly flex-fill mt-3">
-                            <button className="form-control ml-3 mr-2 btn btn-outline-secondary" onClick={() => this.setState({my_friends: false})}> All users</button>
-                            <button className="form-control active btn btn-outline-secondary" onClick={() => this.setState({my_friends: true})}> Your friends</button>
-                            </div>
-
-                            :
                         <div className="d-flex justify-content-evenly flex-fill mt-3">
-                        <button className="form-control ml-3 mr-2 active btn btn-outline-secondary" onClick={() => this.setState({my_friends: false})}> All users</button>
-                        <button className="form-control btn btn-outline-secondary" onClick={() => this.setState({my_friends: true})}> Your friends</button>
+                        <button className={`form-control ml-3 mr-2 btn ${all_users}`}
+                                onClick={() => this.setState({my_friends: false})}> All users</button>
+                        <button className={`form-control ml-3 mr-2 btn ${my_friends}`}
+                                onClick={() => this.setState({my_friends: true})}> Your friends</button>
                         </div>
-                    }
+
 
                 <div className="search-results container  m-auto">
-                    {
-                        this.state.my_friends ?
+                    {this.state.my_friends ?
                             this.state.friends.map(u => {
-                                return <FriendCard user={u} current={this.props.current_user} isFriend={true} userFriends={u.friends} updateCurrentUser={this.updateCurrentUser}/>
+                                return <FriendCard user={u} current={this.props.current_user} isFriend={true}
+                                                   userFriends={u.friends}
+                                                   updateCurrentUser={this.fetchUsers}/>
                             })
                      :
                             this.state.all.map(u => {
-                                return <FriendCard user={u} current={this.props.current_user} isFriend={false} userFriends={u.friends} updateCurrentUser={this.updateCurrentUser}/>
+                                return <FriendCard user={u} current={this.props.current_user} isFriend={false}
+                                                   userFriends={u.friends}
+                                                   updateCurrentUser={this.fetchUsers}/>
                             })
                     }
                 </div>
@@ -141,9 +96,7 @@ const propertyToDispatchMapper = dispatch => ({
     setCurrentUser: (current_user) => setCurrentUser(dispatch, current_user)
 })
 
-// const propToDispatch = (dispatch) => ({
-//     updateUser: (user) => update_user(user, dispatch)
-// })
+
 
 export default connect
 (mapStateToProps, propertyToDispatchMapper)(SearchUsers);

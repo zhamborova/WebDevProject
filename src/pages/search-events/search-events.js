@@ -44,11 +44,11 @@ class SearchEvents extends React.Component{
                         </div>
                 {
                     !this.state.my_events ?
-                    <div className="d-flex m-auto">
+                    <div className="evnts-container ">
                         {this.state.all.map(e => <EventCard event={e} key={e.id} vertical />)}
 
                     </div> :
-                    <div className="d-flex m-auto">
+                    <div className="evnts-container">
                         {this.state.user_events.map(e => <EventCard event={e} key={e.id} vertical />)}
 
                     </div>
