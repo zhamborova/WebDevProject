@@ -68,7 +68,9 @@ const styles = (theme) => ({
             backgroundColor: "#40a657",
         },
     },
-
+  typography: {
+      marginBottom: "5px"
+  }
 
 });
 
@@ -117,7 +119,7 @@ render(){
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" className={classes.typography}>
                         Sign in
                     </Typography>
                     <form className={classes.form} noValidate>

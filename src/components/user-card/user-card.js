@@ -2,7 +2,7 @@ import React from "react";
 import './user-card.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
-import {Link, Redirect} from "react-router-dom";
+import {Link,} from "react-router-dom";
 import {fetchUserById} from "../../services/user-service";
 
 
@@ -29,7 +29,6 @@ class UserCard extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         const {first_name, last_name, image,} = this.state;
         const {removeUser, editing, host, id,  } = this.props;
         return <div className="card  card-user" style={{width: "9rem"}}>

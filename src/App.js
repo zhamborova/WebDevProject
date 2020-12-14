@@ -3,6 +3,7 @@ import './App.css';
 
 import {Switch, Route, BrowserRouter,} from 'react-router-dom';
 
+
 import Home from "./pages/home/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchNews from "./pages/search-news/search-news.js";
@@ -65,10 +66,14 @@ function App(props) {
                                   loggedin= {!props.current_user}/>
                   <ProtectedRoute exact path={'/sign-up'} component={SignUp} register
                                   loggedin= {!props.current_user}/>
-                  <Route exact path={'/events/:eventId/participants'} component={ViewAllParticipants}/>
+                  <ProtectedRoute exact path={'/events/:eventId/participants'}
+                                  component={ViewAllParticipants}
+                                  loggedin= {props.current_user}/>
               </Switch>
 
+
  </BrowserRouter>
+
       </MuiPickersUtilsProvider>
   );
 }
