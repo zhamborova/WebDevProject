@@ -1,4 +1,4 @@
-const url = `http://localhost:8080/events`
+const url = `https://evening-cliffs-15769.herokuapp.com/events`
 
 
 export const get_events = () => fetch(url).then(response => response.json())

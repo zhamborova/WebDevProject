@@ -1,4 +1,4 @@
-const url = "http://localhost:8080"
+const url = "https://evening-cliffs-15769.herokuapp.com"
 
 export const fetchAllUsers = () => {
     return fetch(`${url}/users`, {
