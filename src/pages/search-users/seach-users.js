@@ -5,7 +5,9 @@ import EventCard from "../../components/event-card/event-card";
 import stringSimilarity from 'string-similarity'
 import {Link} from "react-router-dom";
 import UserSearchCard from "../../components/user-search-card/user-search-card";
+import FriendCard from "../../components/friend-card/friend-card"
 import userService from "../../services/user-service"
+import {setCurrentUser, update_user} from "../../redux/actions/user-actions";
 
 
 class SearchUsers extends React.Component{
@@ -20,10 +22,11 @@ class SearchUsers extends React.Component{
     componentDidMount = () =>{
         // fetch all users and all friends of current user
         const userId = this.props.current_user.id
-        console.log(userId)
+        userService.fetchUserById(userId)
+            .then(current => this.props.setCurrentUser(current))
+
         userService.get_friends(userId)
             .then(friends => {
-                console.log(friends)
                 this.setState({friends}, () => {
                     userService.fetchAllUsers()
                         .then(users => {
@@ -41,65 +44,56 @@ class SearchUsers extends React.Component{
                 })
             })
 
-        //fetch here
-        // let {results} = this.props
-        // this.setState({results: results, all:results}, ()=>{
-        //     let {search} = this.props.match.params
-        //     if(search){
-        //         this.setState({search:search}, ()=>{
-        //             this.searchUsers();
-        //         })
-        //
-        //     }
-        //     else{
-        //         this.setState({results: this.state.all})
-        //     }
-        // });
-
 
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-        // if (prevProps.match.params !== this.props.match.params) {
-        //     const {userId} = this.props.match.params
-        //     if (userId) {
-        //         this.getUserFriends(userId)
-        //     }
-        // }
-        // if(prevProps.match.params.search !== this.props.match.params.search){
-        //     let {search} = this.props.match.params
-        //     if(search){
-        //         this.setState({search:search})
-        //         this.searchUsers();
-        //     }
-        //     else{
-        //         this.setState({results: this.state.all})
-        //     }
-        // }
-
-    }
-
-    displayFriends = () => {
-        this.setState({my_friends: true})
-    }
-
-    displayAll = () => {
-        this.setState({my_friends: false})
-    }
-
-    // searchUsers = () => {
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     const userId = this.props.current_user.id
     //
-    //     let search = this.format(this.state.search)
-    //     if(search.trim() === "") this.setState({results:this.state.all})
-    //     let new_results = this.state.all.filter(u =>
-    //         stringSimilarity.compareTwoStrings(this.format(this.getName(u)), search) >= 0.3)
+    //     userService.get_friends(userId)
+    //         .then(friends => {
+    //             console.log(friends)
+    //             this.setState({friends}, () => {
+    //                 userService.fetchAllUsers()
+    //                     .then(users => {
+    //                         let not_friends = []
+    //                         for (let i = 0; i < users.length; i++) {
+    //                             let user = users[i]
+    //                             if (!this.state.friends.some(f => user.id === f.id)
+    //                                 && userId !== user.id) {
+    //                                 not_friends.push(user)
+    //                             }
+    //                         }
     //
-    //     this.setState({results:new_results})
+    //                         this.setState({all: not_friends})
+    //                     })
+    //             })
+    //         })
     // }
-    //
-    // format = (str) => str.trim().toLowerCase();
-    // getName = (user) => user.first_name + user.last_name
+
+    updateCurrentUser = (u) => {
+        const userId = this.props.current_user.id
+        userService.fetchUserById(userId)
+            .then(current => this.props.setCurrentUser(current))
+        userService.get_friends(u.id)
+            .then(friends => {
+                this.setState({friends}, () => {
+                    userService.fetchAllUsers()
+                        .then(users => {
+                            let not_friends = []
+                            for (let i = 0; i < users.length; i++) {
+                                let user = users[i]
+                                if (!this.state.friends.some(f => user.id === f.id)
+                                    && userId !== user.id) {
+                                    not_friends.push(user)
+                                }
+                            }
+
+                            this.setState({all: not_friends})
+                        })
+                })
+            })
+    }
 
     render(){
         return(
@@ -119,20 +113,15 @@ class SearchUsers extends React.Component{
                         </div>
                     }
 
-                    {/*<input className="form-control" placeholder="Search friends..." value={this.state.search}*/}
-                    {/*       onChange={(e)=> this.setState({search:e.target.value})}/>*/}
-                    {/*<Link to={`/searchUsers/${this.state.search}`} className="ml-3 w-25">*/}
-                    {/*    <button className="form-control search-btn ">Search</button></Link>*/}
                 <div className="search-results container  m-auto">
-                    {/*{this.state.results.map(u => <UserSearchCard {...u}/>)}*/}
                     {
                         this.state.my_friends ?
                             this.state.friends.map(u => {
-                                return <UserSearchCard user={u} friend={true}/>
+                                return <FriendCard user={u} current={this.props.current_user} isFriend={true} userFriends={u.friends} updateCurrentUser={this.updateCurrentUser}/>
                             })
                      :
                             this.state.all.map(u => {
-                                return <UserSearchCard user={u} friend={false}/>
+                                return <FriendCard user={u} current={this.props.current_user} isFriend={false} userFriends={u.friends} updateCurrentUser={this.updateCurrentUser}/>
                             })
                     }
                 </div>
@@ -148,6 +137,13 @@ const mapStateToProps = (state) => ({
     current_user: state.users.current_user
 })
 
+const propertyToDispatchMapper = dispatch => ({
+    setCurrentUser: (current_user) => setCurrentUser(dispatch, current_user)
+})
+
+// const propToDispatch = (dispatch) => ({
+//     updateUser: (user) => update_user(user, dispatch)
+// })
 
 export default connect
-(mapStateToProps)(SearchUsers);
+(mapStateToProps, propertyToDispatchMapper)(SearchUsers);

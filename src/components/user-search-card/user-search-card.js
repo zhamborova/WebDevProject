@@ -5,7 +5,6 @@ import {faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons";
 import './user-search-card.css'
 import {Link} from "react-router-dom";
 
-
 const UserSearchCard = ({user, friend}) =>{
 
     return <div className="user-search-container ">
