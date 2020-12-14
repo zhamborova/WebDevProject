@@ -3,12 +3,14 @@ ul{
     width: 100%;
 }
 
-/* Change the link color to #111 (black) on hover */
+
 .nav-item:hover {
     background-color: #3a7347;
+}
+.nav-link:hover {
+
     color:white!important;
 }
-
 .nav-item{
     font-size: 1rem!important;
 }

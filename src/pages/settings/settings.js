@@ -173,24 +173,25 @@ class Settings extends React.Component {
                         {
                             this.state.editing &&
                             <>
-                            <Link to={"/"} onClick={() => {
-                                this.props.deleteUser(this.state.user.id)}}
-                                     className="btn btn-outline-secondary button-padding display-right">
-                                Delete Account</Link>
-                                    <button  onClick={() => {
+                                <button  onClick={() => {
 
-                                        if (this.validate()) {
-                                            this.setState({editing: false});
-                                            this.props.updateUser(this.state.user)
-                                        } else {
-                                            window.alert("Please provide valid inputs and don't leave anything blank. " +
-                                                "First and last names should only contain letters. " +
-                                                "Email should have email attributes. Name, email, and password must not be empty.")
-                                        }
-
+                                    if (this.validate()) {
+                                        this.setState({editing: false});
+                                        this.props.updateUser(this.state.user)
+                                    } else {
+                                        window.alert("Please provide valid inputs and don't leave anything blank. " +
+                                            "First and last names should only contain letters. " +
+                                            "Email should have email attributes. Name, email, and password must not be empty.")
                                     }
-                                    } className="btn btn-outline-secondary button-padding display-right">
-                                            Done Editing</button>
+                                }
+                                } className="btn btn-outline-secondary button-padding ">
+                                    Done Editing</button>
+                            <Link to={"/"}
+                                  onClick={() => {
+                                this.props.deleteUser(this.state.user.id)}}
+                                     className="btn btn-danger button-padding float-right ">
+                                Delete Account</Link>
+
                             </>
                         }
 

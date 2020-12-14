@@ -8,28 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useState, useEffect} from 'react';
 import {get_users_for_event} from "../../services/events-service";
 
-function getWindowDimensions() {
-    const {innerWidth: width, innerHeight: height} = window;
-    return {
-        width,
-        height
-    };
-}
 
-function useWindowDimensions() {
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-    useEffect(() => {
-        function handleResize() {
-            setWindowDimensions(getWindowDimensions());
-        }
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return windowDimensions;
-}
 
 class EventCard extends React.Component {
  state ={
@@ -55,7 +34,6 @@ class EventCard extends React.Component {
     render() {
     let {event,vertical} = this.props
     let {users} = this.state
-   // let width  = useWindowDimensions();
     let v = false
         console.log(this.getInitialState().windowWidth)
    if (this.getInitialState().windowWidth <= 600) {
