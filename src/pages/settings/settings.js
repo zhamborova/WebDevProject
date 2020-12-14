@@ -161,35 +161,36 @@ class Settings extends React.Component {
                         {
                             this.state.editing &&
                             <>
-                            <Link to={"/"} onClick={() => {
-                                this.props.deleteUser(this.state.user.id)}}
-                                     className="btn btn-outline-secondary button-padding display-right">
-                                Delete Account</Link>
-                                    <button  onClick={() => {
+                                <button  onClick={() => {
 
-                                        if ((this.state.user.first_name !== '' &&
-                                            this.state.user.last_name !== '' ) &&
-                                            this.state.user.email !== '' &&
-                                            this.state.user.password !== '' &&
-                                            this.state.user.email.includes("@") &&
-                                            this.state.user.email.includes(".") &&
-                                            /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
-                                            /^[a-zA-Z]+$/.test(this.state.user.last_name)) {
-                                            if (this.state.user.image === '') {
-                                                this.update_user( "image", "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
-                                            }
-
-                                            this.setState({editing: false});
-                                            this.props.updateUser(this.state.user)
-
-                                        } else {
-                                            window.alert("Please provide valid inputs. First and last names should only contain letters. " +
-                                                "Email should have email attributes. Name, email, and password must not be empty.")
+                                    if ((this.state.user.first_name !== '' &&
+                                        this.state.user.last_name !== '' ) &&
+                                        this.state.user.email !== '' &&
+                                        this.state.user.password !== '' &&
+                                        this.state.user.email.includes("@") &&
+                                        this.state.user.email.includes(".") &&
+                                        /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
+                                        /^[a-zA-Z]+$/.test(this.state.user.last_name)) {
+                                        if (this.state.user.image === '') {
+                                            this.update_user( "image", "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
                                         }
 
+                                        this.setState({editing: false});
+                                        this.props.updateUser(this.state.user)
+
+                                    } else {
+                                        window.alert("Please provide valid inputs. First and last names should only contain letters. " +
+                                            "Email should have email attributes. Name, email, and password must not be empty.")
                                     }
-                                    } className="btn btn-outline-secondary button-padding display-right">
-                                            Done Editing</button>
+                                }
+                                } className="btn btn-outline-secondary button-padding ">
+                                    Done Editing</button>
+                            <Link to={"/"}
+                                  onClick={() => {
+                                this.props.deleteUser(this.state.user.id)}}
+                                     className="btn btn-danger button-padding float-right ">
+                                Delete Account</Link>
+
                             </>
                         }
 
