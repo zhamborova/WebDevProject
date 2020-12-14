@@ -23,7 +23,6 @@ const rootReducer = (state, action) => {
     if (action.type === 'LOGOUT') {
         state = {
             users:{
-                users: null,
                 current_user: null
             },
         }

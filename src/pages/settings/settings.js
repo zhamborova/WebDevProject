@@ -3,7 +3,7 @@ import './settings.css';
 import {connect} from "react-redux";
 import { delete_user, update_user,} from '../../redux/actions/user-actions';
 import Location from "../../components/location/location";
-
+import {Link} from "react-router-dom";
 
 class Settings extends React.Component {
 
@@ -15,7 +15,8 @@ class Settings extends React.Component {
             location: {city:"", country:"", street:"", zip: ""},
             bio: "",
             friends: [],
-            image: ""},
+            image: "",
+        id: ""},
         editing: false
     }
 
@@ -134,12 +135,19 @@ class Settings extends React.Component {
 
                         {
                             this.state.editing &&
+                            <>
+                            <Link to={"/"} onClick={() => {
+                                this.props.deleteUser(this.state.user.id)}}
+                                     className="btn btn-outline-secondary button-padding display-right">
+                                Delete Account</Link>
                                     <button  onClick={() => {
                                         this.setState({editing: false});
                                                              this.props.updateUser(this.state.user)}}
                                              className="btn btn-outline-secondary button-padding display-right">
                                             Done Editing</button>
+                            </>
                         }
+
                     </div>
                 </div>
             </div>
@@ -156,7 +164,7 @@ const stateToPropertyMapper = (state) => {
 
 
 const dispatchMapper = (dispatch) => ({
-    deleteUser: (user) => delete_user(user, dispatch),
+    deleteUser: (id) => delete_user(id, dispatch),
     updateUser: (user) => update_user(user, dispatch),
 })
 
