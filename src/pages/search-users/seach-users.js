@@ -30,7 +30,8 @@ class SearchUsers extends React.Component{
                             let not_friends = []
                             for (let i = 0; i < users.length; i++) {
                                 let user = users[i]
-                                if (!this.state.friends.some(f => user.id === f.id)) {
+                                if (!this.state.friends.some(f => user.id === f.id)
+                                && userId !== user.id) {
                                     not_friends.push(user)
                                 }
                             }
@@ -104,14 +105,24 @@ class SearchUsers extends React.Component{
         return(
             <div className="container d-flex flex-column w-75 mt-5">
                 <h1 className="ml-3">Friends</h1>
-                <div className="d-flex justify-content-evenly flex-fill mt-3">
-                    <button className="form-control ml-3 mr-2" onClick={() => this.setState({my_friends: true})}> All users</button>
-                    <button className="form-control" onClick={() => this.setState({my_friends: true})}> Your friends</button>
+                    {
+                        this.state.my_friends ?
+                            <div className="d-flex justify-content-evenly flex-fill mt-3">
+                            <button className="form-control ml-3 mr-2 btn btn-outline-secondary" onClick={() => this.setState({my_friends: false})}> All users</button>
+                            <button className="form-control active btn btn-outline-secondary" onClick={() => this.setState({my_friends: true})}> Your friends</button>
+                            </div>
+
+                            :
+                        <div className="d-flex justify-content-evenly flex-fill mt-3">
+                        <button className="form-control ml-3 mr-2 active btn btn-outline-secondary" onClick={() => this.setState({my_friends: false})}> All users</button>
+                        <button className="form-control btn btn-outline-secondary" onClick={() => this.setState({my_friends: true})}> Your friends</button>
+                        </div>
+                    }
+
                     {/*<input className="form-control" placeholder="Search friends..." value={this.state.search}*/}
                     {/*       onChange={(e)=> this.setState({search:e.target.value})}/>*/}
                     {/*<Link to={`/searchUsers/${this.state.search}`} className="ml-3 w-25">*/}
                     {/*    <button className="form-control search-btn ">Search</button></Link>*/}
-                </div>
                 <div className="search-results container  m-auto">
                     {/*{this.state.results.map(u => <UserSearchCard {...u}/>)}*/}
                     {

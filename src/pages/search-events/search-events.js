@@ -16,7 +16,7 @@ class SearchEvents extends React.Component{
         results: [],
         all: [],
         current_user: {},
-        my_events: false,
+        my_events: true,
         user_events: []
     }
 
@@ -90,10 +90,19 @@ class SearchEvents extends React.Component{
                         {/*    <Link to={`/search-events/${this.state.search}`} className="ml-3 w-25">*/}
                         {/*        <button className="form-control search-btn ">Search</button></Link>*/}
                         {/*</div>*/}
-                         <div className="d-flex justify-content-evenly flex-fill mt-3">
-                         <button className="form-control ml-3 mr-2" onClick={() => this.displayAllEvents()}> All events</button>
-                         <button className="form-control " onClick={() => this.displayMyEvents()}> Your events</button>
-                         </div>
+                {
+                    this.state.my_events ?
+                        <div className="d-flex justify-content-evenly flex-fill mt-3">
+                            <button className="form-control ml-3 mr-2 btn btn-outline-secondary" onClick={() => this.displayAllEvents()}> All events</button>
+                            <button className="form-control active btn btn-outline-secondary" onClick={() => this.displayMyEvents()}> Your events</button>
+                        </div>
+                        :
+                        <div className="d-flex justify-content-evenly flex-fill mt-3">
+                            <button className="form-control ml-3 mr-2 active btn btn-outline-secondary" onClick={() => this.displayAllEvents()}> All events</button>
+                            <button className="form-control btn btn-outline-secondary" onClick={() => this.displayMyEvents()}> Your events</button>
+                        </div>
+                }
+
                 {
                     !this.state.my_events &&
                     <div className="search-results container row m-auto">
