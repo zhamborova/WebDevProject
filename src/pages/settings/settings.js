@@ -172,7 +172,8 @@ class Settings extends React.Component {
                                         /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
                                         /^[a-zA-Z]+$/.test(this.state.user.last_name)) {
                                         if (this.state.user.image === '') {
-                                            this.update_user( "image", "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
+                                            this.update_user( "image",
+                                                "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
                                         }
 
                                         this.setState({editing: false});
