@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
+
 import {Switch, Route, BrowserRouter,} from 'react-router-dom';
 import Home from "./pages/home/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchNews from "./pages/search-news/search-news.js";
 import SingleEvent from "./pages/single-event/single-event";
-
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import CreateEvent from "./pages/create-event/create-event";
