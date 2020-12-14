@@ -36,6 +36,18 @@ class Settings extends React.Component {
     setLocation = (location ) => {
         this.update_user("location",location)
     }
+
+    validate = () => {
+        return (this.state.user.first_name !== '' &&
+            this.state.user.last_name !== '' &&
+            this.state.user.email !== '' &&
+            this.state.user.password !== '' &&
+            this.state.user.email.includes("@") &&
+            this.state.user.email.includes(".") &&
+            /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
+            /^[a-zA-Z]+$/.test(this.state.user.last_name))
+    }
+
     render() {
         return (
             <div className="body">
@@ -167,23 +179,12 @@ class Settings extends React.Component {
                                 Delete Account</Link>
                                     <button  onClick={() => {
 
-                                        if ((this.state.user.first_name !== '' &&
-                                            this.state.user.last_name !== '' ) &&
-                                            this.state.user.email !== '' &&
-                                            this.state.user.password !== '' &&
-                                            this.state.user.email.includes("@") &&
-                                            this.state.user.email.includes(".") &&
-                                            /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
-                                            /^[a-zA-Z]+$/.test(this.state.user.last_name)) {
-                                            if (this.state.user.image === '') {
-                                                this.update_user( "image", "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
-                                            }
-
+                                        if (this.validate()) {
                                             this.setState({editing: false});
                                             this.props.updateUser(this.state.user)
-
                                         } else {
-                                            window.alert("Please provide valid inputs. First and last names should only contain letters. " +
+                                            window.alert("Please provide valid inputs and don't leave anything blank. " +
+                                                "First and last names should only contain letters. " +
                                                 "Email should have email attributes. Name, email, and password must not be empty.")
                                         }
 
