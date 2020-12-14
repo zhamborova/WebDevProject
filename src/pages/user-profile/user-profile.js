@@ -64,7 +64,7 @@ class UserProfile  extends  React.Component{
                         <FontAwesomeIcon className="mr-2" icon={faMapMarkerAlt}/>
                         {location.city}, {location.country}</p>
                     <p>{bio}</p>
-                    {this.props.user.id == id ?
+                    {this.props.user.id === id ?
                         <Link to={`/users/${id}/settings`} className="settings-link">
                             <span className="pb-2 pt-2 pr-2">Settings</span>
                             <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
