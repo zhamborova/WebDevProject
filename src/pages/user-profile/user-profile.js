@@ -65,12 +65,27 @@ class UserProfile  extends  React.Component{
                         <FontAwesomeIcon className="mr-2" icon={faMapMarkerAlt}/>
                         {location.city}, {location.country}</p>
                     <p>{bio}</p>
+{/*<<<<<<< HEAD*/}
                     {this.props.user.id == id ?
+                        <div>
                         <Link to={`/users/${id}/settings`} className="settings-link">
                             <span className="pb-2 pt-2 pr-2">Settings</span>
                             <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>
-                        </Link>: null
+                        </Link>
+                        <button className="btn btn-outline-success create-button-padding"><Link to={`/users/${this.state.id}/create`}>Create Event</Link></button>
+                        </div>
+                        : null
                     }
+{/*=======*/}
+{/*                    <Link to={`/users/${id}/settings`} className="settings-link">*/}
+{/*                        <span className="pb-2 pt-2 pr-2">Settings</span>*/}
+{/*                        <FontAwesomeIcon className="settings-arrow " icon={faLongArrowAltRight}/>*/}
+{/*                    </Link>*/}
+{/*                    <br/>*/}
+{/*                    <button className="btn btn-outline-success"><Link to={`/users/${this.state.id}/create`}>Create Event</Link></button>*/}
+
+
+{/*>>>>>>> 322c967d28ebfc5238cc08755819aa9f54ad12e5*/}
                 </div>
             </div>
 

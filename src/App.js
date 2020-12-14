@@ -19,6 +19,7 @@ import SignInSide from "./pages/sign-in/sign-in";
 import SignUp from "./pages/sign-up/sign-up";
 import UserFriends from "./pages/user-friends/user-friends"
 import UserEvents from "./pages/user-events/user-events"
+import ViewAllParticipants from "./pages/single-event/view-all-participants";
 
 const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, register, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -63,8 +64,9 @@ function App(props) {
                                   loggedin= {!props.current_user}/>
                   <ProtectedRoute exact path={'/sign-up'} component={SignUp} register
                                   loggedin= {!props.current_user}/>
-
+                  <Route exact path={'/events/:eventId/participants'} component={ViewAllParticipants}/>
               </Switch>
+
 
     </BrowserRouter>
       </MuiPickersUtilsProvider>
