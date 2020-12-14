@@ -25,6 +25,16 @@ npm start
 Npm will install all the required packages and npm start will run the start script
 
 
+Backend:
+Can be found here https://github.com/zhamborova/cs4550-f20-final-project-backend
+
+```shell
+cd back-end
+npm install
+ts-node index
+```
+Npm will install all the required packages and ts-node index will start the server
+
 ## Features
 * Create/Delete/Update Events
 * Search environment related news
