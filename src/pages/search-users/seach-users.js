@@ -9,6 +9,13 @@ import FriendCard from "../../components/friend-card/friend-card"
 import userService from "../../services/user-service"
 import {setCurrentUser,} from "../../redux/actions/user-actions";
 
+function getWindowDimensions() {
+    const {innerWidth: width, innerHeight: height} = window;
+    return {
+        width,
+        height
+    };
+}
 
 class SearchUsers extends React.Component{
     state={
@@ -23,9 +30,9 @@ class SearchUsers extends React.Component{
         this.fetchUsers()
     }
 
-
-
-
+    getInitialState = () => {
+        return {windowWidth: window.innerWidth};
+    }
 
     fetchUsers = (u={}) => {
         const userId = this.props.current_user.id
@@ -70,13 +77,15 @@ class SearchUsers extends React.Component{
                             this.state.friends.map(u => {
                                 return <FriendCard user={u} current={this.props.current_user} isFriend={true}
                                                    userFriends={u.friends}
-                                                   updateCurrentUser={this.fetchUsers}/>
+                                                   updateCurrentUser={this.fetchUsers}
+                                                   screenSize = {this.getInitialState().windowWidth}/>
                             })
                      :
                             this.state.all.map(u => {
                                 return <FriendCard user={u} current={this.props.current_user} isFriend={false}
                                                    userFriends={u.friends}
-                                                   updateCurrentUser={this.fetchUsers}/>
+                                                   updateCurrentUser={this.fetchUsers}
+                                                   screenSize = {this.getInitialState().windowWidth}/>
                             })
                     }
                 </div>

@@ -236,19 +236,21 @@ class SingleEvent extends React.Component{
             </div>
 
                 <div>
+                    <div className={"row"}>
+
                     <h5 className="event-partic-title ">Participants</h5>
 
-                    <button className="event-partic-view-all btn">
+                    {/*<button className="event-partic-view-all btn display-right">*/}
                         <Link to={{
                             pathname: `/events/${this.state.id}/participants`,
                             state: {
                                 people: this.state.participants
-                            }}}>
+                            }}} className="ml-auto event-partic-view-all">
                             View All
                             <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                         </Link>
-                    </button>
-
+                    {/*</button>*/}
+                    </div>
                     <div className="event-participants flex-column flex-md-row">
                         {this.state.participants.map(p => {
                             return <UserCard key={p} id={p}

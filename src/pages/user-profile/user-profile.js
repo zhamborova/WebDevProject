@@ -10,6 +10,7 @@ import {fetchUserById, get_events_for_user} from "../../services/user-service";
 import UserCard from "../../components/user-card/user-card";
 import EventCard from "../../components/event-card/event-card";
 import {connect} from "react-redux";
+import HomeEventCard from "../../components/event-card/home-event-card";
 
 
 class UserProfile  extends  React.Component{
@@ -89,10 +90,12 @@ class UserProfile  extends  React.Component{
         </div>
         <div className="user-friends mb-5">
             <div className="flex-column flex-md-row">
+                <div className={"row"}>
                 <h3>Friends</h3>
                 <Link to={`/users/${this.state.id}/friends`} className="ml-auto mr-1">View all
                 </Link>
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
+                </div>
             </div>
             <div className={`d-flex flex-column flex-md-row ${fL}`}>
                 {friends.slice(0,5).map(p => {
@@ -112,7 +115,7 @@ class UserProfile  extends  React.Component{
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
             </div>
             <div className={`d-flex flex-column flex-md-row ${eL}`}>
-                {events.slice(0, 3).map(e => <EventCard key={e.id}
+                {events.slice(0, 3).map(e => <HomeEventCard key={e.id}
                                                         event={e}
                                                         vertical={false}/>)}
             </div>

@@ -1,0 +1,60 @@
+
+.user-search-container{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: 150px;
+    margin: 40px 0;
+    display: flex;
+
+    align-items: center;
+}
+
+.friend-image {
+    width: 60%;
+    height: 80%;
+    border-radius: 100px;
+    margin-bottom: 10px;
+}
+
+.friend-card-content-padding {
+    margin-top: 8%;
+}
+
+.friend-photo-padding {
+    margin: 5%
+}
+
+.cards {
+}
+
+.search-img{
+    width: 15%;
+    height: auto;
+    margin: auto 40px;
+}
+
+.search-img .img{
+    width: 100%;
+    display: block;
+    float: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.image-size {
+    width: 100%;
+    height: 100%;
+}
+
+.rm-btn, .add-btn{
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 5px;
+    height: 46px;
+}
+
+.responsive-width {
+    font-size: 1.5vw
+}
