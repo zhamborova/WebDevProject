@@ -35,6 +35,7 @@ node bin/www
 Npm will install all the required packages and ts-node index will start the server
 
 ## Features
+* Register/Login
 * Create/Delete/Update Events
 * Search environment related news
 * Add friends
