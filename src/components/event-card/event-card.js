@@ -23,19 +23,16 @@ class EventCard extends React.Component {
         return date.toDateString()
     }
 
-    getInitialState = () => {
-        return {windowWidth: window.innerWidth};
-    }
 
 
 
     render()
     {
-        let {event} = this.props
-        let {users, vertical} = this.state
-        let width = this.getInitialState().windowWidth
+        let {event, vertical} = this.props
+        let {users, } = this.state
+        let width = window.innerWidth
         let v = ""
-        if (width > 900 || vertical) {
+        if (width < 800 || vertical) {
             v = "v"
         }
         let length = users.length;

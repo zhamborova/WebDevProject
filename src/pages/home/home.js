@@ -46,13 +46,9 @@ class Home extends React.Component{
    }
 
     render() {
-      const {theme} = this.props
-
        let style = this.state.events.length < 3 ? "justify-content-start" : "justify-content-center"
         return (
-
             <div className="d-flex flex-column home-container">
-
                 <div className="search-container justify-content-center mb-3"
                    style={{background: `url(${bg})`}}>
                     <div className="jumbotron">
