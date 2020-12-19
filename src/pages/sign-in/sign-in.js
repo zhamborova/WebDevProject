@@ -17,9 +17,6 @@ import {connect} from "react-redux";
 
 
 const styles = (theme) => ({
-    root: {
-
-    },
 
     image: {
         backgroundImage: 'url(https://cdn.dribbble.com/users/1803663/screenshots/11631282/media/7b4f4da61af27478571fea62aaba7060.jpg?compress=1&resize=1600x1200)',
