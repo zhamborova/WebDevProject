@@ -26,8 +26,7 @@ class SearchUsers extends React.Component{
 
 
 
-
-    fetchUsers = (u={}) => {
+    fetchUsers = (u="") => {
         const userId = this.props.current_user.id
         userService.fetchUserById(userId)
             .then(current => this.props.setCurrentUser(current))
@@ -65,7 +64,7 @@ class SearchUsers extends React.Component{
                         </div>
 
 
-                <div className="search-results container  m-auto">
+                <div className="search-results container m-auto">
                     {this.state.my_friends ?
                             this.state.friends.map(u => {
                                 return <FriendCard user={u} current={this.props.current_user} isFriend={true}
@@ -98,5 +97,4 @@ const propertyToDispatchMapper = dispatch => ({
 
 
 
-export default connect
-(mapStateToProps, propertyToDispatchMapper)(SearchUsers);
+export default connect(mapStateToProps, propertyToDispatchMapper)(SearchUsers);

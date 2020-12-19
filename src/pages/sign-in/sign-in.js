@@ -15,28 +15,10 @@ import {setCurrentUser} from "../../redux/actions/user-actions";
 import {connect} from "react-redux";
 
 
-let grey ="rgba(143, 143, 143, 0.5)"
 
 const styles = (theme) => ({
     root: {
-        height: '100vh',
-        '& label.Mui-focused': {
-            color: grey,
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: grey,
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: grey,
-            },
-            '&:hover fieldset': {
-                borderColor: grey,
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: grey,
-            },
-        },
+
     },
 
     image: {
@@ -63,10 +45,7 @@ const styles = (theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: "#3a7347",
-        '&:hover': {
-            backgroundColor: "#40a657",
-        },
+
     },
   typography: {
       marginBottom: "5px"
@@ -87,8 +66,7 @@ class SignInSide extends React.Component{
     update= (field, event) => this.setState({[field]: event.target.value})
 
     submitCredentials = (user) => {
-        if (this.state.email !== ''
-            && this.state.password !== ''
+        if ( this.state.password !== ''
             && this.state.email.includes("@")
             && this.state.email.includes(".")) {
             login(user).then(response => {
@@ -111,9 +89,9 @@ class SignInSide extends React.Component{
 
 render(){
   const {classes} = this.props;
-    return (<Grid container component="main" className={classes.root}>
+    return (<Grid container component="main" className={classes.root} color="secondary">
             <CssBaseline />
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
+            <Grid item xs={false} sm={4} md={7} className={classes.image}  />
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
@@ -122,11 +100,12 @@ render(){
                     <Typography component="h1" variant="h5" className={classes.typography}>
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} noValidate >
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
+
                             fullWidth
                             id="email"
                             label="Email Address"
@@ -191,4 +170,4 @@ const propertyToDispatchMapper = dispatch => ({
     setCurrentUser: (current_user) => setCurrentUser(dispatch, current_user)
 })
 
-export default withStyles(styles)(connect(()=>({}), propertyToDispatchMapper)(SignInSide))
+export default withStyles(styles, {withTheme:true})(connect(()=>({}), propertyToDispatchMapper)(SignInSide))

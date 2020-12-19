@@ -4,8 +4,6 @@ import './event-card.css';
 import {Link} from "react-router-dom";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
-import {useState, useEffect} from 'react';
 import {get_users_for_event} from "../../services/events-service";
 
 
@@ -35,7 +33,6 @@ class EventCard extends React.Component {
     let {event,vertical} = this.props
     let {users} = this.state
     let v = false
-        console.log(this.getInitialState().windowWidth)
    if (this.getInitialState().windowWidth <= 600) {
        v = true
    }

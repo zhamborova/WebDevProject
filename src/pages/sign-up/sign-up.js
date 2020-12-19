@@ -15,29 +15,8 @@ import Container from '@material-ui/core/Container';
 import {create_user} from "../../redux/actions/user-actions";
 import {connect} from "react-redux";
 
-let grey ="rgba(143, 143, 143, 0.5)"
-
-
-
 const styles = (theme) => ({
     root:{
-        '& label.Mui-focused': {
-            color: grey,
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: grey,
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: grey,
-            },
-            '&:hover fieldset': {
-                borderColor: grey,
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: grey,
-            },
-        },
         backgroundColor:"white",
 
     },
@@ -111,7 +90,7 @@ class SignUp extends React.Component{
 
        return (
         <div className="bg">
-        <Container component="main" maxWidth="xs" className={classes.root}>
+        <Container component="main" maxWidth="xs" className={classes.root} color="secondary">
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -120,6 +99,7 @@ class SignUp extends React.Component{
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
+                <Box m={2}/>
                 <form className={classes.form} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>

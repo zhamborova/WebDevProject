@@ -24,7 +24,6 @@ class SearchEvents extends React.Component{
         get_events_for_user(userId)
             .then(es => this.setState({user_events: es}))
 
-
     }
 
 

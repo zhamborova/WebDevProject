@@ -2,8 +2,6 @@ import React from 'react';
 import './App.css';
 
 import {Switch, Route, BrowserRouter,} from 'react-router-dom';
-
-
 import Home from "./pages/home/home";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchNews from "./pages/search-news/search-news.js";
@@ -22,8 +20,25 @@ import SignUp from "./pages/sign-up/sign-up";
 import UserFriends from "./pages/user-friends/user-friends"
 import UserEvents from "./pages/user-events/user-events"
 import ViewAllParticipants from "./pages/single-event/view-all-participants";
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
-const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, register, ...rest }) => (
+
+
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main:'#3a7347',
+       },
+       secondary:{
+            main: 'rgba(143, 143, 143, 0.5)',
+             light: '#0066ff',
+       }
+    },
+});
+
+
+const ProtectedRoute = ({ component: Component, loggedin, login, register, ...rest }) => (
     <Route {...rest} render={(props) => (
         loggedin ?
             <Component {...props} /> :
@@ -34,21 +49,24 @@ const ProtectedRoute = ({ component: Component, loggedin:loggedin, login, regist
 );
 
 
+
+
 function App(props) {
   return (
+      <ThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-     <BrowserRouter >
+      <BrowserRouter >
            <NavBar/>
               <Switch >
-
                   <Route exact path='/' component={Home}/>
                   <ProtectedRoute component={SingleEvent}
                                   exact path={'/events/:eventId'}
                                   loggedin= {props.current_user} />
                   <ProtectedRoute loggedin= {props.current_user}
                       exact path={['/search-events',
-                      '/search-events/:search',
-                      '/events']} component={SearchEvents}/>
+                                   '/search-events/:search',
+                                   '/events']}
+                                  component={SearchEvents}/>
                   <ProtectedRoute exact path={['/search-users', '/search-users/:search', '/users']}
                                   component={SearchUsers} loggedin= {props.current_user} />
                   <Route exact path={['/search-news', '/search-news/:search']} component={SearchNews}/>
@@ -73,8 +91,8 @@ function App(props) {
 
 
  </BrowserRouter>
-
       </MuiPickersUtilsProvider>
+          </ThemeProvider>
   );
 }
 

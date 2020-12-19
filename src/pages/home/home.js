@@ -9,8 +9,8 @@ import { faLongArrowAltRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {connect} from "react-redux";
 import { get_events} from "../../services/events-service"
-import { set_events} from "../../redux/actions/event-actions";
-import {set_users} from "../../redux/actions/user-actions";
+import Button from "@material-ui/core/Button";
+import {withTheme} from "@material-ui/core/styles";
 
 
 class Home extends React.Component{
@@ -47,6 +47,8 @@ class Home extends React.Component{
 
 
     render() {
+      const {theme} = this.props
+        console.log(theme)
        let style = this.state.events.length < 3 ? "justify-content-start" : "justify-content-center"
         return (
 
@@ -68,7 +70,6 @@ class Home extends React.Component{
 
                 <div className="news-container ">
                     <div className="d-flex">
-
                         <h3>News</h3>
                     <Link to={'/search-news'} className="ml-auto mr-1">View all
                     </Link>
@@ -94,7 +95,10 @@ class Home extends React.Component{
 
                 {this.props.current_user &&
                 <Link to={`/users/${this.props.current_user.id}/create`} className="m-auto">
-                    <button className="btn btn-success host-btn " > Host event </button></Link>
+                    <Button  variant="contained"
+                             color="primary"
+                             size="large">
+                        Host event </Button></Link>
                 }
 
 
@@ -107,10 +111,6 @@ const mapStateToProps = (state) =>{
   return{current_user: state.users.current_user}
 
 }
-const mapDispatchToProps = dispatch => ({
-    set_events: (events) => set_events(dispatch, events),
-    set_users: (users)=> set_users(dispatch, users)
 
-})
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+export default withTheme(connect(mapStateToProps)(Home));
