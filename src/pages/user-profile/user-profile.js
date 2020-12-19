@@ -51,9 +51,10 @@ class UserProfile  extends  React.Component{
 
     render(){
      let {id,first_name, last_name, location, bio, events, friends, image} = this.state;
-     let fL = friends.length < 5 ? `justify-start` : `justify-between`
-     let eL = events.length < 5 ? `justify-start` : `justify-between`
-    return  <div className="user-container d-flex flex-column">
+     let fL = friends.length < 5 ? "justify-content-start" : "justify-content-between"
+     let ev = events.length < 3 ? "justify-content-start" : "justify-content-between"
+     let em = events.length < 3 ? "mr-2": ""
+        return  <div className="user-container d-flex flex-column">
         <div className="user-description mb-5">
             <div className="row ">
                 <div className="profile-image col-3 mr-2">
@@ -99,11 +100,12 @@ class UserProfile  extends  React.Component{
             </div>
             <div className={`d-flex flex-column flex-md-row ${fL}`}>
                 {friends.slice(0,5).map(p => {
-                    return <UserCard id={p}
+                    return<UserCard id={p}
+                                      className={"mr-2"}
                                       key={p}
                                       host={false}
                                       profileView
-                                      editing={false}/>
+                                           editing={false}/>
                 })}
 
             </div>
@@ -114,10 +116,11 @@ class UserProfile  extends  React.Component{
                 <Link to={`/users/${this.state.id}/events`} className="ml-auto mr-1">View all</Link>
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
             </div>
-            <div className={`d-flex flex-column flex-md-row ${eL}`}>
-                {events.slice(0, 3).map(e => <EventCard key={e.id}
+            <div className={`d-flex flex-column flex-md-row ${ev}`}>
+                {events.slice(0, 3).map(e => <div key={e.id} className={`${em}`}>
+                                                    <EventCard
                                                         event={e}
-                                                        vertical={false}/>)}
+                                                              vertical={false}/></div>)}
             </div>
 
         </div>

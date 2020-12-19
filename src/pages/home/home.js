@@ -46,7 +46,7 @@ class Home extends React.Component{
    }
 
     render() {
-       let style = this.state.events.length < 3 ? "justify-content-start" : "justify-content-center"
+       let style = this.state.events.length < 3 ? "justify-content-start" : "justify-content-between"
         return (
             <div className="d-flex flex-column home-container">
                 <div className="search-container justify-content-center mb-3"
@@ -72,10 +72,11 @@ class Home extends React.Component{
                     </Link>
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
+                    <div className="row justify-content-between">
+                        {this.state.articles.slice(0, 3).map( a => <NewsCard article={a} key={a.title } />)}
                     </div>
-               <div className="row justify-content-center">
-                  {this.state.articles.slice(0, 3).map( a => <NewsCard article={a} key={a.title } />)}
-          </div>
+                    </div>
+
 
                 <div className="events-container">
                     <div className="d-flex">
