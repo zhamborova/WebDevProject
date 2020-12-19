@@ -12,6 +12,7 @@ import EventCard from "../../components/event-card/event-card";
 import {connect} from "react-redux";
 
 
+
 class UserProfile  extends  React.Component{
 
     state={
@@ -88,13 +89,15 @@ class UserProfile  extends  React.Component{
 
         </div>
         <div className="user-friends mb-5">
-            <div className="d-flex">
+            <div className="flex-column flex-md-row">
+                <div className={"row"}>
                 <h3>Friends</h3>
                 <Link to={`/users/${this.state.id}/friends`} className="ml-auto mr-1">View all
                 </Link>
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
+                </div>
             </div>
-            <div className={`d-flex ${fL}`}>
+            <div className={`d-flex flex-column flex-md-row ${fL}`}>
                 {friends.slice(0,5).map(p => {
                     return <UserCard id={p}
                                       key={p}
@@ -111,7 +114,7 @@ class UserProfile  extends  React.Component{
                 <Link to={`/users/${this.state.id}/events`} className="ml-auto mr-1">View all</Link>
                 <FontAwesomeIcon className="mt-1 " icon={faLongArrowAltRight}/>
             </div>
-            <div className={`d-flex ${eL}`}>
+            <div className={`d-flex flex-column flex-md-row ${eL}`}>
                 {events.slice(0, 3).map(e => <EventCard key={e.id}
                                                         event={e}
                                                         vertical={false}/>)}

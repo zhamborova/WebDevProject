@@ -1,7 +1,6 @@
 import React from 'react';
 import "./home.css";
 import NewsCard from "../../components/news-card/news-card";
-import EventCard from "../../components/event-card/event-card";
 import newsService from '../../services/news-service';
 import {Link} from "react-router-dom";
 import bg from '../../assets/nature.png'
@@ -11,6 +10,7 @@ import {connect} from "react-redux";
 import { get_events} from "../../services/events-service"
 import Button from "@material-ui/core/Button";
 import {withTheme} from "@material-ui/core/styles";
+import EventCard from "../../components/event-card/event-card";
 
 
 class Home extends React.Component{
@@ -45,10 +45,9 @@ class Home extends React.Component{
         })
    }
 
-
     render() {
       const {theme} = this.props
-        console.log(theme)
+
        let style = this.state.events.length < 3 ? "justify-content-start" : "justify-content-center"
         return (
 
@@ -69,15 +68,17 @@ class Home extends React.Component{
 
 
                 <div className="news-container ">
+
                     <div className="d-flex">
+
                         <h3>News</h3>
                     <Link to={'/search-news'} className="ml-auto mr-1">View all
                     </Link>
                         <FontAwesomeIcon className="mt-1" icon={faLongArrowAltRight}/>
                     </div>
+                    </div>
                <div className="row justify-content-center">
                   {this.state.articles.slice(0, 3).map( a => <NewsCard article={a} key={a.title } />)}
-              </div>
           </div>
 
                 <div className="events-container">

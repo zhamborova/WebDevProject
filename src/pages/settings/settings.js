@@ -7,6 +7,13 @@ import {Link} from "react-router-dom";
 
 import TextField from '@material-ui/core/TextField';
 
+function getWindowDimensions() {
+    const {innerWidth: width, innerHeight: height} = window;
+    return {
+        width,
+        height
+    };
+}
 
 class Settings extends React.Component {
 
@@ -36,12 +43,36 @@ class Settings extends React.Component {
     setLocation = (location ) => {
         this.update_user("location",location)
     }
+
+    validate = () => {
+        return (this.state.user.first_name !== '' &&
+            this.state.user.last_name !== '' &&
+            this.state.user.email !== '' &&
+            this.state.user.password !== '' &&
+            this.state.user.email.includes("@") &&
+            this.state.user.email.includes(".") &&
+            /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
+            /^[a-zA-Z]+$/.test(this.state.user.last_name))
+    }
+
+    getInitialState = () => {
+        return {windowWidth: window.innerWidth};
+    }
+
     render() {
+        let layout = "row"
+        let colWidth = "col-5"
+        let width = this.getInitialState().windowWidth
+        let smallScreen = ""
+        if (width < 1000){
+            smallScreen = "screen-size-padding"
+        }
+
         return (
             <div className="body">
-                <div className="row">
+                <div className={layout}>
                     <div className="container profile-container col-5 ">
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between flex-wrap">
                             <h3>Settings</h3>
                             {
                                 !this.state.editing ?
@@ -143,16 +174,27 @@ class Settings extends React.Component {
                         {
                             !this.state.editing &&
                                 <>
-                                    <div className={"container right-column-container"}>
+                                    {
+                                        (width < 650) ?
+                                        <div className={"container right-column-container"}>
                                         <label>Email</label>
                                         <span>
-                                            {this.state.user.email}
+                                            {(this.state.user.email).split("@")[0]}
                                         </span>
-                                    </div>
+                                        </div>
+                                    :
+                                        <div className={"container right-column-container"}>
+                                        <label>Email</label>
+                                        <span>
+                                        {this.state.user.email}
+                                        </span>
+                                        </div>
+                                    }
+
                                     <div className={'container right-column-container'}>
                                         <label>Password</label>
                                         <span>
-                                            ••••••••••••
+                                            •••••••••
                                         </span>
                                     </div>
                                 </>
@@ -163,24 +205,12 @@ class Settings extends React.Component {
                             <>
                                 <button  onClick={() => {
 
-                                    if ((this.state.user.first_name !== '' &&
-                                        this.state.user.last_name !== '' ) &&
-                                        this.state.user.email !== '' &&
-                                        this.state.user.password !== '' &&
-                                        this.state.user.email.includes("@") &&
-                                        this.state.user.email.includes(".") &&
-                                        /^[a-zA-Z]+$/.test(this.state.user.first_name) &&
-                                        /^[a-zA-Z]+$/.test(this.state.user.last_name)) {
-                                        if (this.state.user.image === '') {
-                                            this.update_user( "image",
-                                                "https://image.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg")
-                                        }
-
+                                    if (this.validate()) {
                                         this.setState({editing: false});
                                         this.props.updateUser(this.state.user)
-
                                     } else {
-                                        window.alert("Please provide valid inputs. First and last names should only contain letters. " +
+                                        window.alert("Please provide valid inputs and don't leave anything blank. " +
+                                            "First and last names should only contain letters. " +
                                             "Email should have email attributes. Name, email, and password must not be empty.")
                                     }
                                 }

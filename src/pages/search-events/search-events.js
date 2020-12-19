@@ -5,6 +5,8 @@ import "./search-events.css";
 import {get_events} from "../../services/events-service";
 import {set_events} from "../../redux/actions/event-actions";
 import {get_events_for_user} from "../../services/user-service";
+import Button from "@material-ui/core/Button";
+import {withTheme} from "@material-ui/styles";
 
 
 class SearchEvents extends React.Component{
@@ -30,16 +32,24 @@ class SearchEvents extends React.Component{
 
 
     render(){
-        let my_events = this.state.my_events ? "btn-success" : "btn-outline-secondary";
-        let all_events = !this.state.my_events ? "btn-success" : "btn-outline-secondary";
+
+        let my_events = this.state.my_events ? "primary" : "info";
+        let all_events = !this.state.my_events ? "primary" : "info";
         return(
             <div className="container d-flex flex-column w-75 mt-5">
-                        <h1 className="ml-3">Events</h1>
-                        <div className="d-flex justify-content-evenly flex-fill mt-3">
-                            <button className={`form-control ml-3 mr-2 btn ${all_events}`}
-                                    onClick={() => this.setState({my_events:false})}> All events</button>
-                            <button className={`form-control  btn ${my_events}`}
-                                    onClick={() => this.setState({my_events:true})}> Your events</button>
+                        <h1 className="">Events</h1>
+                        <div className="d-flex justify-content-between flex-fill mt-3">
+                            <Button  size="large"
+                                     style={{width:'80%', marginRight: "20px"}}
+                                     color={all_events}
+                                     variant="contained"
+                                    onClick={() => this.setState({my_events:false})}> All events</Button>
+                            <Button
+                                    size="large"
+                                    style={{width:'80%'}}
+                                    color={my_events}
+                                    variant="contained"
+                                    onClick={() => this.setState({my_events:true})}> Your events</Button>
                         </div>
                 {
                     !this.state.my_events ?
@@ -66,4 +76,4 @@ const mapStateToProps = (state) => ({
     })
 
 
-export default connect(mapStateToProps)(SearchEvents);
+export default withTheme(connect(mapStateToProps)(SearchEvents));

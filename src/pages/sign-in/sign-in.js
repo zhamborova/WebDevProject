@@ -15,7 +15,6 @@ import {setCurrentUser} from "../../redux/actions/user-actions";
 import {connect} from "react-redux";
 
 
-
 const styles = (theme) => ({
 
     image: {
@@ -78,7 +77,7 @@ class SignInSide extends React.Component{
             })
         } else {
             window.alert("Please provide valid inputs. First and last names should only contain letters. " +
-                "Email should have email attributes. Name, email, and password must not be empty.")
+                "Email should have email attributes.")
         }
 
 
@@ -111,7 +110,7 @@ render(){
                             autoFocus
                             defaultValue={this.state.email}
                             type="email"
-                            error={!this.state.email.includes("@") || !this.state.email.includes(".")}
+                            error={(!this.state.email.includes("@") || !this.state.email.includes(".")) && (this.state.email !== '')}
                             onChange={event => {
                                 const { value } = event.target;
                                 this.setState({ email: value });

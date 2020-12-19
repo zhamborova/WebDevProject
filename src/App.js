@@ -12,7 +12,7 @@ import CreateEvent from "./pages/create-event/create-event";
 import SearchEvents from "./pages/search-events/search-events";
 import Settings from "./pages/settings/settings";
 import UserProfile from "./pages/user-profile/user-profile";
-import SearchUsers from "./pages/search-users/seach-users";
+import SearchUsers from "./pages/search-users/search-users";
 import NavBar from "./components/navbar/navbar";
 import {connect} from "react-redux";
 import SignInSide from "./pages/sign-in/sign-in";
@@ -33,8 +33,16 @@ const theme = createMuiTheme({
        secondary:{
             main: 'rgba(143, 143, 143, 0.5)',
              light: '#0066ff',
+       },
+       info:{
+         main: 'rgba(255, 255, 255, .4)'
        }
     },
+    typography: {
+        button: {
+            textTransform: 'none'
+        }
+    }
 });
 
 

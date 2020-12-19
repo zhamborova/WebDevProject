@@ -2,6 +2,21 @@
     width: 77%;
     margin: 100px auto;
 }
+@media screen and (max-width: 50em) {
+    .user-container{
+        width: 77%;
+        margin: 100px auto;
+    }
+}
+
+.user-description {
+    width: 80%;
+}
+@media screen and (max-width: 50em) {
+    .user-description {
+        width: 95%;
+    }
+}
 
 .user-friends > div > a:nth-child(5) > div{
 
